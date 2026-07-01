@@ -1,0 +1,66 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                       Problem A
+                                      Cloud System
+                                  Time Limit: 3 seconds
+                                 Mem limit: 512 Megabytes
+VNU-HCM University of Science has just built a new cloud computing system to run experiments
+of research projects related to deep-learning.
+The system consists of 𝑁 servers (numbered from 1 to 𝑁). Each pair of servers is connected by at
+most 1 cable (possibly 0).
+The cable connecting server 𝑢 and server 𝑣 has the transmission capacity of 𝐶𝑢,𝑣 megabits per
+nanosecond.
+Let us define 𝐹𝑢,𝑣 as the data transfer rate between server 𝑢 and server 𝑣. To transfer data from
+server 𝑢 to server 𝑣, data can be split into multi parts and transferred via multiple routes.
+                      For example, to transfer data from server 1 to server 4, data can be split into
+                      3 parts and transferred via 3 routes as follows:
+                             1 - 4 (30 Mb per nanosecond)
+                             1 - 3 - 4 (20 Mb per nanosecond)
+                             1 - 2 - 4 (10 Mb per nanosecond)
+                      so the transfer rate from 1 to 4 is 60 Mb per nanosecond or 𝐹1,4 = 60.
+
+
+You are given the configuration of the network and the transmission capacity of cables, your task
+is to compute 𝐹.
+
+Input
+The input starts with 𝑇 – the number of test cases. Then 𝑇 test cases follow.
+Each test case starts with an integer 𝑁, the number of servers in the network (1 ≤ 𝑁 ≤ 200).
+In the next 𝑁 lines, each line contains 𝑁 integers 𝐶𝑢,𝑣 (0 ≤ 𝐶𝑢,𝑣 ≤ 10000).
+
+It is guaranteed that 𝐶𝑢,𝑣 = 𝐶𝑣,𝑢 and 𝐶𝑢,𝑢 = 0.
+Note: The sum of 𝑁 in the input does not exceeded 1000.
+
+Output
+For the 𝑡 𝑡ℎ test case, print "Case #t:". The next 𝑁 lines, print the 𝑁 × 𝑁 matrix 𝐹.
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                    The 2021 ICPC Vietnam
+                            Southern Provincial Programming Contest
+                               University of Science, VNU-HCM
+                                      December 05th, 2021
+
+
+Sample input                                   Sample output
+ 2                                              Case #1:
+ 4                                              0 60 60 60
+ 0 50 20 30                                     60 0 60 60
+ 50 0 0 10                                      60 60 0 90
+ 20 0 0 70                                      60 60 90 0
+ 30 10 70 0                                     Case #2:
+ 4                                              0 10 0 0
+ 0 10 0 0                                       10 0 0 0
+ 10 0 0 0                                       0 0 0 10
+ 0 0 0 10                                       0 0 10 0
+ 0 0 10 0
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

@@ -1,0 +1,91 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                         Problem G
+                                          Parking
+                                    Time Limit: 1 second
+                                  Mem limit: 256 Megabytes
+Today, Mr. Tipu has a thesis defense at VNU-HCM University of Science, so he has driven his
+car to the University campus. The University parking lot is a line of 𝒏 parking zone. Each zone
+has one meter in width, which fits one motorcycle. A car occupies exactly two adjacent zones of
+the total width of two meters. The figure below illustrates the university parking lot.
+
+
+
+
+Mr. Tipu wants to park his car in the parking lot, but some of the parking zones are occupied by
+other vehicles. Additionally, there are a queue of 𝒌 vehicles trying to enter the parking lot in front
+of Mr. Tipu. The vehicles in the queue when entering the parking lot will occupy any empty zones:
+one for a motorcycle and two adjacent zones for a single car. In case there is no space left, all
+the current vehicles in the queue leave the University and not occupying any zone.
+
+Because the thesis defense time is approaching, Mr. Tipu is in a hurry. Fortunately, the people in
+the queue are very nice, and they offer Mr. Tipu to enter the parking lot before them. However,
+Mr. Tipu does not want to take advantage of that, so he wonders how many vehicles in front of
+him that he would pass to enter the parking lot on time, given that he will be late definitely in case
+there are no parking zones left that fit his car in the parking lot.
+
+Note that the people in the queue may choose their parking zones for their vehicles imperfectly
+that leave no place for Mr. Tipu’s car.
+
+Given a parking lot of 𝑛 parking zones, some of which are occupied, and a queue of 𝑘 vehicles
+(could be motorcycles or cars) apart from Mr. Tipu’s car, please help Mr. Tipu to identify, for each
+𝑖 from 0 to 𝑘, whether Mr. Tipu can park his car or not, in case he enters the parking lot after the
+first 𝑖 vehicles in the queue.
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                       The 2021 ICPC Vietnam
+                               Southern Provincial Programming Contest
+                                  University of Science, VNU-HCM
+                                         December 05th, 2021
+
+
+Input
+There are several tests in each test case.
+
+The first line contains a single integer 𝑡 – the number of tests in the input (1 ≤ 𝑡 ≤ 50 000).
+
+Each test consists of two lines.
+
+The first of these two lines is a string of 𝑛 characters (1 ≤ 𝑛 ≤ 105 ), which can be ‘.’ or ‘X’.
+The 𝑖 𝑡ℎ character denotes the status of the 𝑖 𝑡ℎ zone: ‘.’ for empty and ‘X’ for occupied.
+
+The second of the two lines consist of 𝑘 characters (1 ≤ 𝑘 ≤ 𝑛), which can be ‘M’ or ‘C’,
+denoting a motorcycle or a car, respectively. The first character represents the first vehicle at the
+head of the queue and the last character is at the tail.
+
+Output
+The output contains 𝑡 lines. Each line contains 𝑘 + 1 characters, which can be ‘Y’ or ‘N’. For
+each 𝑖 from 0 to 𝑘 print ‘Y’, if Mr. Tipu can find a parking zone for his car, entering after the
+first 𝑖 vehicles in the queue, no matter which zones they occupy, and print ‘N’ otherwise.
+
+Sample input                                      Sample output
+ 1                                                 YNN
+ XXXX..X.XXXX.X
+ MM
+ 3                                                 YYYNN
+ ......                                            YNNN
+ MMMC                                              YYNNN
+ .X..X.
+ MMM
+ ......
+ CCCM
+
+Explanation
+In the first sample, Mr. Tipu can park his car in the two empty parking zones in case he enter the
+parking lot first. Otherwise, the first motorcycle in the queue occupies one of the empty zones, so
+he will not be able to park his car.
+
+In the test of the second sample, the first three motorcycles could park in the following way:
+“M.M.M.”, then Mr. Tipu will not be able to fine a two adjacent parking zones to park his car.
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

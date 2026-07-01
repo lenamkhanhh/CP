@@ -1,0 +1,723 @@
+                       The 2022 ICPC Vietnam
+      Southern Provincial Programming Contest
+              University of Science, VNU-HCM
+                           October 30th, 2022
+
+
+
+
+Contest length: 5 hours
+
+The problem set consists of 13 problems in 17 pages (excluding the cover page):
+
+     •    Problem A: Cypriot Game
+     •    Problem B: Transportation System Renovation
+     •    Problem C: Migration
+     •    Problem D: Open Sesame!
+     •    Problem E: Sum of Squares
+     •    Problem F: Expected Tokens
+     •    Problem G: Longest Subsequence
+     •    Problem H: Beauty of a Number
+     •    Problem I:   Metro and Buses
+     •    Problem J:   Not a Classic String Problem
+     •    Problem K: HTML
+     •    Problem L: Addition
+     •    Problem M: Two Specials
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+                                         Problem A
+                                        Cypriot Game
+                                       Time Limit: 1 second
+                                    Memory Limit: 512 megabytes
+Cuong and Mai are playing a game with numbers, originated in Cyprus - a small country in Europe. The
+game starts with a pair of positive integers (𝑥, 𝑦). They will take an alternative turn transforming this
+pair, Cuong will take the first turn. In each turn, a player may perform one of the following moves:
+                                𝑥      𝑥
+     ● If 𝑥 is even, (𝑥, 𝑦) → (2 , 𝑦 + 2);
+                                     𝑦 𝑦
+     ● If 𝑦 is even, (𝑥, 𝑦) → (𝑥 + 2 , 2 );
+
+There might be 3 outcomes of the game:
+     ● If the game reaches a state where both 𝑥 and 𝑦 are odd, a player will have no valid move and
+       he/she will lose the game.
+     ● If the game reaches a state where it has reached before, the game will end with a draw.
+Assume that both Cuong and Mai playing optimally, you are given 𝑛, your task is to count the number
+of starting states (𝑥, 𝑦) such that 1 ≤ 𝑥, 𝑦 ≤ 𝑛 and the game will end with each of the 3 outcomes.
+
+Input
+The input contains only one integer 𝑛 (1 ≤ 𝑛 ≤ 109 ).
+
+Output
+You should print 3 integers in 3 lines:
+     ● The number of starting states that Cuong will win;
+     ● The number of starting states that will lead to a draw;
+     ● The number of starting states that Mai will win.
+
+ Sample Input                                     Sample Output
+ 2                                                1
+                                                  2
+                                                  1
+
+Explanation
+There are 4 starting states:
+     ● (1, 1) Cuong has no move, thus Mai wins this game;
+     ● (2, 1) Cuong has only one move to make it (1, 2), then Mai has only one move to make it (2, 1),
+       thus the game ends with a draw;
+     ● (1, 2) - this game will be similar to the previous one;
+     ● (2, 2) Cuong has two moves to make the pair (1, 3) or (3, 1). In either case, Mai has no more
+       valid move. Thus Cuong wins this game.
+
+                                                                                                       1
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+                             Problem B
+                 Transportation System Renovation
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+Ho Chi Minh city is the largest and most populated city in Vietnam. The city has 𝑛 junctions (numbered
+from 1 to 𝑛), connected by 𝑚 bidirectional roads (numbered from 1 to 𝑚). Each road connects two
+junctions in the city, and each road has a certain carrying capacity. A truck with weight 𝑤 can travel on
+a road with a capacity 𝑐 if 𝑤 ≤ 𝑐.
+The city is preparing an renovation plan on the transportation system. During the renovation process,
+there might be an increase or decrease in the capacity of some roads.
+You are given the current transportation system and 𝑞 queries, each query is either:
+   ● 𝐶 𝑖 𝑥: Change the capacity of the road 𝑖 to 𝑥.
+   ● 𝑆 𝑎 𝑏 𝑤: Check if a truck with weight 𝑤 can travel from 𝑎 to 𝑏 where 𝑎 and 𝑏 are junctions.
+
+Input
+Input starts with 3 integers 𝑛, 𝑚 and 𝑞 (1 ≤ 𝑛 ≤ 1 000, 1 ≤ 𝑚 ≤ 100 000).
+The 𝑖 𝑡ℎ line of the next 𝑚 lines contains 3 integers 𝑢 𝑣 𝑐𝑖 indicating there is a road with capacity 𝑐𝑖 from
+𝑢 to 𝑣.
+The next 𝑞 lines contain 𝑞 queries in the above format. It is guaranteed that the capacity of the roads
+never exceeds 109 and there should be no more than 2000 queries of type 𝐶.
+
+Output
+For each query of type 𝑆, you should print the answer 𝑌𝐸𝑆 or 𝑁𝑂.
+
+ Sample Input                                      Sample Output
+ 3 4 6                                             NO
+ 1 2 3                                             YES
+ 2 3 3                                             YES
+ 2 1 1                                             NO
+ 1 2 1
+ S 1 2 4
+ S 2 3 2
+ C 1 4
+ S 1 2 4
+ C 2 1
+ S 2 3 2
+
+
+
+
+                                                                                                           2
+                                              The 2022 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 30th, 2022
+                                            Problem C
+                                            Migration
+                                       Time Limit: 1 second
+                                    Memory Limit: 512 megabytes
+City X is about to face a natural disaster, so it is necessary to migrate out of this city. Currently, residents
+are staying at 𝑁 starships with unlimited space in the city. However, the government realized that there
+was only enough fuel for 𝐾 starships to fly out of the city.
+Therefore, the local government immediately planned to combine some residents from 𝑁 starships to 𝐾
+starships to fly out of the city. The fuel cost for emergency relocation 𝑤𝑖 people from the 𝑖 𝑡ℎ starship at
+coordinate 𝑥𝑖 to the 𝑗𝑡ℎ starship at coordinate 𝑥𝑗 is equal to |𝑥𝑖 − 𝑥𝑗 | × 𝑤𝑖 . Find the solution that needs
+the lowest fuel cost for relocation.
+
+Input
+The first line contains two space-separated integers describing the respective values of 𝑁 and 𝐾
+(𝑁, 𝐾 ≤ 5000).
+Each line of the subsequent lines contains two space-separated integers describing the respective values
+of 𝑥𝑖 and 𝑤𝑖 (1 ≤ 𝑤𝑖 , 𝑥𝑖 ≤ 106).
+
+Output
+Minimum cost for relocation people.
+
+ Sample Input                                        Sample Output
+ 3 1                                                 20
+ 20 1
+ 30 1
+ 40 1
+ 3 1                                                 4
+ 11 3
+ 12 2
+ 13 1
+ 6 2                                                 182
+ 10 15
+ 12 17
+ 16 18
+ 18 13
+ 30 10
+ 32 1
+
+
+
+
+                                                                                                              3
+                                            The 2022 ICPC Vietnam
+                                    Southern Provincial Programming Contest
+                                        University of Science, VNU-HCM
+                                               October 30th, 2022
+                                       Problem D
+                                      Open Sesame!
+                                     Time Limit: 1 second
+                                  Memory Limit: 512 megabytes
+Archaeologists find treasure buried deep in the Atlantic world. However, this treasure is protected by
+cryptographic layers and each layer corresponds to a number. After years of research, archaeologists
+have found a string 𝑆 as well as hints to find the password in a mysterious book.
+In particular, the 𝑖 𝑡ℎ cryptographic stage will have a magic number 𝑘, the cipher being the result of the
+function 𝑓(𝑤𝑘 ) where 𝑤𝑘 is the 𝑘 𝑡ℎ alphabetically smallest palindromic substring of 𝑆. The function 𝑓
+             |𝑝|
+is 𝑓(𝑝) = ∑𝑖=1 (𝑝𝑖 × 𝑎𝑙−𝑖 ) 𝑚𝑜𝑑 𝑚 where 𝑝𝑖 is the ASCII value of the 𝑖 𝑡ℎ character in the string 𝑝,
+𝑎 = 100001, and 𝑚 = 109 + 7.
+However, over the years, there will be some blurring places leading to 𝑤𝑘 not existing, then the answer
+is −1.
+
+Input
+The first line contains 2 space-separated integers describing the respective values of 𝑁 (the length of the
+string 𝑆) and 𝑄 (the number of cryptographic layers) (𝑁, 𝑄 ≤ 105 ).
+The second line contains a single string denoting 𝑆. It is guaranteed that the string 𝑆 consists of only
+lowercase English alphabetic letters (i.e. ‘𝑎’ to ‘𝑧’).
+Each of the 𝑄 subsequent lines contains a single integer denoting the value of 𝐾 for a query
+(𝐾 ≤ 𝑁 × (𝑁 + 1)/2).
+
+Output
+For each layer, print the password if the magic number 𝐾 in the book is correct. Otherwise, print −1.
+
+ Sample Input                                     Sample Output
+ 5 7                                              97
+ abcba                                            97
+ 1                                                696207567
+ 2                                                98
+ 3                                                29493435
+ 4                                                99
+ 6                                                -1
+ 7
+ 8
+
+
+
+
+                                                                                                         4
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+                                        Problem E
+                                      Sum of Squares
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+Mr. Nhat has a problem consisting of 𝑁 steps. At the 𝑖 𝑡ℎ step, Nhat is given 2 numbers 𝐴𝑖 and 𝐵𝑖 , then
+Nhat has to choose a real number 𝑅𝑖 such that 𝑅𝑖 is not larger than the numbers chosen in the previous
+steps. The score of the problem is defined as ∑𝑖 (𝐴𝑖 − 𝑅𝑖 ∗ 𝐵𝑖 )2 of all 𝑁 steps.
+What is the smallest score that Mr. Nhat can get?
+
+Input
+The first line contains an integer 𝑁. (2 ≤ 𝑁 ≤ 5 × 105 )
+The second line contains 𝑁 space-separated integers 𝐴1 , 𝐴2 , … , 𝐴𝑁
+The third line contains 𝑁 space-separated integers 𝐵1 , 𝐵2 , … , 𝐵𝑁 .
+(1 ≤ 𝐴𝑖 , 𝐵𝑖 ≤ 1000)
+
+Output
+The smallest score Mr. Nhat can get. Your answer is considered correct if its absolute or relative error
+does not exceed 10−6 .
+
+ Sample Input                                       Sample Output
+ 2                                                  0.000000000000000
+ 2 5
+ 1 8
+
+ 5                                                  12.247238031469687
+ 7 9 1 4 3
+ 9 8 6 13 1
+ 10                                                 17698.696831405897683
+ 66 23 51 81 60 7 26 127 66 8
+ 9 88 77 12 2 38 7 63 90 111
+
+
+
+
+                                                                                                      5
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+                                       Problem F
+                                    Expected Tokens
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+You are given a set of 𝑛 coins, and the probability of turning head for the 𝑖 𝑡ℎ coin is 𝑝𝑖 . The game is as
+follows:
+   ● You are going to play 𝑘 games. At the beginning, you have 𝑥 tokens.
+   ● In each game, you choose one coin in the coin set and always pick head. If the coin you choose
+     in that game turns head, you win the game, otherwise, you lose.
+   ● In case you win a game, you will receive 𝑎𝑖 tokens (𝑎𝑖 ≥ 0).
+   ● In case you lose a game, you will lose 𝑙𝑖 percent of your current amount of tokens.
+Your task is to choose 𝑘 coins in the set of 𝑛 coins and the order of the coins you use in the 𝑘 games to
+maximize the expected amount of tokens. Note that each coin can be used only once.
+
+Input
+There are multiple test cases in the input.
+The first line of each test case contains three space-separated integers 𝑛, 𝑘, and 𝑥 .
+(1 ≤ 𝑘 ≤ 𝑛 ⩽ 100, 0 ≤ 𝑥 ≤ 106 ).
+Each of the next 𝑛 lines specifies the properties of the 𝑖 𝑡ℎ game with three space-separated integers 𝑎𝑖 ,
+𝑙𝑖 , and 𝑝𝑖 (0 ≤ 𝑎𝑖 , 𝑙𝑖 , 𝑝𝑖 ≤ 100). The input terminates with a line containing 0 0 0 which should not be
+processed.
+
+Output
+For each test case, output a single line containing the maximum expected amount of your final tokens
+rounded to exactly two digits after the decimal point.
+
+ Sample Input                                      Sample Output
+ 2 2 100                                           117.00
+ 10 0 50                                           112.00
+ 100 10 20
+ 2 1 100
+ 10 0 50
+ 100 10 20
+ 0 0 0
+
+
+
+
+                                                                                                          6
+                                              The 2022 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 30th, 2022
+                                    Problem G
+                               Longest Subsequence
+                                       Time Limit: 1 second
+                                    Memory Limit: 512 megabytes
+You are given a permutation of 𝑛 numbers from 1 to 𝑛, which are 𝑝1 , 𝑝2 , … , 𝑝𝑛 , and 𝑚 pairs of indices
+(𝑢, 𝑣) where 1 ≤ 𝑢, 𝑣 ≤ 𝑛. You can perform a series of moves based on these pairs. In each move, you
+can choose one pair and swap two numbers at the positions 𝑢 and 𝑣 in the permutation 𝑝. One pair can
+be used as many times as you want.
+An increasing subsequence of length 𝑘 in 𝑝 is
+                               𝑝𝑗1 < 𝑝𝑗2 < ⋯ < 𝑝𝑗𝑘 and 𝑗1 < 𝑗2 < ⋯ < 𝑗𝑘
+Let 𝑚𝑎𝑥𝑘 be the length of the longest increasing subsequence of 𝑝.
+Your task is to perform multiple moves to get a permutation 𝑝 that has the maximum value of 𝑚𝑎𝑥𝑘 .
+
+Input
+The first line contains two integers 𝑛 and 𝑚.
+The second line contains the permutation 𝑝1 , 𝑝2 , … , 𝑝𝑛 .
+In the next 𝑚 lines, each line contains two integers 𝑢, 𝑣.
+
+Constraints
+                                                               𝑛(𝑛 − 1)
+                                1 ≤ 𝑛 ≤ 104 ; 0 ≤ 𝑚 ≤ (105 ,            )
+                                                                  2
+
+Output
+The output contains only one integer, which is the maximum value of 𝑚𝑎𝑥𝑘 .
+
+ Sample Input                                       Sample Output
+ 6 2                                                4
+ 5 2 4 6 3 1
+ 5 6
+ 1 5
+
+Explanation
+We should make two moves (5, 6) and (1, 5) to get the permutation (1, 2, 4, 6, 5, 3).
+
+
+
+
+                                                                                                       7
+                                            The 2022 ICPC Vietnam
+                                    Southern Provincial Programming Contest
+                                        University of Science, VNU-HCM
+                                               October 30th, 2022
+                                    Problem H
+                                Beauty of a Number
+                                     Time Limit: 1 second
+                                  Memory Limit: 512 megabytes
+Dang loves numbers, but each number has its own beauty in Dang’s eyes. The beauty of a number is
+defined as the multiplication of all its digits. For example, the number 123 has the beauty of
+1 × 2 × 3 = 6.
+Dang wants to know what the most beautiful number in the range of [𝑙, 𝑟].
+Your task is to help Dang find the beauty of the most beautiful number in the range of [𝑙, 𝑟].
+
+Input
+The first line contains 𝑙 and the second line contains 𝑟. The numbers of the digits of l and r are not
+greater than 105.
+
+Output
+The output contains only the beauty of the most beautiful number in the range of [𝑙, 𝑟]. The output should
+be modulo by 109 + 7.
+
+ Sample Input                                     Sample Output
+ 1                                                18
+ 30
+
+Explanation
+The most beautiful number in the range [1, 30] is 29 and its beauty is 18.
+
+
+
+
+                                                                                                        8
+                                              The 2022 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 30th, 2022
+                                         Problem I
+                                      Metro and Buses
+                                       Time Limit: 3 Seconds
+                                    Memory Limit: 512 megabytes
+Ho Chi Minh city has built a metro system. The metro system consists of 𝑛 stations and 𝑚 bi-directional
+lines. The 𝑖 𝑡ℎ line connects the stations 𝑎𝑖 and 𝑏𝑖 , and has a cost 𝑐𝑖 .
+It is known that we can get from any station to any other (possibly with transfers), and the cost of any
+route that consists of several consequent lines is equal to the cost of the most expensive in them. More
+formally, the cost of the route from the station 𝑠1 to station 𝑠𝑘 with (𝑘 − 2) transfers using stations
+𝑠2 , 𝑠3 , 𝑠4 , … , 𝑠𝑘−1 is equal to the maximum cost of the lines from 𝑠1 to 𝑠2 , from 𝑠2 to 𝑠3 , from 𝑠3 to 𝑠4 ,
+and so on until the line 𝑠𝑘−1 to 𝑠𝑘 .
+Today, the government decides to build some bus lines (also bi-directional) for all pairs of metro stations
+that are not directly connected by metro lines. Therefore, between any pair of stations, there is one direct
+line of either metro or bus.
+The cost of the bus is calculated as follows: for each pair of stations 𝑎 and 𝑏 that is connected by a bus
+line, the cost of this line is equal to the minimum cost of the metro route from 𝑎 to 𝑏 according to the
+pricing strategy described above.
+It is known that with the help of bus lines, you can get from any station to any other with possible
+transfers, and, similarly to the metro, the cost of a route between any two stations that consists of several
+bus lines is equal to the cost of the most expensive line.
+Due to the increasing competition with the bus system, the metro’s manager introduces a new reform
+and changes the costs of its lines. Particularly, for the 𝑖 𝑡ℎ metro line that connects the stations 𝑎𝑖 and 𝑏𝑖 ,
+the cost of this line should be equal to the minimum cost of the (bus) route between the stations 𝑎𝑖 and
+𝑏𝑖 by bus. Please help the metro’s manager calculate the new costs of metro lines.
+
+Input
+The input consists of multiple test cases. The first line contains one integer 𝑡 (1 ≤ 𝑡 ≤ 104 ) — the
+number of test cases.
+The first line of each test case contains two integers 𝑛 and 𝑚, the number of stations in Ho Chi Minh
+                                                                                          (𝑛−1)(𝑛−2)
+Station and the number of metro lines (4 ≤ 𝑛 ≤ 2 × 105 , 𝑛 − 1 ≤ 𝑚 ≤ 2 × 105 , 𝑚 ≤                  ).
+                                                                                                      2
+
+The next 𝑚 lines contain the description of the metro lines. The 𝑖 𝑡ℎ line contains three integers 𝑎𝑖 , 𝑏𝑖
+and 𝑐𝑖 (1 ≤ 𝑎𝑖 , 𝑏𝑖 ≤ 𝑛, 1 ≤ 𝑐𝑖 ≤ 109 ) — the two stations that are connected with the 𝑖 𝑡ℎ metro line and
+the price of the 𝑖 𝑡ℎ metro line.
+It is guaranteed that no line connects a station with itself, no two lines connect the same pair of stations.
+It is guaranteed that by using metro lines it is possible to get from any station to any other and by using
+bus lines it is possible to get from any station to any other.
+Let 𝑁 be the sum of 𝑛 over all test cases and 𝑀 be the sum of 𝑚 over all test cases. It is guaranteed that
+𝑁, 𝑀 ≤ 2 × 105.
+
+
+                                                                                                               9
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+Output
+For each test case you should print 𝑚 integers in a single line where the 𝑖 𝑡ℎ number is the price of the
+𝑖 𝑡ℎ metro line after the reform.
+
+ Sample Input                                       Sample Output
+ 3                                                  3 3 3
+ 4 3                                                1 1 1 2 2
+ 1 2 1                                              4 4 5 3 4 4
+ 2 3 2
+ 4 3 3
+ 5 5
+ 1 2 1
+ 1 3 1
+ 2 4 1
+ 4 5 2
+ 5 1 3
+ 6 6
+ 1 2 3
+ 2 3 1
+ 3 6 5
+ 3 4 2
+ 4 5 4
+ 2 4 2
+
+Explanation
+In the first test case, bus system will provide lines between these pairs of stations: (1,3), (1,4) and (2,4).
+The cost of a route between stations 1 and 3 will be equal to 2, since the minimum cost of the metro
+route is 2 — the route consists of a line between stations 1 and 2 costing 1 and a line between stations 2
+and 3 costing 2, the maximum cost is 2.
+The cost of a route between stations 1 and 4 will be 3, since the minimum cost of the Metro route is 3
+— the route consists of a line between stations 1 and 2 costing 1, a line between stations 2 and 3 costing
+2, and a line between stations 3 and 4 costing 3, the maximum cost is 3.
+The cost of a route between stations 2 and 4 will be 3, since the minimum cost of the Metro route is 3
+— the route consists of a line between stations 2 and 3 costing 2 and a line between stations 3 and 4
+costing 3, the maximum cost is 3.
+After the reform, the cost of the Metro line between stations 1 and 2 will be 3, since the minimum cost
+of the Bus route between these stations is 3 — the route consists of a line between stations 1 and 4
+costing 3 and a line between stations 2 and 4 costing 3, the maximum cost is 3.
+The cost of the Metro line between stations 2 and 3 will be 3, since the minimum cost of the Bus route
+between these stations is 3 — the route consists of a line between stations 2 and 4 costing 3, a line
+between stations 1 and 4 costing 3 and a line between 1 and 3 costing 2, the maximum cost is 3.
+
+                                                                                                          10
+                                           The 2022 ICPC Vietnam
+                                   Southern Provincial Programming Contest
+                                       University of Science, VNU-HCM
+                                              October 30th, 2022
+The cost of the Metro line between stations 3 and 4 will be 3, since the minimum cost of the Bus route
+between these stations is 3 — the route consists of a line between stations 1 and 3 costing 2 and a line
+between stations 1 and 4 costing 3, the maximum cost is 3.
+In the second test case, the Bus system will have the following lines: between stations 1 and 4 costing
+1, between stations 2 and 3 costing 1, between stations 2 and 5 costing 2, between stations 3 and 4
+costing 1, and between stations 3 and 5 costing 2.
+
+
+
+
+                                                                                                     11
+                                              The 2022 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 30th, 2022
+                                 Problem J
+                        Not a Classic String Problem
+                                       Time Limit: 1 Second
+                                    Memory Limit: 512 megabytes
+There is a classic string problem: You are given two strings 𝐴 and 𝐵, and your task is to find the number
+of appearances of string 𝐴 in string 𝐵.
+Dr. Hung does not want the problem to be that easy, so he gives you two strings 𝑆, 𝑇, and 𝑞 queries.
+Each query has two pairs of indices (𝑖, 𝑗) and (𝑢, 𝑣). For each query, Dr. Hung asks you to find the
+number of appearances of string 𝑋 = 𝑆𝑖 𝑆𝑖+1 … 𝑆𝑗 in string 𝑌 = 𝑇𝑢 𝑇𝑢+1 … 𝑇𝑣 .
+
+Input
+The first line contains string 𝑆 (1 ≤ |𝑆| ≤ 2 × 105 ).
+The second line contains string 𝑇 (1 ≤ |𝑇| ≤ 2 × 105 ).
+The third line contains 𝑞 (1 ≤ 𝑞 ≤ 5 × 105 ).
+In the next 𝑞 lines, each line contains four integers 𝑖, 𝑗 and 𝑢, 𝑣.
+
+Output
+The output has 𝑞 lines, each line contains a single integer indicating the number of appearances.
+
+ Sample Input                                       Sample Output
+ abb                                                3
+ ababababb                                          1
+ 5                                                  2
+ 1 2 1 7                                            1
+ 2 3 2 9                                            4
+ 3 3 4 7
+ 1 2 2 4
+ 1 1 1 9
+
+
+
+
+                                                                                                      12
+                                              The 2022 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 30th, 2022
+                                           Problem K
+                                             HTML
+                                      Time Limit: 1 Second
+                                   Memory Limit: 512 megabytes
+Web colors are colors used in displaying web pages. Each            #    Name      Red   Green   Blue
+color may be specified as an RGB triple, or a common English
+                                                                    1    White     255   255     255
+name used for that color. Colors are specified according to the
+intensity of their red, green, and blue components, each            2    Silver    192   192     192
+represented by eight bits. Thus, there are 24 bits used to          3    Gray      128   128     128
+specify a web color, and a total of 16,777,216 colors can be        4    Black     0     0       0
+imagined as web colors. But the HTML 4 specification defines        5    Red       255   0       0
+only 16 named colors as shown in the table.                         6    Maroon    128   0       0
+                                                                    7    Yellow    255   255     0
+It is often useful to map one given color to one of the HTML-
+                                                                    8    Olive     128   128     0
+named colors. The goal of this problem is to perform just such
+                                                                    9    Lime      0     255     0
+a mapping in the RGB color space. The input to the program
+consists of a collection of RGB color values to be mapped to        10   Green     0     128     0
+the closest HTML-named color.                                       11   Aqua      0     255     255
+                                                                    12   Teal      0     128     128
+For a given color, the “closest” color in the HTML color            13   Blue      0     0       255
+names is a color with the smallest Euclidean distance from the      14   Navy      0     0       128
+given color. That is, if RGB is the color to be mapped, and         15   Fuchsia   255   0       255
+{𝑅1 𝐺1𝐵1, . . . , 𝑅16 𝐺16 𝐵16} is the set of the HTML colors, the   16   Purple    128   0       128
+closest color is the one which minimizes the distance
+expression
+
+                               𝑑 = √(𝑅𝑖 − 𝑟)2 + (𝐺𝑖 − 𝑔)2 + (𝐵𝑖 − 𝑏)2
+
+where 𝑖 is an integer from 1 to 16.
+
+Input
+There are multiple test cases in the input. Each test case consists of a line containing three integers
+0 ≤ 𝑟, 𝑔, 𝑏 ≤ 255 which are the Red, Green, and Blue intensities of the color, respectively. The input
+terminates with −1 − 1 − 1 which should not be processed.
+
+Output
+For each test case, output a line containing the name of the closest HTML color to the given color. If
+there is more than one closest color, print the one with a smaller associated number in the above table.
+
+ Sample Input                                      Sample Output
+ 120 120 10                                        Olive
+ 111 112 113                                       Gray
+ 5 135 8                                           Green
+ -1 -1 -1
+
+
+                                                                                                     13
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+                                              Problem L
+                                               Addition
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+
+Long is a 6 year-old boy and he is learning addition in a multi-digit column adding way. He usually
+performs an addition of two integers like this:
+                                                      321
+                                                + 456
+                                                      777
+Sometimes, Long performs addition incorrectly and now it is the time for you to help him before he
+submits his homework to his teacher. Since Long has already written the addition to his notebook, you
+can only erase some columns in his addition to make it correct. For example, in the following addition,
+you can obtain a correct addition by erasing the first and the fourth columns.
+                                             71212            122
+                                        + 12348 → + 238
+                                             93650            360
+Your task is to find the minimum number of columns needed to be erased such that the remaining
+columns form a correct addition.
+
+Input
+There are multiple test cases in the input.
+Each test case starts with a line containing the single integer 𝑛, the number of digit columns in the
+addition (1 ≤ 𝑛 ≤ 1000).
+Each of the next 3 lines contains a string of 𝑛 digits. The number on the third line is presenting the sum
+(not necessarily correct) of the numbers in the first and second lines. The input terminates with a line
+containing “0” which should not be processed.
+
+Output
+For each test case, print a single line containing the minimum number of columns needed to be erased.
+
+ Sample Input                                     Sample Output
+ 3                                                0
+ 321                                              2
+ 456                                              2
+ 777                                              1
+ 5
+ 71212
+ 12348
+ 93650
+ 2
+ 24
+ 32
+ 32
+                                                                                                      14
+                The 2022 ICPC Vietnam
+        Southern Provincial Programming Contest
+            University of Science, VNU-HCM
+                   October 30th, 2022
+5
+12299
+12299
+25598
+0
+
+
+
+
+                                                  15
+                                             The 2022 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 30th, 2022
+                                         Problem M
+                                        Two Specials
+                                      Time Limit: 8 seconds
+                                   Memory Limit: 512 megabytes
+In order to make Fabulous City a more attractive place for tourists, the government came up with the
+following plan: choose two roads of the city and call them SPECIALS. Certainly, these SPECIALS will
+be proclaimed extremely important special places, which should attract tourists worldwide.
+The city can be represented as a graph with the vertices as crossroads and the edges as roads connecting
+two crossroads. In total, there are 𝑛 vertices and 𝑚 edges in the graph, you can move in both directions
+along any road. You can get from any crossroad to any other by moving only along the roads. Each road
+connects two different crossroads and no two roads connect the same pair of crossroads.
+In order to reduce the traffic along the SPECIALS, it was decided to introduce a toll on each SPECIAL
+in both directions. Now you need to pay 1 coin for one pass along the SPECIAL. The other roads cost
+you 0 coin.
+Analysts have collected a sample of 𝑘 citizens, and the 𝑖 𝑡ℎ citizen needs to go to work from the crossroad
+𝑢𝑖 to the crossroad 𝑏𝑖 . After two SPECIALS are chosen, each citizen will go to work along the path with
+minimal cost.
+In order to earn as many coins as possible, it was decided to choose two roads as two SPECIALS, so
+that the total number of coins paid by these 𝑘 citizens is maximized. Your task is to help the government:
+according to the given scheme of the city and a sample of citizens, find out which two roads should be
+made SPECIALS, and how many coins the citizens will pay according to this choice.
+
+Input
+Each test consists of multiple test cases. The first line contains one integer 𝑡 (1 ≤ 𝑡 ≤ 105 ) — the
+number of test cases.
+
+The first line of each test case contains two integers 𝑛 and 𝑚 (3 ≤ 𝑛 ≤ 5 × 105, 𝑛 − 1 ≤ 𝑚 ≤
+                𝑛(𝑛−1)
+5 × 105 , 𝑚 ≤         ) - the number of crossroads and roads, respectively.
+                  2
+
+The next 𝑚 lines contain the description of roads, the 𝑖 𝑡ℎ line contains two integers 𝑠𝑖 and 𝑓𝑖 (1 ≤
+𝑠𝑖 , 𝑓𝑖 ≤ 𝑛, 𝑠𝑖 ≠ 𝑓𝑖 ) — indexes of crossroads which are connected by the 𝑖 𝑡ℎ road. It is guaranteed that no
+two roads connect the same pair of crossroads, you can get from any crossroad to any other by moving
+only along the roads.
+The next line contains a single integer 𝑘 (1 ≤ 𝑘 ≤ 5 × 105 ) — the number of citizens in the sample.
+The next 𝑘 lines contain the description of citizens, the 𝑖 𝑡ℎ line contains two integers 𝑢𝑖 and 𝑣𝑖 (1 ≤
+𝑢𝑖 , 𝑣𝑖 ≤ 𝑛, 𝑢𝑖 ≠ 𝑣𝑖 ) - the 𝑖 𝑡ℎ citizen goes to work from crossroad 𝑢𝑖 to crossroad 𝑣𝑖 .
+Let 𝑀 be the sum of 𝑚 over all test cases and 𝐾 be the sum of 𝑘 over all test cases. It is guaranteed that
+𝑀, 𝐾 ≤ 5 × 105.
+
+
+
+                                                                                                         16
+                                              The 2022 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 30th, 2022
+Output
+For each test case, print the answer to the problem.
+In the first line, print the total amount of coins that citizens will pay.
+In the second line, print two integers 𝑥1 and 𝑦1 - the numbers of crossroads that will be connected by
+the first SPECIAL.
+In the third line, print two integers 𝑥2 and 𝑦2 - the numbers of crossroads that will be connected by the
+second SPECIAL.
+The numbers of crossroads connected by a SPECIAL can be printed in any order, each of the printed
+roads should be among 𝑚 roads of the city, chosen roads should be different.
+
+ Sample Input                                        Sample Output
+ 3                                                   5
+ 5 5                                                 1 5
+ 1 2                                                 3 2
+ 2 3                                                 5
+ 3 4                                                 4 2
+ 4 5                                                 5 4
+ 5 1
+ 6
+ 1 5
+ 1 3
+ 1 3
+ 2 4
+ 2 5
+ 5 3
+ 6 5
+ 1 2
+ 2 3
+ 2 4
+ 4 5
+ 4 6
+ 3
+ 1 6
+ 5 3
+ 2 5
+
+
+
+
+                                                                                                      17
+

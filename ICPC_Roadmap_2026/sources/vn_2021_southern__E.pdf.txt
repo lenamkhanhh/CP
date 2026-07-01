@@ -1,0 +1,61 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                     Problem E
+                                Martian Programmer
+                                   Time Limit: 1 second
+                                 Mem limit: 512 Megabytes
+Mr. Phidang is an insane programmer coming from Mars, where there are exactly 𝐻 hours a day.
+He has just read a scientific paper “Relationship between work and sleep”. According to this
+research, all the time that you are not working, you are sleeping. Additionally, the research states
+and proves the following results:
+
+   1. If a person sleeps 0 hour per day, then his performance will be 0%
+   2. If a person sleeps 𝐻/3 hours per day, then his performance will be 100%
+   3. If a person sleeps 𝐻/6 hours per day, then his performance will be 𝐴%
+   4. In case a person sleeps from H/6 to H/3 hours per day, his performance increases linearly
+      from 𝐴% to 100%
+   5. In case a person sleeps from H/6 to 0 hours per day, his performance decreases linearly
+      from 𝐴% to 0%
+
+Mr. Phidang visualizes the information by drawing the following graph.
+
+
+
+
+Mr. Phidang believes that the amount of programming work he does each day is equal to the
+product of his working time and his performance. Thus, the problem is that if he sleeps more, he
+works less, and if he sleeps less, he has less performance.
+
+Mr. Phidang wants to get back to programming as soon as possible. Please help him determine the
+maximum daily amount of work that he can do with the optimal choice of sleep time.
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                     The 2021 ICPC Vietnam
+                             Southern Provincial Programming Contest
+                                University of Science, VNU-HCM
+                                       December 05th, 2021
+
+
+Input
+The input contains two integers 𝐴 and 𝐻 – the performance as a percentage if the sleep time is H/6,
+and the number of hours per day on Mars (0 ≤ 𝐴 ≤ 100, 1 ≤ 𝐻 ≤ 105 ).
+
+Output
+The output should contains a single real number – the maximum daily amount of work that can
+be done by Mr. Phidang. The relative error does not exceed 10−6 .
+
+Sample Input                                     Sample Output
+ 75 24                                            1600.00000000
+ 100 24                                           2000.00000000
+ 77 123                                           8214.26086957
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

@@ -1,0 +1,67 @@
+                                    The 2021 ICPC Vietnam
+                            Southern Provincial Programming Contest
+                               University of Science, VNU-HCM
+                                      December 05th, 2021
+
+
+                                     Problem H
+                                    Tom and Jery
+                                 Time limit: 1 second
+                               Mem limit: 256 Megabytes
+Tom and Jerry are chasing each other in a maze that is formed
+as a tree. This tree has 𝑛 nodes.
+
+Jerry is currently at node 𝑥 and there is a bomb set up by Tom
+here. The bomb has its range 𝑡, so when it explodes, all the
+nodes that have distance to node 𝑥 less than or equal to 𝑡 + 1
+will be burnt. If Jerry gets burnt, he will be fainted and caught
+by Tom.
+
+Of course, Jerry wants to get rid of the exploding zone by running through the edges in the
+maze. On the other hand, Tom wants to catch Jerry, so he plans to block a few edges on the
+maze so that Jerry cannot move through these edges.
+
+Task: Given a set of 𝑚 queries, each query has two numbers 𝑥 and 𝑡, indicating the initial node
+that Jerry and the bomb are currently at, and the range of the bomb. Please help Tom to find
+the minimum number of edges to block in order to catch Jerry.
+
+Input
+The first line contains two integers 𝑛, 𝑚 (1 ≤ 𝑛, 𝑚 ≤ 105 ) – the number of nodes on the maze
+and the number of queries.
+
+In the next 𝑛 − 1 lines, each line contains two integers 𝑢, 𝑣 (1 ≤ 𝑢, 𝑣 ≤ 𝑛; 𝑢 ≠ 𝑣) denoting
+that there is an edge between 𝑢 and 𝑣.
+
+In the next 𝑚 lines, each line contains two integers 𝑥, 𝑡 (1 ≤ 𝑥 ≤ 𝑛; 0 ≤ 𝑡 ≤ 𝑛) representing a
+single query.
+
+Output
+The minimum number of edges that Tom has to block.
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest                        1|Page
+                                  The 2021 ICPC Vietnam
+                          Southern Provincial Programming Contest
+                             University of Science, VNU-HCM
+                                    December 05th, 2021
+
+
+Sample input                                   Sample output
+ 7 3                                           1
+ 1 2                                           0
+ 2 3                                           2
+ 2 4
+ 3 5
+ 3 6
+ 4 7
+ 4 1
+ 2 2
+ 2 1
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest       2|Page
+

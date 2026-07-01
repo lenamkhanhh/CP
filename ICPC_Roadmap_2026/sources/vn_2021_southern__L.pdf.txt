@@ -1,0 +1,47 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                         Problem L
+                                         Oil Factory
+                                    Time limit: 2 seconds
+                                  Mem limit: 256 Megabytes
+In an oil factory in southern Vietnam, there are 𝑛 containers in a row. A specialized robot can do
+2 types of operations.
+
+   1. In the first operation, the robot will pour out half of the oil in all containers that currently
+      have even liters of oil.
+   2. In the second operation, the robot will pour out 1 liter out of all containers that currently
+      have odd liters of oil.
+
+Given a sequence of operations, display the total liters of oils in all containers after each time the
+robot finishes an operation.
+
+Input
+The first line contains an integer 𝑛 - the number of containers (1 ≤ 𝑛 ≤ 105 ).
+
+The second line contains 𝑛 integers 𝑎𝑖 separated by spaces (1 ≤ 𝑎𝑖 ≤ 230 − 1) - the current
+liters of oil in each container.
+
+The third line contains a sequence of operations in the form of characters "0" (first operation)
+and "1" (second operation)
+
+The number of operations ranges from 1 to 105 .
+
+Output
+After each command, print the sum of oil (in liters) in all containers on a separate line.
+
+Sample input                                       Sample output
+ 5                                                  12
+ 1 2 3 4 5                                          8
+ 0110                                               8
+                                                    4
+ 3                                                  3
+ 1 1 1                                              0
+ 01
+
+
+The 2021 ICPC Vietnam Southern Provincial Contest                                            2|Page
+

@@ -1,0 +1,741 @@
+Problem Analysis
+The 2026 ICPC Asia Pacific Championship
+This is an analysis of some possible ways to solve the problems of The 2026 ICPC Asia Pacific Champi-
+onship. Since the purpose of this analysis is mainly to give the general idea to solve each problem, we
+left several (implementation) details in the discussion for reader’s exercise. If some of the terminology or
+algorithms mentioned below are not familiar to you, your favorite search engine should be able to help. If
+you find an error, please send an e-mail to icpc-apac-2026-judges@googlegroups.com about it.
+
+
+ Problem Title                         Problem Author                    Analysis Author
+
+ A    Compare Suffixes                 Mitsuru Kusumoto                  Mitsuru Kusumoto
+
+ B    Subtree Removal Game             Mitsuru Kusumoto                  Shogo Murai
+
+ C    Upside Down Dijkstra             Pikatan Arya Bramajati            Pikatan Arya Bramajati
+
+ D    Christmas Tree Un-decoration     Albert Yulius Ramahalim           Albert Yulius Ramahalim
+
+ E    Parallel Sums                    Pikatan Arya Bramajati            Pikatan Arya Bramajati
+
+ F    Minesweeper String               Brian Tsai                        Brian Tsai
+
+ G    Extra Transition                 Rama Aryasuta Pangestu            Shogo Murai
+
+ H    Reflect Sort                     Pikatan Arya Bramajati            Pikatan Arya Bramajati
+
+  I   Growth Factor                    Pikatan Arya Bramajati            Gyojun Youn
+
+ J    Worldwide Playlist               Albert Yulius Ramahalim           Albert Yulius Ramahalim
+
+ K    Time Display Stickers            Ashar Fuadi                       Jonathan Irvin Gunawan
+
+ L    Onion                            Mitsuru Kusumoto                  Ke-Wei Huang
+
+ M    Deformed Balance                 Mitsuru Kusumoto                  Mitsuru Kusumoto
+
+
+The contest judges would also like to thank the following for their valuable feedback to the tasks: Masaki
+Nishimoto, Ping-Hsuan Lin, Poyu Chou, Sian-Yang Tseng, Riku Kawasaki, and Yui Hosaka.
+
+
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                1
+A     Compare Suffixes
+
+Step 1
+
+We maintain the order of suffixes (also known as a suffix array) from the end of S. At the beginning, we
+determine whether S(n) > S(n − 1) or S(n) < S(n − 1). This can be done by a single query.
+Suppose that we have now determined the order of k suffixes S(n − k + 1), S(n − k + 2), . . . , S(n):
+
+                                         S(pn−k+1 ) < S(p2 ) < . . . < S(pn )
+
+for a sequence (pn−k+1 , . . . , pn ), which is a permutation of (n − k + 1, . . . , n).
+For each i = n − k + 1, . . . , n − 1, consider the following question: can Spi and Spi+1 be the same character?
+If they are the same, the order of S(pi ) and S(pi+1 ) must be the same as that of S(pi + 1) and S(pi+1 + 1).
+Since S(pi ) < S(pi+1 ), this is equivalent to S(pi + 1) < S(pi+1 + 1). Thus, if S(pi + 1) > S(pi+1 + 1), then
+Spi and Spi+1 must be different characters. Since S consists of only lowercase letters, the number of such
+indices i is at most 25. We call such an index i a splitting position.
+
+
+Step 2
+
+We want to know which position the suffix S(n − k) falls into the current ordering S(p1 ) < . . . < S(pk ), using
+fewer queries. To do so, we split this ordering by splitting positions. By performing a kind of binary search,
+we can determine which sub-ordering S(n − k) falls into. However, this can incur too many queries.
+Assume that S(px ) < S(n − k) < S(px+1 ) for some index x. We are interested in, after adding S(n − k) in
+the ordering, a new splitting position happens to appear or not. Since n is much larger than 25, this does
+not happen in most cases.
+If it does not, S(px + 1) < S(n − k + 1) must hold. For each sub-ordering, say, S(pa ) < . . . < S(pb ), we can
+find the largest index y ∈ [a, b] such that S(py + 1) < S(n − k + 1). Let us say y is a representative index of
+that sub-ordering.
+In the binary search we mentioned above, we use representative indices. After finding a representative
+index y such that S(py ) < S(n − k) < S(pz ) (where z is the representative index of next sub-ordering), we
+query to determine whether S(n − k) < S(py+1 ) holds. If it holds, we successfully determine the position of
+S(n − k) with at most ⌈log2 (26)⌉ + 1 = 6 queries.
+If S(n−k) < S(py+1 ) does not hold, we simply do binary search over the current ordering S(p1 ) < . . . < S(pk )
+to determine the position of S(n − k). This requires at most ⌈log2 (n)⌉ queries, and this case occurs at most
+25 times.
+Iterating k = n − 1 down to 1 will yield the answer. Overall, the total query count is bounded by 6n +
+25 log2 (n) ≤ 6260. In general, for the number of the types of letters σ, the query count is n(log2 (σ) + 1) +
+σ log2 (n). Computational time is O(n2 ).
+
+
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                     2
+B     Subtree Removal Game
+
+We can perform a binary search for the solution. For a fixed value v, let’s consider the following game:
+Game(v): A leaf node holding an integer i ≤ v has label “F”, and holding i > v has label “S”. If a node with
+“F” remains at the end of the game, the first player (minimizer) wins. If “S” remains, the second (maximizer)
+wins.
+If we determine the value such that the winner of Game(v) is the second player while that of Game(v + 1)
+is the first player, we can conclude that the answer is v + 1. So, let’s consider solving Game(v) for some
+v. Note that we only need to take labels “F” and “S” into account now. In what follows, we denote the two
+players as “F” and “S” for simplicity (“F” for the first and “S” for the second).
+For a subtree rooted at node x and a player p (“F” or “S”), define W in(x, p) as the winner of a game that
+
+    • starts with player p, and
+
+    • starts with subtree x.
+
+For a node x, let’s define D(x) as follows:
+
+    • If x is a leaf node labeled “F”, D(x) = 1.
+
+    • If x is a leaf node labeled “S”, D(x) = −1.
+
+    • If x is a non-leaf, let S(x) is the sum of D(y) over its child nodes y. Then, D(x) is the sign of S(x); that
+      is, D(x) = 1 if S(x) > 0, D(x) = 0 if S(x) = 0, and D(x) = −1 if S(x) < 0.
+
+We show the following argument by induction on the number of leaf nodes:
+
+    • If D(x) > 0, W in(x, F ) = W in(x, S) = F ,
+
+    • If D(x) = 0, W in(x, F ) = F and W in(x, S) = S, and
+
+    • If D(x) < 0, W in(x, F ) = W in(x, S) = S.
+
+Without loss of generality, we can assume that the root node has at least 2 children, or the tree consists only
+of the root node. For the latter case, the argument is trivial. We consider the former case below.
+
+When D(x) > 0. If the root node x has at least one child y with D(y) ≤ 0, the first player can choose y.
+    Otherwise, the first player can select any (immediate) child of x. In either case, D(x) > 0 holds after
+    the operation.
+
+When D(x) = 0. We can find a path from x0 = x to xk where
+
+         • D(x0 ) = ... = D(xk ) = 0, and
+         • xk has children y + and y − with D(y + ) > 0 and D(y − ) < 0.
+
+      Then, the first player can choose y − . After the operation D(x) > 0 holds.
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                      3
+When D(x) < 0. We note that the value of D changes by at most 1 after the operation. Therefore, D(x) ≤ 0
+    holds after the operation.
+
+From this argument, we can compute W in(x, F ) by recursion in O(n). Overall time complexity is O(n log n).
+
+
+
+C     Upside Down Dijkstra
+
+Since the wrong Dijkstra’s algorithm always takes the current maximum distance, that means whenever a
+new vertex is processed, if it is adjacent to at least one unprocessed vertex, the next processed vertex
+must be one of those adjacent to the current vertex. If all of its adjacent vertices are already processed,
+then this vertex will not generate new entries to the heap and the next maximum distance comes from the
+next unprocessed "child" of its closest "ancestor". If observed more closely, notice that the order of vertices
+processed looks like an arbitrary naive DFS that does not go through the same vertices more than once.
+Each vertex in the DFS only unrecurse back to its source parent when all of its neighboring vertices are
+already processed.
+The solution is to check whether or not S follows a possible naive DFS order, using a stack. A vertex can
+only be pushed into the stack if it is adjacent to the current top. The top of the stack can only be popped
+when it has already had all of its neighbors processed. The edge weights can be calculated based on the
+order of vertices pushed into the stack interacting with the current state of the stack.
+Each iteration might have a worst case of O(n) time complexity because of the need to iterate edges, so
+some non-trivial optimizations might be needed to make sure that the total time complexity is still within
+O(n + m).
+
+
+
+D     Christmas Tree Un-decoration
+
+First, consider the problem without updates. We can perform a DP on the tree. Define dp(u) as the minimum
+number of operations to remove all ornaments in the subtree rooted at vertex u. The transition is
+                                                                   !
+                                                         X
+                                     dp(u) = max au ,         dp(c) .
+                                                             c child of u
+
+Thus, the answer can be computed in O(n) time.
+To handle updates, we use heavy-light decomposition. Define:
+
+    • bu : the sum of dp(c) for all light children c of u.
+
+    • h(u): the heavy child of u.
+
+The transition becomes dp(u) = max(au , bu + dp(h(u))).
+
+
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                   4
+Next, consider a chain in the heavy-light decomposition from its topmost vertex c1 to a leaf ck : (c1 , c2 , . . . , ck ).
+We have
+                               dp(c1 ) = max(ac1 , bc1 + dp(c2 ))
+                                            = max(ac1 , bc1 + ac2 , bc1 + bc2 + dp(c3 ))
+                                             ..
+                                              .
+                                                                      
+                                                              i−1
+                                                  k           X
+                                            = max aci +            bcj  .
+                                                  i=1
+                                                              j=1
+
+
+Note that the only important value we need to compute is dp(c1 ), since it either becomes the final answer
+(if c1 = 1) or contributes to bpc1 (if c1 ̸= 1). Therefore, we can maintain each term inside the max function
+above for each chain using a lazy segment tree.
+To update the number of ornaments in vertex ui to xi , we update aui in ui ’s chain, then move up while
+updating the values of b for the chains’ roots’ parents. In this way, an update can be performed in O(log2 n)
+time.
+Therefore, the problem has been solved in O(n log n + q log2 n) time.
+
+
+
+E     Parallel Sums
+
+To simplify, let’s change the indexing of the sequences into 0-based, so now it’s A = (a0 , a1 , . . . , an−1 ) and
+s0 , s1 , . . . , sn−m such that si = ai + ai+1 + . . . + ai+m−1 .
+Consider the relationships between elements of A. Notice that ai+m − ai = si+1 − si . Since the values of
+si are constant, then each element ai is just ai mod m plus some constant value that can be obtained from
+several values of si .
+From the values of si , construct a sequence w0 , w1 , . . . , wn−1 which indicates that ai = ai mod m + wi . Then
+with this, satisfying the n − m + 1 requirements of si is equivalent to satisfying the following:
+
+    • a0 + a1 + . . . + am−1 = s0
+
+    • ai = ai mod m + wi for all i.
+
+Suppose we want to naively solve for a query with a pair (l, r). If r − l + 1 < m, then the answer can
+be arbitrarily small. Otherwise, we group each of al , al+1 , . . . , ar based on their indices modulo m. For
+elements at indices i with the same value of i mod m, only the maximum value of wi matters. We calculate
+the maximum value of wi for each group.
+Suppose these maximum values are y0 , y1 , . . . , ym−1 for each group of indices modulo m. Then we need to
+find a0 , a1 , . . . , am such that a0 + a1 + . . . + am−1 = s0 and the value ofl max(a0 + y0 , a1 + ym1 , . . . , am−1 + ym−1 )
+is minimized. It turns out that the minimum value of that is equal to s0 +y0 +y1m        +...+ym−1
+                                                                                                       .
+                                                                                                                        √
+Now we need to be able to calculate that quickly. We have solutions for two cases, cases with m ≤ n and
+                        √
+cases with m > n.
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                                    5
+         √
+If m ≤ n, before doing the queries, we can build a sparse table for the values of wi for each group of
+i mod m. Then, for each query, we do a range maximum query for each sparse table to get the values of
+yi , then we sum them.
+        √
+If m > n, then each group has a small number of elements. For each possible pair (p0 , p1 ) (0 ≤ p0 ≤ p1 <
+  m ):
+n
+
+
+    1. We iterate each group and calculate the maximum value from the p0 -th to the p1 -th element of wi of
+       that group.
+
+    2. We make a prefix sum of length m from those maximum values.
+
+Then, each query is just an O(1) number of range sum queries in a few of those prefix sums.
+                           √
+Time complexity: O((n + q) n)
+
+
+
+F      Minesweeper String
+
+For any given width w, we conceptually begin by assuming that each digit x (the number of mines in each
+cell) contributes 4x to the total sum. The actual total may decrease due to the following four situations:
+
+    1. Two digits x, y become vertically adjacent.
+       If the positions of two digits differ by exactly w, they appear in two consecutive rows. In this case, the
+       total decreases by x + y.
+
+    2. A digit x lies on the leftmost or rightmost column.
+       If a digit’s position p (0-based) satisfies
+
+                                            p mod w = 0   or p mod w = w − 1,
+
+       then the digit lies on the boundary of the grid, contributing a reduction of x.
+       A special case might happen for the last digit, which will always decrease the actual total since the row
+       is truncated to its right, even if it is not in the rightmost column.
+
+    3. A digit x lies in the first or last row.
+       If a digit appears in the first or last row under width w, the total decreases by x. (Note that this may be
+       counted twice.)
+
+    4. Two digits x, y become horizontally adjacent.
+       If two digits are adjacent in the string, the total decreases by x + y unless they are split across rows.
+
+To compute all cases:
+
+Case 1: Consider calculating the total reduction for each w. For a digit x at position p, it contributes a
+    reduction of x if the digit at position p − w is non-zero, or if the digit at position p + w is non-zero (both
+    can occur, resulting in a contribution of 2x). Therefore, we can define two polynomials:
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                      6
+                                              n−1
+                                              X                          n−1
+                                                                         X
+                                    P (x) =         Si · xi ,   Q(x) =         JSn−i−1 ̸= 0K · xi ,
+                                              i=0                        i=0
+
+      The total reduction for w will be [xn−1−w ](P (x)Q(x)) + [xn−1+w ](P (x)Q(x)).
+      The product of P and Q can be computed using a single convolution in O(n log n).
+
+Case 2: A digit at position p lies on a boundary column precisely for all divisors w of p and p + 1. Thus, for
+    each digit, we decrement the totals for all divisors of p and p + 1. The total contribution for all w can
+    be computed in O(n log n). Be careful with the special case of the last digit.
+
+Case 3: A digit lies in the first or last row exactly when w falls within certain continuous intervals. These
+    intervals can be accumulated using a difference array in linear time.
+
+Case 4: For each adjacent pair of digits x, y in the string, initially decrease the total by x + y. Then, if their
+    positions in the string are p and p + 1, increment all divisors w of p + 1. The total contribution for all w
+    can be computed in O(n log n), and it is possible to merge this with Case 2.
+
+The overall time complexity is O(n log n).
+It is possible to modify the problem back to eight-direction minesweeper, but that might not be interesting.
+
+
+
+G     Extra Transition
+
+We write a path from vertex a to b through zero or more vertex by a →∗ b (which is equivalent to a →∗ b).
+A graph G is a series-parallel graph with two terminals s and t if and only if G can be reduced to the graph
+with 2 vertices s and t with only one edge connecting them by repeatedly applying following operations:
+
+    • series operation: if a vertex v has exactly two incident edges to vertices x and y (x ̸= y), remove v and
+      its incident edges, then add an edge between x and y.
+
+    • parallel operation: if there are multiple edges between two vertices x and y, remove all of them, then
+      add one edge between x and y.
+
+Note that parallel edges are allowed during the operations.
+We can see that a graph G is well-designed if and only if it is series-parallel. We show this later.
+Let G be a series-parallel graph. Now we discuss the condition when addition of an edge between u and
+v keeps G series-parallel. In the definition of series operation, we may allow contracting several paths
+x – v1 – · · · – vk – y to x – y (if all of v1 , . . . , vk have degree of 2). Then, we let all of edges before contraction
+(x – v1 and so on) be ones that have been initially existed or have been added in a parallel operation. Here,
+addition of an edge between u and v keeps G series-parallel if and only if there is an extended series
+operation involving u and v while contracting G into an edge.
+
+    • If such series operation exists, we can easily construct a sequence of operations for G added with an
+      edge between u and v.
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                               7
+    • Suppose G added with an edge between u and v is series-parallel. During contraction, vertices u
+      and v can be removed (by series operations) only after the (initially added) edge between u and v is
+      removed by a parallel operation. This means that, after applying operations, the original graph (before
+      edge addition) could have a path u – · · · – v where any intermediate vertices have degree of 2.
+
+We can check whether a graph is series-parallel in O(m log n) time. Along this check, we can also compute
+ (i,j)∈S wi wj .
+P
+
+
+
+Proof of equivalence between well-designed and series-parallel graphs
+
+First, we show that series-parallel graphs are well-designed by induction on the number of edges in G.
+We have to first check that, if G is series-parallel, for any vertex v, there is a simple path from s to t through
+v. Since series-parallel graphs do not have isolated vertices, it suffices to show that, for any edge e, there is
+a simple path from s to t through e. This argument can be easily shown by induction.
+If G consists of 2 vertices and an edge connecting them, G is clearly well-designed.
+Otherwise, let G′ be the graph obtained by applying a series operation to G. G′ is also series-parallel and
+G′ has strictly fewer edges than G, so G′ should be well-designed. Let v be the vertex removed by the
+operation, and x and y be the vertices which are adjacent to v in G. For vertices p and q (p ̸= v, q ̸= v),
+if there are paths s →∗ p →∗ q →∗ t and sto∗ q →∗ p →∗ t in G, we have paths of the same form in
+G′ (possibly x → v → y is contracted to x → y). Also, suppose that, for a vertex p, there are paths
+s →∗ p →∗ v →∗ t and s →K v →∗ p →∗ t in G. Since v is adjacent only to x and y, we will have a path of
+form s →∗ p →∗ x → v → y →∗ t or s →∗ p →∗ y → v → x →∗ t. The same applies to the latter path. Thus
+we will have paths s →∗ p →∗ x →∗ t and s →∗ x →∗ p →∗ t, or s →∗ p →∗ y →∗ t and s →∗ y →∗ p →∗ t.
+Either case contradicts to the fact that G′ is well-designed. The same holds if G′ is obtained by a parallel
+operation.
+Now we show the inverse: if a graph G is well-designed, then it is series-parallel. If G is well-designed
+and G′ can be obtained from G by applying a series or parallel operation, it is easy to see that G′ is also
+well-designed. Thus, it suffices to show that an operation is applicable to G (unless G has only two vertices
+s and t and an edge connecting them). If G has a parallel edge, a parallel operation can be immediately
+applied. From now on, we assume that G is well-designed and has no parallel edge, and we show a series
+operation is applicable to G (that is, there is a vertex v ̸= s, t with degree of 2).
+For two distinct vertices a and b (possibly s or t), if there exists a simple path s →∗ a →∗ b →∗ t, we write
+a ⇒ b. Note that a ⇒ b and b ⇒ a does not hold at the same time (because G is well-designed). Also this
+relationship is transitive: if a ⇒ b and b ⇒ c, then a ⇒ c.
+We can show that, for each edge e, there is a simple path from s to t through e. Thus, for any neighbor w
+of v, exactly one of v ⇒ w and w ⇒ v holds. Thus we can add directions to each (undirected) edge {u, v}:
+from u to v if u ⇒ v, or from v to u if v ⇒ u. TWe can see that this directed graph G′ is a directed acyclic
+graph (DAG) with the source s and the terminal t. Then let T the dominator tree of G′ . Also we let W be the
+connected component containing s of the graph (V (G), E(G) ∩ E(T )). All edges adjacent to s are in T , so
+W is non-empty. Thus W will have at least one leaf.
+If the only leaf in W is t, let s = v0 , v1 , . . . , vk−1 , vk = t be the path from s to t in W . If vi (0 ≤ i ≤ k − 1)
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                            8
+has a neighbor vi+1
+                 ′
+                    ̸= vi+1 with vi ⇒ vi+1
+                                        ′
+                                           (note that vi+1
+                                                       ′
+                                                             cannot be one of vi+2 , . . . , vk , either), vi+1
+                                                                                                            ′
+                                                                                                                will
+be in W and thus W will have other leaf than t. From this, it follows that G is a path graph, which is clearly
+series-parallel.
+Otherwise, let v be one of the uppermost leaf in W : there is no leaf v ′ in W such that v ′ ⇒ v. We show that
+the degree of v is two, thus a series operation is applicable.
+Suppose there are two distinct neighbors w1 , w2 of v with v ⇒ w1 and v ⇒ w2 . Without loss of generality, we
+can assume w2 ⇒ w1 does not hold. Let p1 be the parent of w1 in T . Since p1 should be an ancestor of v in
+T , we have a path s →∗ p1 →∗ w1 → v → w2 →∗ t. This is simple because w2 →∗ t cannot contain w1 . We
+also have a path s →∗ p1 →∗ v → w1 →∗ t, which contradicts the fact that G is well-designed. Therefore,
+there exists only one vertex w with v ⇒ w.
+Since v is a leaf in W , its parent p is adjacent to v and p ⇒ v. Suppose another neighbor q of v satisfies
+q ⇒ p. By the definition of W , all path from s to v passes through p. Similarly, all path from s to q passes
+through p. We arbitrarily take one such path: s, . . . , p, m1 , . . . , mk = q. Since p is in W and we have an
+edge between p and m1 , we have a leaf r in W as an descendant of m1 . r cannot be one of m1 , . . . , mk
+because v is uppermost. Suppose the lowest ancestor of r in m1 , . . . , mk is mj . Then we have a path
+s →∗ p → v → q →∗ mj →∗ r →∗ t (we take the unique path mj →∗ r in W ). This path is simple:
+
+    • r cannot be v because the parent of v is p.
+
+    • mj →∗ r cannot contain v; otherwise v cannot be a leaf.
+
+    • r →∗ t cannot contain v because v is uppermost.
+
+We also have a path s →∗ p →∗ q → v →∗ t, which contradicts the fact that G is well-designed. Therefore,
+there exists only one vertex p with p ⇒ v.
+Combining these two arguments, it follows that the degree of v is 2.
+
+
+
+H     Reflect Sort
+
+Consider the attributes of the sequence that can’t change no matter what operations you do. For each i
+(1 ≤ i ≤ n − 1), the value of |ai − ai+1 | will always be the same.
+That means, if the value of a1 is fixed, you are forced to make ai+1 = ai + |ai − ai+1 | for all 1 ≤ i ≤ n − 1.
+This makes the final value of an to be a1 + |a1 − a2 | + |a2 − a3 | + . . . + |an−1 − an |. So to minimize an , you
+just need to minimize a1 .
+Since a1 is the minimum value in the end, you just need to make a1 to be the smallest possible positive
+integer without worrying about the other elements.
+Consider doing a prefix operation on {1, 2, . . . , x}, and then doing another prefix operation on {1, 2, . . . , x−1}.
+That increases the value of a1 by 2 × (ax+1 − ax ). Furthermore, for each value of ax+1 − ax , you can always
+flip its sign without changing the value of a1 by doing suffix operations. That means, the value of a1 can be
+increased or decreased any number of times by any value 2 × |ax − ax+1 |.
+
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                           9
+From number theory, it can be obtained that if the greatest common divisor of all values of 2×|ax −ax+1 | is d,
+then the value of a1 can be increased or decreased by any multiple of d. You want a1 to have the minimum
+possible positive value. So if a1 mod d = 0, you should make it to be d. Else, you should make it to be
+a1 mod d.
+Time complexity: O(n log max ai )
+
+
+
+I   Growth Factor
+
+The problem asks to find the number of integer sequences (b1 , . . . , bn ) such that 1 ≤ bi ≤ ai and bi | bi+1 .
+First, observe that the condition bi | bi+1 inherently implies that bi ≤ bi+1 . Because the sequence b must be
+non-decreasing, any valid sequence must also satisfy bi ≤ ai+1 , bi ≤ ai+2 , and so on. Therefore, we can
+replace each ai with mini≤j≤n aj to make the sequence a non-decreasing without altering the set of valid
+sequences for b. Let M := max ai = an .
+Let left(v) be the minimum index i such that ai ≥ v. Let fv (l) be the number of valid prefixes of length l
+ending exactly with the value v.
+If the prefix consists entirely of the value v up to index l, this is only valid if v ≤ a1 . Otherwise, the value
+v must be preceded by some proper factor u of v. Suppose the transition from u to v happens such that
+bj = u and bj+1 = v. For this to be valid, we must have j ≥ max {1, left(v) − 1, left(u)}. This imposes a
+lower bound on the transition index, and let this valid threshold be L(u, v).
+The transition can be written as:
+                                                            X      X
+                                     fv (l) = [v ≤ a1 ] +                    fu (j)
+                                                            u|v L(u,v)≤j<l
+                                                            u<v
+
+
+Computing this directly would be too slow. However, we can represent fv (l) as a linear combination of
+binomial coefficients:                                
+                                                      l
+                                          X
+                                          
+                                              Dv [k]    if v ≤ al
+                                  fv (l) = k≥0        k
+                                                         otherwise
+                                          
+                                            0
+                                          
+
+This representation is extremely powerful because it allows us to utilize Fermat’s identity. Specifically, for
+L ≤ l − 1, we have:
+                                     l−1                      
+                                    X      j        l          L
+                                             =            −
+                                           k     k+1         k+1
+                                        j=L
+
+
+Under the condition v ≤ al , substituting our polynomial representation into the transition yields:
+                                                                                 
+                               X                   X                 X           j
+                                       fu (j) =            [u ≤ aj ]     Du [k]
+                                                                                 k
+                            L(u,v)≤j<l          L(u,v)≤j<l           k≥0
+                                                                               
+                                                X               l          L(u, v)
+                                              =     Du [k]             −
+                                                              k+1            k+1
+                                                k≥0
+
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                      10
+From this, we can directly extract the updates for the coefficients Dv . For each proper factor u of v and for
+each k:
+
+     • Add Du [k] to Dv [k + 1].
+
+     • Subtract Du [k] L(u,v)  from Dv [0], since it acts as a constant term.
+                             
+                         k+1
+
+
+Because bi must be a proper factor of bi+1 at each step, the value strictly increases by at least a factor of 2.
+Therefore, the maximum number of transitions is bounded by ⌊log2 (M )⌋ ≤ 18. This means we only need to
+maintain about 18 non-zero coefficients for each value v.
+For each value u from 1 to M , we iterate over all its multiples v, and update the O (log M ) coefficients. Finally,
+the answer is the sum of fv (n) for all 1 ≤ v ≤ an . The total time complexity will be O n + M log2 M .
+                                                                                                           
+
+
+
+
+J     Worldwide Playlist
+
+Observe that the number of skips is equal to the number of songs played minus n.
+To listen to the songs b1 , . . . , bn in order, the total number of songs played is equal to posa (bn ) + kn, where
+posa (x) denotes the position of song x in the permutation a, and k is the number of wraps around the playlist:
+the number of times a1 is played after an .
+We can see that a wrap occurs whenever the next desired song appears earlier in the permutation a than
+the current song. In other words, k is equal to the number of indices i such that posa (bi+1 ) < posa (bi ).
+Next, let us handle updates. We maintain an array storing posa (i) for 1 ≤ i ≤ n.
+
+     • To handle updates with c = 2, since swapping bx and by affects only the comparisons involving these
+       two positions, we can update the corresponding contributions to k in O(1).
+
+     • To handle updates with c = 1, note that swapping ax and ay changes posa (i) for two values of i. We
+       can recompute their contributions to k in O(1) as well.
+
+Therefore, the total time complexity is O(n + q).
+
+
+
+K      Time Display Stickers
+
+We can separate time displays into two different types:
+
+    1. time displays whose hour is between 00 and 09 (let’s say these are time displays of type A), and
+
+    2. time displays whose hour is between 10 and 11 (let’s say these are time displays of type B).
+
+We want to check whether it is possible to create x time displays of type A and y time displays of type B. We
+can do this by greedily assigning stickers to positions with the fewest possible stickers to be put into first.
+In other words, we can do the following steps:
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                       11
+                                                          Possible stickers
+                                                     H      H        M        M
+
+                                          Type A      0   [0, 9]   [0, 5]   [0, 9]
+
+                                          Type B      1   [0, 1]   [0, 5]   [0, 9]
+
+
+    1. Assign x stickers numbered 0 to the first H position for x time displays of type A.
+
+    2. Assign y stickers numbered 1 to the first H position for y time displays of type B.
+
+    3. Combine the remaining stickers numbered 0 and 1 together, and assign y of them to the second H
+       position for y time displays of type B.
+
+    4. Combine the remaining stickers numbered 0 to 5 together, and assign x+y of them to the first M position
+       for x + y time displays.
+
+    5. Combine the remaining stickers numbered 0 to 9 together, and assign 2x + y of them to the remaining
+       positions.
+
+If, at any step, we don’t have enough number of required stickers, then it is not possible to create x time
+displays of type A and y time displays of type B.
+To find the maximum value of x + y among all valid values of x and y, we can try all possible values of x
+from 0 to n and use binary search to find the maximum valid value of y for the corresponding value of x.
+This solution solves the problem in O(n log n).
+
+
+
+L     Onion
+                                                                     √
+The key observation is that we can partition all points into O( n) groups such that the points in each group
+are collinear.
+                                                                                                          √
+Let xi = i and yi = (ai + b) mod n represent the coordinates of the i-th point. Let r = ⌈ n⌉. We can split
+the range [0, n − 1] of coordinates into r intervals: [0, r − 1], [r, 2r − 1], . . . , [(r − 1)r, n − 1]. By the pigeonhole
+principle, there exists two indices 0 ≤ j < k ≤ r such that yj and yk lie in the same interval.
+Let u = k − j = xk − xj and v = yk − yj . We have u ≤ r, |v| ≤ r − 1, and v ≡ (ak + b) − (aj + b) ≡ au
+(mod n). Fix some 0 ≤ s ≤ u − 1 and consider the sequence of points with indices s, s + u, s + 2u, . . . (s + tu
+for 0 ≤ t ≤ n−1−s   ). We may write
+                 
+              u
+
+                                           ys+tu = (a(s + tu) + b) mod n
+                                                   = (as + b + atu) mod n
+                                                   = (ys + tv) mod n
+                                                                          
+                                                                   ys + tv
+                                                   = ys + tv − n             .
+                                                                      n
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                              12
+For values of t with the same ys +tv     , the points (xs+tu , ys+tu ) lie on the same line with slope uv . If |v| ̸= 0,
+                                       
+                                    n
+as t increases, the value of            can only change when t changes by |v|           . Therefore, the range of t can
+                              ys +tv                                                n
+                            j kn
+                             |v|
+be partitioned into at most u + 1 intervals where the value of           ys +tv
+                                                                                  is constant in each interval. In other
+                                                                               
+                                                                   j kn
+words, the points with indices s, s + u, s + 2u, . . . form at most |v|
+                                                                      u + 1 consecutive groups that are collinear.
+                                                                                              √
+Summing this for s, we can partition all n points into a total of at most |v| + u = O( n) groups.
+We maintain the list of collinear point groups from top to bottom, each represented by left and right endpoints.
+Notice that only the endpoints of each group can be the vertices of the convex hull. Since there are only
+  √                                                        √                                              √
+O( n) candidates, the convex hull can be found in O( n log n) time (which can be optimized to O( n) if
+sorting is avoided by iterating points in a certain order, but this is not necessary). Then, we need to remove
+points on the convex hull boundary, which are
+
+    • all points in the topmost nonempty group,
+
+    • all points in the bottommost nonempty group, and
+
+    • the left or right endpoints of each group that lie on the boundary.
+                                                                           √
+Each of these can be updated in O(1) time for a total time complexity of O( n).
+                                                                                                    √
+To find k layers of convex hull, simply repeat the process k times. The total time complexity is O(k n log n)
+       √
+or O(k n).
+
+
+
+M     Deformed Balance
+
+In what follows, we write an open parenthesis as L and a close parenthesis as R. The BNF formulation of
+the deformed strings can be defined as follows.
+
+                                              E ::= R | E R E | L E L.
+
+Consider a slightly modified version of E, where the terminal symbol L is replaced by either ‘{’ or ‘}’:
+
+                                             E ′ ::= R | E ′ R E ′ | { E ′ }.
+
+Suppose that a string S ′ conforms to E ′ . The following can be proven by induction.
+
+    • The string S ′ contains an odd number of R’s.
+
+    • Removing R from S ′ will result in a balanced sequence consisting of ‘{’ and ‘}’.
+
+    • Two terminals ‘{’ and ‘}’ do not appear at adjacent positions; at least one R is always between them.
+
+    • The appearance of one terminal R flips the direction (opening or closing) of brackets {}.
+
+Thus, S ′ has a form {{{ ... {{{ R }}} ... }}} R {{{ ... }}} R }}} ... }}} R {{{ ... {{{ R }}} ....
+Two or more R’s may appear contiguously. Conversely, if a string S ′ has this form and the brackets {} are
+balanced, we can generate S ′ using E ′ :
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                           13
+   • R at odd occurrences should be generated by the first rule,
+
+   • R at even occurrences should be generated by the second, and
+
+   • each pair of corresponding ‘{’ and ‘}’ should be generated by the third.
+
+Hence, if we want to determine whether a string consisting of R and L conforms to E, we can do so by
+replacing the L’s with either ‘{’ or ‘}’ and then checking if that conforms to E ′ .
+For determining whether a string W has a deformed balance or not, we track two values x and y from the
+beginning, where x is the current nesting level for the parentheses LR, and y is the nesting level for the
+brackets {}. During the tracking x, y ≥ 0 must be always hold. At the end of the string, (x, y) = (1, 0) must
+hold for the string W to have a deformed balance.
+The values of (x, y) change as follows:
+
+   • if the next character is L,
+
+        – (x + 1, y + 1) if x + y = 0 (mod 2), or
+        – (x + 1, y − 1) otherwise
+
+   • if the next character is R, (x − 1, y).
+
+Now, let’s move on to the original problem. For the input string S, we can prepend and append some
+characters to S to form S ′ = X + S + Y .
+
+   • The concatenation X + S should result in a state (x′ , y ′ ) such that x′ , y ′ ≥ 0.
+
+        – After this, if x′ = 0 and y ′ = 0 (mod 2), |Y | = 3 + 2y ′ is the shortest possible for S ′ to have a
+          deformed balance.
+        – Otherwise, |Y | = x′ + 2y ′ − 1 is the required minimum.
+
+   • The only forms of X that need to be considered are one of the following:
+
+        – LLL... LLL
+        – LLL... LLL R LLL... LLL
+        – LLL... LLL R LLL... LLL R
+
+   • Note that we don’t need to consider a form like LLLRLLLRLL because the last L’s can be moved to the
+     first part: LLLLLRLLLR is enough to consider.
+
+   • For the third case above, suppose that X has a form Lf RLg R for some f > 0 and g ≥ 0 (with f +g ≥ 2).
+     The state after reading X is (f + g − 2, f − g). For S ′ to have a deformed balance, f + g − 2 + a ≥ 0
+     and f − g + b ≥ 0 must hold, where a and b are constants that can be deduced from the input.
+
+   • The length of Y is |Y | = (f + g − 2 + c) + 2(f − g + d) − 1 for some c and d (unless X + S ends up in
+     the state (0, 2y ′′ ) for some y ′′ ≥ 0.)
+
+   • Thus, the total added length is |X| + |Y | = 4f + (const.). To find the answer, it suffices to iterate
+     f = 1, 2, . . . and find the minimum f such that there exists g satisfying all the conditions above.
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                  14
+   • The same arguments hold for the other cases. Note that the constants (a, b, c, d) may vary in the second
+     and the third cases, due to the flip of brackets {}.
+
+Total time complexity is O(n).
+
+
+
+
+The 2026 ICPC Asia Pacific Championship – Problem Analysis                                                15
+

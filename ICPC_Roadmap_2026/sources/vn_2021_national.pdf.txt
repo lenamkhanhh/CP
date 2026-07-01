@@ -1,0 +1,809 @@
+                                     Problem A
+                              Arranging Marbles
+    The game of marbles (or shooting marbles) is very popular for kids in many countries. In
+Vietnam, the most classic way to play this game is to shoot your marbles at opponents’ ones to
+get it.
+
+
+
+
+    Hieu is a truly professional player and has won many games, which brought him a collection
+of rare colorful marbles. His collection consists of n2 marbles which are colored in at most n+1
+different colors. The marbles are numbered from 1 to n2 , and the colors are numbered from 1 to
+n + 1 (inclusive). Hieu wants to put his n2 marbles in n boxes so that the following conditions
+hold:
+
+    • Each box consists of exactly n marbles;
+
+    • The marbles in each box are colored in at most 2 colors.
+
+   Given the color of all Hieu’s marbles, your task is to help him arrange them.
+
+Input
+    • The first line contains an integer n (1 ≤ n ≤ 1 000).
+
+    • The second line contains n2 integers c1 , c2 , · · · , cn2 (1 ≤ ci ≤ n + 1), where ci denotes
+      the color of the i-th marble. There might be a color which never appears in any marbles.
+
+Output
+   If it is impossible to arrange Hieu’s marbles, print a single word NO. Otherwise:
+
+    • The first line contains the word YES.
+
+    • The second line contains n2 integers b1 , b2 , . . . , bn2 (1 ≤ bi ≤ n) where bi denotes the
+      box which has the i-th marble.
+
+   If there are multiple solutions, you can output any of them.
+
+ Sample Input 1                                   Sample Output 1
+ 3                                                YES
+ 1 1 1 1 3 3 3 3 3                                1 1 2 2 1 2 3 3 3
+
+Vietnam National 2021 Problem A: Arranging Marbles                                               1
+                                     Problem B
+                                 Beautiful Board
+    Minh has a board of size R · C (R rows and C columns). Each cell of the board contains an
+upper-case letter.
+    Minh believes that the board is beautiful if and only if it has 2 axes of symmetry: a vertical
+one and a horizontal one. In other words, for each of the R rows, the string in that row must be
+a palindrome; and for each of the C columns, the string in that column must be a palindrome.
+    To make the board beautiful, Minh can apply a series of operations. Each operation can be
+any of the following:
+
+    • Select a cell (i, j) and change the character to the next character in the alphabet. The next
+      character of Z would be A.
+
+    • Select a cell (i, j) and change the character to the previous character in the alphabet. The
+      previous character of A would be Z.
+
+   Your task is to find the minimum number of operators Minh needs to achieve his goal.
+
+Input
+   The input starts with a line containing 2 integers R and C denoting the size of the board
+(1 ≤ R, C ≤ 50). Then R lines follow, each contains a string with exactly C upper-case
+characters.
+
+Output
+   Print the minimum number of operations needed to transform the original board into a
+beautiful board.
+ Sample Input 1                                   Sample Output 1
+ 3 3                                              1
+ AAB
+ AAA
+ BAB
+
+ Sample Input 2                                   Sample Output 2
+ 2 4                                              33
+ LOVE
+ ICPC
+
+
+
+
+Vietnam National 2021 Problem B: Beautiful Board                                                 2
+                                            Problem C
+                                   Congruent Triangles
+    In geometry, two triangles are considered congruent iff they have exactly the same size and
+shape. In other words, all pairs of corresponding interior angles are equal in measure, and all
+pairs of corresponding sides have the same length. More formally, triangle ABC is congruent
+to triangle DEF , mathematically written as 4ABC ∼     = 4DEF , if and only if all six below
+statements are true:
+    • AB = DE
+    • BC = EF
+    • CA = F D
+    • ∠ABC = ∠DEF
+    • ∠BCA = ∠EF D
+    • ∠CAB = ∠F DE
+    Note that while stating congruence of triangles, the order of vertices matters. For example,
+by stating 4ABC ∼  = 4DEF , we means that the side AB corresponds to the side DE, the an-
+gle ∠BCA corresponds to the angle ∠EF D,... Therefore, in the below figure, two statements
+4ABC ∼   = 4DEF and 4ACB ∼        = 4DF E are true; while 4ABC ∼        = 4F ED is false since
+AB 6= F E.
+
+
+
+
+     In this problem, you are given n points on the Cartesian plane, denoted as P1 , P2 , . . . , Pn .
+The coordiates of point Pk is (xk , yk ). You are about to count the number of pairs of congruent
+triangles, whose vertices are 6 distinct points among the given ones.
+     Formally, you should count the number of tuples of indices (i1 , i2 , i3 , j1 , j2 , j3 ) satisfying
+all the below conditions:
+    • 1 ≤ i1 , i2 , i3 , j1 , j2 , j3 ≤ n
+    • i1 < i2 < i3
+    • 6 indices i1 , i2 , i3 , j1 , j2 , j3 are pairwise distinct.
+    • Triangle Pi1 Pi2 Pi3 is non-degenerate (in other words, it has positive area).
+    • 4Pi1 Pi2 Pi3 ∼
+                   = 4Pj1 Pj2 Pj3
+
+Vietnam National 2021 Problem C: Congruent Triangles                                                   3
+Input
+   The first line contains a single integer n (6 ≤ n ≤ 100) — denoting the number of given
+points.
+   Among the last n lines, the k-th one contains two integers xk and yk (0 ≤ |xk |, |yk | ≤ 109 )
+denoting the coordinates of point Pk .
+   It is guaranteed that all given points are pairwise distinct.
+
+Output
+   Print a single integer — the number of tuples satisfying all the above conditions.
+
+Explanation of the sample
+   The below figure demonstrates the above sample. The 4 valid tuples are:
+    • (1, 2, 3, 4, 5, 6)
+    • (1, 2, 3, 6, 5, 4)
+    • (4, 5, 6, 1, 2, 3)
+    • (4, 5, 6, 3, 2, 1)
+
+
+
+
+ Sample Input 1                                  Sample Output 1
+ 6                                               4
+ 2 2
+ 4 6
+ 6 2
+ 14 8
+ 10 6
+ 14 4
+
+Vietnam National 2021 Problem C: Congruent Triangles                                           4
+                                       Problem D
+                                   Distinctive Tours
+    The city of Hanoi has n sightseeing spots, which are numbered from 1 to n, inclusive. There
+are m two-way roads connecting these spots. These roads form a simple graph: no two roads
+connect the same pairs of spots, and no road connects a spot to itself.
+    Each road is decorated with a different type of tree. Hanh is a tree-lover and he wants to
+create a set of k tours which satisfy:
+
+    • Each tour is a cycle of length t(t > 2) that passes through t sightseeing spots p1 , p2 , · · · , pt .
+      More precisely,
+
+         – for all i that 1 ≤ i ≤ t − 1, pi and pi+1 must be directly connected by some road;
+         – pt and p1 must also be directly connected by some road;
+         – all pi are pair-wise distinct.
+
+    • Each tour must have at least one road which does not belong to any of the other k − 1
+      tours.
+
+   Hanh realizes that it might not be possible to create such a set using the current road net-
+work. Therefore, he wants to add some two-way roads so that:
+
+    • The new set of roads (including the added and the original ones) still form a simple graph:
+      no two roads connect the same pairs of spots, and no road connects a spot to itself.
+
+    • The number of added roads should be minimal.
+
+   Your task is to help Hanh add new roads and create a k-tour set.
+
+Input
+    • The first line contains three integers n, m and k (3 ≤ n ≤ 50, 0 ≤ m ≤ n·(n−1)
+                                                                                2
+                                                                                     ,0 ≤ k ≤
+      2 000).
+
+    • In the next m lines, each contains two integers u and v (1 ≤ u, v ≤ n) meaning that
+      initally there is a road connecting two spots u and v. It is guaranteed that these m roads
+      form a simple graph.
+
+Output
+    If it is impossible to create a k-tour set no matter how Hanh adds new roads, print a single
+line containing the word NO. Otherwise:
+
+    • The first line contains the word YES.
+
+    • The second line contains a single integer w — the minimal number of added roads.
+
+    • In the next w lines, each contains two integers x and y (1 ≤ x, y ≤ n) meaning that a
+      road connecting two spots x and y should be added.
+
+Vietnam National 2021 Problem D: Distinctive Tours                                                       5
+   • In the last k lines, each describes a tour in the below format:
+         – The first integer is t — the number of spots of the tour.
+         – The last t integers are p1 , p2 , . . . , pt — the spots of the tour.
+   If there are multiple optimal solutions, you can output any of them.
+
+Explanation of the samples
+   The figures below shows the first sample.
+   • On the left, the original roads are represented by solid segments, the added roads are
+     represented by dashed segments.
+   • On the right, there are 3 tours: red, blue and orange. Roads are colored with tours that
+     used them. You can see that each tour has one road that does not belong to the other
+     tours: (2, 3) for red, (2, 4) for blue and (3, 4) for orange.
+
+
+
+
+   In the second sample, the current roads form a complete graph, so you can not add any
+roads. You can only create 1 tour using all these current roads.
+
+ Sample Input 1                                       Sample Output 1
+ 4 4 3                                                YES
+ 1 2                                                  2
+ 1 3                                                  2 3
+ 1 4                                                  3 4
+ 2 4                                                  3 1 2 3
+                                                      3 1 2 4
+                                                      3 1 3 4
+
+ Sample Input 2                                       Sample Output 2
+ 3 3 3                                                NO
+ 1 2
+ 1 3
+ 2 3
+
+Vietnam National 2021 Problem D: Distinctive Tours                                         6
+                                       Problem E
+                                        Even Paths
+    Last year, Arthur participated in the Vietnamese Robotic Olympiad with a malfunctioning
+robot. This year, he decided to participate one more time.
+    The challenge for contestants this year is much harder. The playing field is a square grid,
+with the bottom left corner at (0, 0) and the upper right corner at (M, M ). In each of the
+(M + 1)2 grid points, there is a light. Initially, exactly N lights are turned on. The robot is
+allowed to have multiple runs and its target is to turn off all the lights.
+    A valid run of the robot is a sequence of grid points (px0 , py0 ), (px1 , py1 ), · · · , (pxk , pyk )
+where:
+
+    • these k + 1 points should be inside the playing field (formally 0 ≤ pxi , pyi ≤ M for
+      every 0 ≤ i ≤ k);
+
+    • these points are pairwise distinct;
+
+    • two consecutive grid points must be neighbor, i.e. |pxi − pxi+1 | + |pyi − pyi+1 | = 1 for
+      every 0 ≤ i < k;
+
+    • the length of the path (k) must be an even number.
+
+    According to the rules of the Olympiad, in a run, whenever the robot passes through a grid
+point, it can choose to turn off the light there. However, as Arthur’s robot is buggy again,
+his robot decides to always switch the light (on to off, off to on) whenever the robot passes
+through a grid point. In other words, all k + 1 lights at (px0 , py0 ), (px1 , py1 ), · · · , (pxk , pyk )
+are switched.
+    With this buggy robot, it is even hard just to turn off all the lights. Your task is to help
+Arthur to accomplish that. He will be extremely thankful if you manage to turn off all the
+lights. The number of runs does not need to be minimized, but it should not exceed 10 000.
+
+Input
+   The input starts with an integer T — the number of test cases (T ≤ 100 000). The T test
+cases follow with the format:
+
+    • The first line consists of 2 integers M and N (1 ≤ M ≤ 50, 0 ≤ N ≤ (M + 1)2 ).
+
+    • In the next N lines, the i-th one consists of 2 integers xi , yi presenting the location of a
+      light which is turned on at the beginning. All these locations are pairwise distinct.
+
+It is guaranteed that the sum of N in all the test cases does not exceed 100 000.
+
+Output
+    For each test case in the input:
+
+    • If it is impossible to turn off all the lights using at most 10 000 runs, print −1.
+
+
+
+Vietnam National 2021 Problem E: Even Paths                                                             7
+    • Otherwise, you should print P (0 ≤ P ≤ 10 000) — the number of paths on the first line,
+      followed by P lines describing P paths. Each line should start with an integer k — the
+      length of the path, followed by (k + 1) pairs of integers pxi , pyi (0 ≤ i ≤ k) representing
+      coordinates of points in the path.
+
+   If there are multiple solutions, you can output any of them.
+
+Explanation of the sample
+    The following 3 images show the first sample: the original grid and the first run, the grid
+after the first run and the second run, the grid after the second run. The white circle denotes a
+light turned off, a red circle denotes a light turned on.
+
+
+
+
+    The following 2 images show the second sample: the original grid and the first run, the grid
+after the first run. The white circle denotes a light turned off, a red circle denotes a light turned
+on.
+
+
+
+
+Vietnam National 2021 Problem E: Even Paths                                                        8
+Sample Input 1                                Sample Output 1
+2                                             2
+2 4                                           2 0 0 0 1 0 2
+0 0                                           2 2 1 1 1 0 1
+0 2                                           1
+1 1                                           4 1 1 2 1 2 2 3 2 3 3
+2 1
+4 5
+1 1
+2 1
+2 2
+3 2
+3 3
+
+
+
+
+Vietnam National 2021 Problem E: Even Paths                           9
+                                    Problem F
+                                   Final Ranking
+    This year, due to the COVID-19 situation in Vietnam, The ICPC Vietnam National Contest
+will be held after 3 months of delay. Being the host of the contest, all the students of FPT
+university want to qualify for their teams and to represent their university in the contest. They
+worked very hard to sharpen their problem-solving skills. FPT University’s coach organized
+a series of individual contests to prepare his n students and to be able to select the best team.
+After all contests, the rank of a contestant equals the number of contestants that have higher
+score plus 1. This is an example of a final ranking.
+
+                                   Rank   Contestant    Score
+                                   1      A             100
+                                   2      B             90
+                                   2      C             90
+                                   4      D             88
+
+     Looking at only the ranking column, we can see that this column will be a non-decreasing
+sequence of n integers and has some interesting attributes. Your task is to count the number of
+possible ranking sequences. Please note that two sequences A and B are considered different
+iff there exists a position i where Ai 6= Bi .
+
+Input
+     The input contains a single integer n (1 ≤ n ≤ 50).
+
+Output
+     The output should contain the number of possible ranking sequences.
+
+Explanation of the sample
+     The ranking of 3 students could be one of the following scenarios:
+
+     • 1 1 1 Three students have the same score;
+
+     • 1 1 3 Two students tied for the highest score and they are better than the third student;
+
+     • 1 2 2 One student has the highest score, the other two have the same score;
+
+     • 1 2 3 Three students have different scores.
+
+ Sample Input 1                                  Sample Output 1
+ 3                                               4
+
+
+
+
+Vietnam National 2021 Problem F: Final Ranking                                                10
+                                     Problem G
+                                    Group Testing
+     During the first outbreak of the COVID-19 pandemic, extensive population-wide testing
+proved to be one of the best strategy to control and prevent the outbreak. However, PCR testing
+costs both time and money. An effective way to speed up the process and to save our resources
+is to implement group testing (or pool testing) strategy.
+     In this method, instead of doing test for individuals, we mix the samples of p individuals
+and run the test. If the result is negative, we can safely conclude that all p individuals are
+negative. Otherwise, if the result is positive, individual testing is used to determine who has the
+virus.
+     In an area, there are n families indexed from 0 to n − 1. The i-th family has ai members.
+Each family will form a group. After running n tests for n groups, we have exactly k groups
+with positive results.
+     Your task is to calculate the minimum and maximum number of extra individual tests we
+have to do.
+
+Input
+    • The first line contains 2 integers n and k. (0 ≤ k ≤ n ≤ 1 000)
+
+    • The second line contains n integers a0 , a1 , · · · , an−1 . (1 ≤ ai ≤ 10)
+
+Output
+   You should print 2 integers, the minimum and maximum number of extra individual tests
+we have to do.
+
+Explanation of the samples
+    • In the first sample, if the positive groups are 0 and 1, we have to do 5 more tests; if the
+      positive group are 3 and 4, we have to do 11 more tests;
+
+    • In the second sample, if the positive group is 0, we don’t need any individual tests because
+      this group has only 1 member.
+
+
+ Sample Input 1                                     Sample Output 1
+ 5 2                                                5 11
+ 2 3 4 5 6
+
+ Sample Input 2                                     Sample Output 2
+ 3 1                                                0 3
+ 1 2 3
+
+
+
+
+Vietnam National 2021 Problem G: Group Testing                                                  11
+                                     Problem H
+                                   Hallway Tiling
+    Last year, the campus of FPT University was used as an isolation facility for COVID-
+19 patients. Now, the daily new cases have dropped significantly and the campus has been
+transformed back to a normal university environment. The university decided to re-tile their
+hallway.
+    The hallway of FPT university is a rectangle shape of size r · n, this hallway will be re-tiled
+using 1 · 2 ceramic tiles. In this hallway, there are k positions which are pillars so we will not
+re-tile these positions.
+    Your task is to count the number of possible ways to re-tile the hallway.
+
+Input
+    • The first line of the input consists of 3 integers r, n and k (1 ≤ r ≤ 6, 1 ≤ n ≤ 1012 , 0 ≤
+      k ≤ 10).
+
+    • Then k lines follows. Each contains 2 integers x and y describing the position of a pillar
+      (1 ≤ x ≤ r, 1 ≤ y ≤ n). No 2 pillars are in the same position.
+
+Output
+    Print a single integer denoting the number of possible ways to re-tile this hallway. Since
+this number could be large, you should print it modulo 109 + 7.
+
+Explanation of the sample
+   There are 2 ways to re-tile the hallway:
+
+
+
+
+ Sample Input 1                                   Sample Output 1
+ 3 4 2                                            2
+ 2 2
+ 2 3
+
+
+
+
+Vietnam National 2021 Problem H: Hallway Tiling                                                 12
+                                      Problem I
+                        ICPC Problem Selection
+When it comes to organizing an ICPC, one of the most challenging job of the scientific comittee
+is to create a good problem set. Luckily, this year we received n task proposals. Each task
+proposal is tagged with at least one of the following categories: dynamic programming (dp),
+graph theory (graph), math and geometry (mathgeo), data structure (ds) and adhoc (adhoc).
+    The scientific commitee wants a balanced problem set. Thus, they introduced several selec-
+tion rules:
+
+    • The number of problems with tag dynamic programming must be in range [dpmin , dpmax ].
+
+    • The number of problems with tag graph theory must be in range [graphmin , graphmax ].
+
+    • The number of problems with tag math and geometry must be in range [mathgeomin , mathgeomax ].
+
+    • The number of problems with tag data structure must be in range [dsmin , dsmax ].
+
+    • The number of problems with tag adhoc must be in range [adhocmin , adhocmax ].
+
+    Given the number of proposals n, the tags of every proposal and these numbers dpmin ,
+dpmax , graphmin , graphmax , mathgeomin , mathgeomax , dsmin , dsmax , adhocmin , adhocmax ;
+your task is to calculate the number of non-empty problem sets which satisfy all the above
+rules. Each problem set is a subset of the n given proposals. Two problem sets A and B are
+considered different iff there exists at least one proposal which is included in A but not in B,
+or vice versa.
+
+Input
+    • The first line contains an integer n (1 ≤ n ≤ 50) — the number of task proposals .
+
+    • In the next n lines, the i-th one describes the i-th proposal. It starts with an integer ti
+      (1 ≤ ti ≤ 5) denoting the number of tags assigned to the i-th proposal, and follows by ti
+      pair-wise distinct strings describing these tags. Each string is one of the categories listed
+      above.
+
+    • The next line contains 2 integers dpmin and dpmax (0 ≤ dpmin ≤ dpmax ≤ 15).
+
+    • The next line contains 2 integers graphmin and graphmax (0 ≤ graphmin ≤ graphmax ≤
+      15).
+
+    • The next line contains 2 integers mathgeomin and mathgeomax (0 ≤ mathgeomin ≤
+      mathgeomax ≤ 15).
+
+    • The next line contains 2 integers dsmin and dsmax (0 ≤ dsmin ≤ dsmax ≤ 15).
+
+    • The last line contains 2 integers adhocmin and adhocmax (0 ≤ adhocmin ≤ adhocmax ≤
+      15).
+
+
+
+Vietnam National 2021 Problem I: ICPC Problem Selection                                         13
+Output
+    Print a single integer denoting the number of different problem sets that satisfy the selection
+rules.
+
+Explanation of the samples
+    • In the first sample, we must use all proposals 3, 4, and 5. Among proposals 1, 2, and 6;
+      there are 5 ways to use some of them: {1, 2}, {1, 6}, {2, 6}, {1, 2, 6} and {6}.
+
+    • In the second sample, we don’t have any proposals with the tag math and geometry,
+      thus there is no satisfying problem set.
+
+
+ Sample Input 1                                   Sample Output 1
+ 6                                                5
+ 1 dp
+ 1 graph
+ 1 mathgeo
+ 1 ds
+ 1 adhoc
+ 2 dp graph
+ 1 2
+ 1 2
+ 1 2
+ 1 2
+ 1 2
+
+ Sample Input 2                                   Sample Output 2
+ 2                                                0
+ 2 dp adhoc
+ 2 ds graph
+ 1 2
+ 1 2
+ 1 2
+ 1 2
+ 1 2
+
+
+
+
+Vietnam National 2021 Problem I: ICPC Problem Selection                                         14
+                                     Problem J
+                                       Jewel Box
+    Minh has found an old mystery jewel box. On the top side of the box, there is a puzzle. It
+seems that solving this puzzle will open this box.
+    The puzzle has 9 circular locks and 4 pins. The locks are numbered from 1 to 9, the pins
+are called A, B, C and D. They are positioned like the following image:
+
+
+
+
+   After playing with the jewel box for a while, Minh realized some properties of this box:
+
+    • Each lock has C numbers from 0 to C − 1.
+
+    • You only can rotate the 4 locks in the corners 1, 3, 7 and 9; and only in clockwise direc-
+      tion.
+
+    • When a lock is rotated, if the current value of the lock is x, the new value of the lock will
+      be (x + 1) modulo C.
+
+    • You can turn on or turn off the pins as many times as you want.
+
+    • When a pin is turned on, 4 locks around that pin will rotate synchronously. In other
+      words, if one lock is rotating, the other 3 locks will also rotate in the same way. For
+      example:
+
+         – If pin A is turned on, rotating lock 1 will cause locks 2, 4, 5 to rotate.
+
+Vietnam National 2021 Problem J: Jewel Box                                                      15
+         – If pin B is turned on, rotating lock 3 will cause locks 2, 5, 6 to rotate.
+         – If pins A and B are turned on while pins C and D are turned off, rotating lock 1 will
+           cause locks 2, 4, 5 to rotate. Because pin B is turned on, locks 2 and 5 rotating will
+           also cause locks 3 and 6 to rotate. Thus, with pin A and pin B turned on, rotating
+           lock 1 will cause 6 locks to rotate.
+         – If pin A and pin D are both turned on while pins B and C are turned off, locks
+           1, 2, 4, 5, 6, 8, 9 will be synchronous.
+         – If pin A is turned on and all other pins are turned off, rotating lock 9 will only affect
+           itself.
+   The following figures show the synchronous locks when some pins are turned on. Red and
+grey represent the on and off states, respectively.
+
+
+
+
+    Given the current state of the locks, your task is to help Minh to make all the locks to value
+0. Please note that, you don’t have to minimize the number of moves.
+
+Vietnam National 2021 Problem J: Jewel Box                                                       16
+Input
+    The input starts with an integer C (8 ≤ C ≤ 50). Then, exactly 3 lines follow, each line
+contains exactly 3 integers between 0 and C − 1, inclusive, representing the initial state of the
+9 locks.
+
+Output
+    If there is no solution, print a single line containing NO. Otherwise, print YES on the first
+line, followed by:
+
+    • A single line containing k — the number of steps (0 ≤ k ≤ 1 000).
+
+    • In the next k lines, each contains 6 integers pA , pB , pC , pD , c, rot, where:
+
+         – pA , pB , pC , pD ∈ {0, 1} — represent the state of the pins: 1 represents the on state,
+           while 0 represents the off state.
+         – c ∈ {1, 3, 7, 9} — the lock that we rotate.
+         – 1 ≤ rot ≤ 100 — the number of times we rotate.
+
+Sample clarification
+   There are multiple solutions for this test case, this is one of them:
+
+
+
+
+This is the initial state of the locks. With pin A Turn off pin A and D. With all pins turned off,
+   and pin D on, we rotate lock 1 3 times.                    we rotate lock 7 7 times.
+
+
+
+
+Vietnam National 2021 Problem J: Jewel Box                                                      17
+ Now, we turn on pin B, and rotate lock 3 7   One last move, turn off pin B, turn on pin C,
+                  times.                                and rotate lock 7 6 times.
+
+
+
+
+           We got what we want!
+
+Sample Input 1                                Sample Output 1
+8                                             YES
+5 6 1                                         4
+7 0 6                                         1 0 0 1 1 3
+3 7 5                                         0 0 0 0 7 7
+                                              0 1 0 0 3 7
+                                              0 0 1 0 7 6
+
+
+
+
+Vietnam National 2021 Problem J: Jewel Box                                               18
+                                      Problem K
+                                          K-query
+    You are given an array of balls. Each ball is either black or white. Initially, the array has
+n balls. You are about to proceed q queries one by one. In each query, let m be the number of
+balls in the array before the query happens and number the balls from 1 to m (inclusive). Each
+query is in one of the following forms:
+
+    • I x k c (0 ≤ x ≤ m, 1 ≤ k ≤ 109 , c is B or W): insert k balls of color c to the array,
+      right after the x-th ball. More precisely:
+
+         – If x = 0, balls are inserted at the beginning of the array.
+         – If 1 ≤ x < m, balls are inserted between the x-th and the x + 1-th ball of the array.
+         – If x = m, balls are inserted at the end of the array.
+         – If c equals B, all inserted balls are black.
+         – If c equals W, all inserted balls are white.
+
+    • D x k (1 ≤ x ≤ m, 1 ≤ k ≤ m − x + 1): Delete k consecutive balls from the array,
+      starting at the x-th one.
+
+    • F x k (1 ≤ x ≤ m, 1 ≤ k ≤ m − x + 1): Flip the color of k consecutive balls of the
+      array starting at the x-th one. In other words, replace every black ball with a white one
+      at the same position, and vice versa.
+
+    • Q x k (1 ≤ x ≤ m, 1 ≤ k ≤ m − x + 1): Consider only k consecutive balls of the array
+      starting at the x-th one, divide them into a minimum number of segments so that every
+      segment contains consecutive balls of the same color, and let l1 , l2 , . . . , lt be the lengths
+      of these segments. Compute and print the value l12 + l22 + . . . + lt2 . Note that the way to
+      divide the balls is always unique.
+
+Input
+    • The first line contains two integers n and q (1 ≤ n, q ≤ 200 000).
+
+    • The second line contains n characters B and W, denoting the color of the balls in the initial
+      array.
+
+    • For the last q lines, each line contains a query as described above.
+
+Output
+    For each query of the form Q x k, output its result in a line. As the result can be rather
+large, output it modulo 998 244 353.
+
+
+
+
+Vietnam National 2021 Problem K: K-query                                                            19
+Explanation of the samples
+   For the first sample, the array is static:
+
+   • In the first query, the considered balls are WW. There is only one segment, the result is
+     22 = 4.
+
+   • In the second query, the considered balls are WWBBWW. We devide these balls into three
+     segments: 2 white balls, 2 black balls and 2 white balls. Hence, the result is 22 +22 +22 =
+     12.
+
+For the second sample:
+
+   • Initially, the array is BBWBB.
+
+   • In the first query, the considered balls are BWB. We divide these balls into three segments
+     of one ball each. Hence, the result is 12 + 12 + 12 = 3.
+
+   • After the second query, the array is BBBBBWBB.
+
+   • In the third query, the considered balls are BBBW. We divide these balls into two seg-
+     ments: the first one contains 3 black balls and the second one contains one white ball.
+     Hence, the result is 32 + 12 = 10.
+
+   • After the forth query, the array is BBBWWBBB.
+
+   • In the fifth query, the considered balls are WW. Since all balls are white, we can put them
+     into one segment. Hence, the result is 22 = 4.
+
+   • After the sixth query, the array is BBBBBB.
+
+   • In the seventh query, we consider the whole array. Since all balls are black, we can put
+     them into one segment. Hence, the result is 62 = 36.
+
+ Sample Input 1                                 Sample Output 1
+ 8 2                                            4
+ WWWBBWWW                                       12
+ Q 1 2
+ Q 2 6
+
+ Sample Input 2                                 Sample Output 2
+ 5 7                                            3
+ BBWBB                                          10
+ Q 2 3                                          4
+ I 0 3 B                                        36
+ Q 3 4
+ F 4 3
+ Q 4 2
+ D 4 2
+ Q 1 6
+
+Vietnam National 2021 Problem K: K-query                                                     20
+                                      Problem L
+                                       Lucky Pair
+    A pair of positive integers (x, y) is considered a lucky pair iff there exists a positive integer
+k such that: xk + y k is divisible by x · y. For example:
+
+    • (2, 4) is a lucky pair because 23 + 43 = 8 + 64 = 72 is divisible by 2 · 4 = 8;
+
+    • (3, 3) is a lucky pair because 32 + 32 = 9 + 9 = 18 is divisible by 3 · 3 = 9;
+
+    • (1, 2) is not a lucky pair because 1k + 2k is always odd for every k > 0 and can not be
+      divisible by 1 · 2 = 2.
+
+    You are given an array a containing n positive integers, your task is to count the number of
+pairs (i, j) so that i < j and (ai , aj ) is a lucky pair.
+
+Input
+    • The first line contains a single integer n — the length of the array (2 ≤ n ≤ 3 · 105 ).
+
+    • The second line contains n integers a1 , a2 , . . . , an (1 ≤ ai ≤ 107 ) — the elements of the
+      array.
+
+Output
+   Write a single integer denoting the number of lucky pairs in the array a.
+
+ Sample Input 1                                    Sample Output 1
+ 6                                                 1
+ 1 2 3 4 5 6
+
+ Sample Input 2                                    Sample Output 2
+ 4                                                 6
+ 7 7 7 7
+
+
+
+
+Vietnam National 2021 Problem L: Lucky Pair                                                       21
+                                        Problem M
+                                         Master Chef
+    Hoang Yen has recently won the television show Master Chef Vietnam. She decided to
+throw a big party to celebrate the title with her friends.
+    Hoang Yen will prepare her wonderful recipes all by herself. In order to show as many
+recipes as possible, she decided:
+
+     • Each table will be served a menu of exactly n dishes.
+
+     • Each dish will not appear more than n times.
+
+     • For each pair of tables, there is exactly 1 common dish.
+
+    Given an integer n where n − 1 has at most 2 positive divisors, what is the maximal number
+of tables she can serve?
+
+Input
+  The input consists of a single integer n (1 ≤ n ≤ 100). It is guaranteed that n − 1 has at
+most 2 positive divisors.
+
+Output
+     • The first line contains an integer t — the maximal number of tables.
+
+     • In the next t lines, the i-th one contains n distinct integers di,1 , di,2 , · · · , di,n describing n
+       dishes for table i (1 ≤ di,j ). Dishes should be numbered consecutively from 1.
+
+
+ Sample Input 1                                         Sample Output 1
+ 2                                                      3
+                                                        1 2
+                                                        2 3
+                                                        3 1
+
+
+
+
+Vietnam National 2021 Problem M: Master Chef                                                              22
+

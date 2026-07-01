@@ -1,0 +1,68 @@
+                                       The 2021 ICPC Vietnam
+                               Southern Provincial Programming Contest
+                                  University of Science, VNU-HCM
+                                         December 05th, 2021
+
+
+                                     Problem N
+                                 From Mars to Saturn
+                                    Time Limit: 2 seconds
+                                   Mem limit: 512 Megabytes
+After reading the research paper about work and sleep, the insane
+Martian programmer Mr. Phidang wants to explore and looking for
+life on the new planet, which is the Saturn. Thus, he is going to send
+a spacecraft from Mars to Saturn. His spacecraft contains a huge
+scanner in order to scan the Saturn’s surface.
+Assuming that the Saturn’s surface is a 2D polygon, and the spacecraft flies over it. The scanner
+on the spacecraft projects a laser on the surface. In particular, the spacecraft flies by a straight line
+parallel to the y-axis and the scanner width is 𝐿.
+
+
+
+
+Mr. Phidang wants to maximize the explored area. Please help him to find the maximum area.
+
+Input
+The first line contains two integers 𝑛 and 𝐿 (1 ≤ 𝑛, 𝐿 ≤ 20,000) – the number of vertices of the
+polygon, describing the Saturn’s surface, and the width of the scanner.
+Each of the next 𝑛 lines contains two integers 𝑥𝑖 and 𝑦𝑖 – coordinates of the polygon vertices.
+Vertices are given in counterclockwise direction. Polygon has no self-intersections and self-
+touches.
+All coordinates are integers, not exceeding 104 by their absolute value.
+
+Output
+Output the maximum area that can be scanned by the scanner.
+The absolute or relative error should not exceed 10−4 .
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                    The 2021 ICPC Vietnam
+                            Southern Provincial Programming Contest
+                               University of Science, VNU-HCM
+                                      December 05th, 2021
+
+
+Sample Input                                   Sample output
+ 3 3                                            14.28
+ 0 0
+ 5 1
+ 1 7
+ 3 40                                           1111.1111111111113
+ 60 10
+ 50 50
+ 0 0
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                    The 2021 ICPC Vietnam
+                            Southern Provincial Programming Contest
+                               University of Science, VNU-HCM
+                                      December 05th, 2021
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

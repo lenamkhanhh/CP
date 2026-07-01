@@ -1,0 +1,463 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Consolas}
+
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{amsmath,amssymb}
+
+\definecolor{deepblue}{HTML}{12355B}
+\definecolor{accent}{HTML}{D1495B}
+\definecolor{softgray}{HTML}{F3F5F7}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=deepblue,
+  urlcolor=deepblue,
+  citecolor=deepblue,
+  pdftitle={Roadmap ICPC HCMUS den APAC 2027},
+  pdfauthor={Codex}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{14pt}
+\lhead{\textsf{Roadmap ICPC}}
+\rhead{\textsf{06/2026}}
+\cfoot{\thepage}
+
+\emergencystretch=2em
+
+\titleformat{\section}
+  {\Large\bfseries\color{deepblue}}
+  {\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{deepblue}}
+  {\thesubsection}{0.6em}{}
+
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.25em,topsep=0.3em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=0.25em,topsep=0.3em}
+\renewcommand{\arraystretch}{1.18}
+
+\newcommand{\source}[1]{\footnote{\url{#1}}}
+\newcommand{\prio}[1]{\textbf{\color{accent}#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+  \vspace*{1.2cm}
+  {\Huge\bfseries\color{deepblue} Roadmap luyện ICPC}\\[0.35cm]
+  {\Large HCMUS $\rightarrow$ Miền Nam $\rightarrow$ National $\rightarrow$ Regional $\rightarrow$ APAC}\\[0.8cm]
+  {\large Tổng hợp từ các bộ đề công khai trong 5 mùa gần nhất và APAC Championship hiện có}\\[1.2cm]
+
+  \begin{tabular}{@{}ll@{}}
+    Ngày cập nhật: & 13/06/2026\\
+    Mốc mục tiêu: & ICPC Asia Pacific Championship mùa tới\\
+    Phạm vi Việt Nam: & Southern, National, Regional 2021--2025\\
+    Phạm vi APAC: & APAC Championship 2024, 2025, 2026\\
+  \end{tabular}
+
+  \vfill
+  \noindent
+  Bản này không phải danh sách bài tập rời rạc. Mục tiêu là rút ra các mảng kỹ thuật thật sự xuất hiện trên đường thi ICPC, rồi biến chúng thành thứ tự học, template cần có, cách upsolve và lịch luyện đội.
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Phạm vi và nguồn dữ liệu}
+
+\subsection{Phạm vi thời gian}
+
+Ngày cập nhật là 13/06/2026. Với các vòng Việt Nam, 5 mùa hoàn tất gần nhất là 2021, 2022, 2023, 2024, 2025. Vòng năm 2026 của Việt Nam chưa diễn ra tại thời điểm cập nhật, nên không đưa vào thống kê đề.
+
+Với APAC Championship, tier này mới có các bộ đề công khai từ cycle 2023--2024. Vì vậy tài liệu dùng toàn bộ APAC Championship đã có trong 5 năm gần đây: 2024, 2025 và 2026.
+
+\subsection{Nguồn chính}
+
+\begin{itemize}
+  \item Archive ICPC Việt Nam công khai, có đề và scoreboard cho Southern, National, Regional 2021--2025.\source{https://icpcvn.github.io/}
+  \item Thông báo HCMUS về vòng trường, vòng miền và vòng quốc gia. Nguồn này xác nhận đường đi tuyển đội nhưng không công khai đủ bộ đề vòng trường.\source{https://www.fit.hcmus.edu.vn/vn/Default.aspx?id=16359&tabid=292}
+  \item Bài bình luận VNOI 2025 cho các vòng miền và Regional, dùng để đối chiếu kỹ thuật cho một số bài mới.\source{https://oj.vnoi.info/post/1325-vnoi-magazine-2025-cmt-1/modern}
+  \item Thông báo OLP--ICPC Việt Nam 2026, dùng cho lịch miền, National, Asia Regional và APAC 2027.\source{https://www.olp.vn/tin-tuc/olympic-icpc/thong-bao}
+  \item Trang chính thức APAC Championship 2026 và tài nguyên problemset/analysis.\source{https://apac.icpc.global/championship/2026/resources/}
+  \item Problem analysis chính thức APAC 2024, 2025, 2026.\source{https://fileserv.icpc.jp/championship2024/analysis.pdf}\source{https://fileserv.icpc.jp/championship2025/problem-analysis.pdf}\source{https://apac.icpc.global/assets/championship/2026/problemset-analysis.pdf}
+\end{itemize}
+
+\subsection{Lưu ý về vòng trường HCMUS}
+
+Trong các nguồn công khai đã kiểm tra, không thấy archive đầy đủ đề vòng trường HCMUS cho 5 năm gần nhất. Vì vậy phần HCMUS trong tài liệu được xem như tầng tuyển chọn nội bộ: mục tiêu chính là chắc nền tảng, tốc độ code, khả năng đọc đề và tránh sai vặt. Về kỹ thuật, chuẩn vòng trường nên lấy Southern/National easy-medium làm thước đo, vì đó là tầng kế tiếp gần nhất và có đề công khai.
+
+\section{Bức tranh tổng quan}
+
+\subsection{Độ khó tăng theo từng tầng}
+
+\begin{longtable}{p{2.8cm}p{4.1cm}p{7.3cm}}
+\toprule
+\textbf{Tầng thi} & \textbf{Mục tiêu thực tế} & \textbf{Kỹ thuật thường quyết định kết quả}\\
+\midrule
+HCMUS vòng trường & Chọn người đủ chắc để lập team, kiểm tra tốc độ và nền tảng. & Implementation, sorting, prefix/suffix, greedy, binary search, BFS/DFS, DSU, Fenwick/segment tree cơ bản, DP 1--2 chiều, toán rời rạc cơ bản.\\
+\addlinespace
+Miền Nam & Chọn đội lên National; có nhiều bài dễ-vừa nhưng luôn có bài tách top. & Tất cả nền tảng trên, cộng graph shortest path/MST, tree, string hashing/KMP, geometry cơ bản, combinatorics, expected value, data structure offline.\\
+\addlinespace
+National & Sàng lọc đội mạnh toàn quốc; bài dễ ít hơn, nhiều bài cần biến đổi. & DP nâng hơn, graph nâng hơn, tree/LCA, segment tree lazy, bitmask, number theory, constructive, geometry, matching/flow xuất hiện như bài tách.\\
+\addlinespace
+Asia Regional & Cửa vào APAC/World Finals; cần team strategy rõ. & Advanced data structures, DP tối ưu, flows/matching/cut, string nâng, geometry chắc, game theory, persistent/rollback/offline, bài constructive khó và nhiều case.\\
+\addlinespace
+APAC & Tier sau Regional; đề ít bài ``free'', yêu cầu chuyển hóa sâu. & HLD + segment tree, suffix structures, convolution/FFT/NTT, advanced graph, geometry nâng, game trên cây, polynomial/combinatorics, interactive/communication, proof-heavy constructive.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Kết luận nhanh}
+
+\begin{itemize}
+  \item Nếu mục tiêu là APAC mùa tới, không thể chỉ luyện theo tag rời rạc. Cần vừa có library chuẩn, vừa có lịch contest 5 giờ, vừa có upsolve tới AC.
+  \item Southern/National yêu cầu rộng; Regional/APAC yêu cầu sâu. Cách học hợp lý là phủ nền rộng trong 8--10 tuần đầu, sau đó chuyển sang bài tách top.
+  \item Các mảng không được bỏ: graph, tree, DP, data structures, math/combinatorics, strings, geometry. Đây là lõi xuất hiện liên tục qua 5 mùa.
+  \item Các mảng nên học sớm dù khó: flow/matching, FFT/NTT, HLD, persistent/rollback, suffix array/automaton, game theory, geometry robust. Đợi tới sát Regional mới học sẽ quá muộn.
+\end{itemize}
+
+\section{Bản đồ kỹ thuật theo mức ưu tiên}
+
+\subsection{Nhóm bắt buộc}
+
+\begin{longtable}{p{3.1cm}p{5.0cm}p{6.1cm}}
+\toprule
+\textbf{Chủ đề} & \textbf{Cần nắm} & \textbf{Dấu hiệu trong đề ICPC}\\
+\midrule
+Implementation và STL & Sorting, map/set, priority queue, tuple, custom comparator, coordinate compression, two pointers, prefix/suffix. & Bài A--D ở mọi vòng; nhiều bài không khó thuật toán nhưng chết vì case, overflow, indexing.\\
+\addlinespace
+Greedy và exchange argument & Chứng minh chọn cục bộ, interval scheduling, heap greedy, sorting by key, invariant. & Các bài ranking, grouping, scheduling, deletion, construction nhỏ.\\
+\addlinespace
+Binary search & Search answer, monotonic predicate, parallel binary search mức cơ bản. & Bài tối ưu min-max, threshold, chia đoạn, bài có ràng buộc lớn và predicate kiểm tra được.\\
+\addlinespace
+Graph cơ bản & BFS/DFS, topological sort, SCC, bridge/articulation, MST, shortest path, 0-1 BFS. & Xuất hiện từ Southern tới Regional; Regional thường che kỹ thuật graph bằng mô hình lạ.\\
+\addlinespace
+Tree cơ bản & DFS order, subtree, rerooting, LCA, binary lifting, Euler tour. & Bài cây gần như mùa nào cũng có; thường kết hợp DP hoặc data structure.\\
+\addlinespace
+DP cơ bản và trung cấp & Knapsack, interval DP, DAG DP, tree DP, digit DP, bitmask DP, DP với prefix min/max. & Bài combinatorics, game, strings, grid; National trở lên cần biến đổi trạng thái.\\
+\addlinespace
+Fenwick/Segment tree & Point/range update, lazy propagation, order statistics, offline queries. & Query động, inversion, range optimization, sweep line.\\
+\addlinespace
+Math cơ bản & GCD, modular arithmetic, inverse, CRT nhẹ, sieve, prime factorization, combinatorics, inclusion-exclusion. & Nhiều bài trông như simulation/string nhưng lõi là modular hoặc đếm.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Nhóm phải lên trình để đánh Regional/APAC}
+
+\begin{longtable}{p{3.2cm}p{5.3cm}p{5.7cm}}
+\toprule
+\textbf{Chủ đề nâng cao} & \textbf{Cần học đến mức code được} & \textbf{Lý do ưu tiên}\\
+\midrule
+Advanced segment tree & Lazy nâng, segment tree beats cơ bản, persistent segment tree, merge sort tree, Li Chao tree. & Regional 2025 có bài dùng Segment Tree Beats; nhiều đề Việt Nam có range query/update khó.\\
+\addlinespace
+HLD và tree path query & Heavy-light decomposition, virtual tree, DSU on tree, rerooting nâng. & APAC 2026 có bài dùng HLD + lazy segment tree; Regional thường có cây + query.\\
+\addlinespace
+Flow và matching & Dinic, min-cost max-flow, bipartite matching, Hall intuition, min-cut modeling. & Bài tách top ở National/Regional rất hay quy về matching/flow.\\
+\addlinespace
+Strings nâng & Rolling hash robust, KMP/Z, suffix array, suffix automaton, trie/Aho-Corasick. & Southern/National có substring; APAC có suffix ordering/interactive.\\
+\addlinespace
+Geometry & Orientation, convex hull, rotating calipers, line intersection, polygon area, point-in-polygon, half-plane mức cơ bản. & 5 năm gần đây có polygon/circle/grid geometry; APAC 2026 có bài geometry ``Onion''.\\
+\addlinespace
+FFT/NTT và convolution & Complex FFT, NTT mod chuẩn, convolution boolean/integer, polynomial multiplication. & APAC và Regional đều có bài convolution/bitset/counting; Southern 2025 cũng có dấu hiệu FFT ở bài tách.\\
+\addlinespace
+Game theory & Sprague-Grundy cơ bản, minimax trên tree/DAG, parity/invariant, binary search + game predicate. & APAC 2026 có game trên subtree; Vietnam cũng có nhiều bài game/construction.\\
+\addlinespace
+Sqrt decomposition/offline & Mo's algorithm, block decomposition, divide and conquer offline, rollback DSU. & Dùng khi constraints đẩy khỏi segment tree chuẩn hoặc bài dynamic graph offline.\\
+\addlinespace
+Linear algebra over finite fields & Gaussian elimination mod 2/mod p, XOR basis, rank, vector space. & APAC 2024 có bài XOR operations; Regional/National thường có bài bitwise linear basis.\\
+\bottomrule
+\end{longtable}
+
+\section{Quan sát từ bộ đề 5 mùa}
+
+\subsection{Việt Nam 2021--2025}
+
+Các bộ Southern, National, Regional giai đoạn 2021--2025 cho thấy đề Việt Nam có hai lớp rõ:
+
+\begin{itemize}
+  \item Lớp lấy điểm: implementation chắc, greedy, sorting, binary search, graph cơ bản, DP vừa, segment tree/Fenwick. Đây là nguồn điểm chính để vượt vòng trường và miền.
+  \item Lớp tách top: data structure nâng, graph modeling, flow/matching, geometry, string nâng, number theory, constructive khó, DP nhiều biến đổi.
+\end{itemize}
+
+\begin{longtable}{p{2.1cm}p{2.4cm}p{9.5cm}}
+\toprule
+\textbf{Mùa} & \textbf{Vòng} & \textbf{Dấu hiệu kỹ thuật nổi bật}\\
+\midrule
+2021--2025 & Southern & Nhiều bài dễ-vừa nhưng phủ rất rộng: arrays, strings, graphs, expected value, geometry, segment tree, FFT/NTT ở bài tách, bài mô phỏng lớn cần code sạch.\\
+\addlinespace
+2021--2025 & National & Tăng tỷ lệ bài cần insight: DP, combinatorics, graph modeling, tree, number theory, data structure offline, constructive. Ít bài chỉ cần template thuần.\\
+\addlinespace
+2021--2025 & Regional & Đề chuyển sang tầng proof và modeling: flow/matching, segment tree nâng, DP tối ưu, interactive/communication, graph khó, geometry/string nâng. Cần team strategy và upsolve sâu.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Ví dụ rõ từ mùa 2025}
+
+Bài bình luận VNOI 2025 ghi nhận nhiều kỹ thuật tách trình:
+
+\begin{itemize}
+  \item Southern 2025 có weighted substring, persistent segment tree, FFT/convolution, geometry, DP/greedy và bài cần xử lý dữ liệu lớn.
+  \item National 2025 có number theory, strings, contours/geometry, graph/DP, constructive và các bài cần chứng minh điều kiện.
+  \item Regional 2025 có Segment Tree Beats, DP kết hợp cấu trúc dữ liệu, flow modeling, game/number theory, interactive/communication và nhiều bài yêu cầu biến đổi không trực tiếp.
+\end{itemize}
+
+Kết luận: nếu chỉ học theo mức Southern thì tới Regional sẽ thiếu DS nâng, flow, string nâng và proof. Nếu chỉ cày bài khó mà bỏ tốc độ implementation thì lại mất điểm ở vòng trường/miền.
+
+\subsection{APAC 2024--2026}
+
+APAC không chỉ là Regional khó hơn. Các problem analysis chính thức cho thấy bài thường yêu cầu một trong ba thứ: chuyển hóa toán học, cấu trúc dữ liệu nặng, hoặc proof để giảm không gian tìm kiếm.
+
+\begin{longtable}{p{2.1cm}p{4.0cm}p{8.0cm}}
+\toprule
+\textbf{Năm} & \textbf{Ví dụ bài} & \textbf{Kỹ thuật cần chuẩn bị}\\
+\midrule
+2024 & XOR Operations, Tree Quiz, Symmetric Boundary, Pho Restaurant & Linear algebra mod 2, tree reasoning, geometry/symmetry, DP/graph và constructive.\\
+\addlinespace
+2025 & Cactus Connectivity, Tower of Hanoi, Book Sorting, Can You Reach There? & Graph structure, recursive/DP reasoning, sorting with invariant, reachability/geometry/constructive.\\
+\addlinespace
+2026 & Compare Suffixes, Subtree Removal Game, Christmas Tree Un-decoration, Minesweeper String, Onion & Interactive suffix ordering, game on tree, HLD + lazy segment tree, convolution/FFT, computational geometry.\\
+\bottomrule
+\end{longtable}
+
+\subsection{APAC 2026 chi tiết}
+
+Đây là bộ đề APAC gần nhất đã có trước ngày lập tài liệu. Bảng dưới đây đưa riêng từng bài để không bị chìm trong phần tổng quan.
+
+\begin{longtable}{p{0.8cm}p{4.1cm}p{5.0cm}p{4.4cm}}
+\toprule
+\textbf{ID} & \textbf{Bài} & \textbf{Kỹ thuật chính} & \textbf{Nên học gì từ bài}\\
+\midrule
+A & Compare Suffixes & Interactive, suffix ordering, suffix-array intuition, binary search theo nhóm chữ cái. & Cách giảm số query bằng invariant và cấu trúc thứ tự suffix.\\
+\addlinespace
+B & Subtree Removal Game & Binary search answer, minimax/game trên cây, tree DP theo dấu tổng con. & Chuyển bài game giá trị lớn thành predicate thắng/thua.\\
+\addlinespace
+C & Upside Down Dijkstra & Graph process, stack validation, DFS-order characterization, edge bookkeeping. & Nhìn thuật toán sai như một quá trình graph có invariant.\\
+\addlinespace
+D & Christmas Tree Un-decoration & Tree DP, heavy-light decomposition, lazy segment tree trên chain. & HLD không chỉ để path query mà còn để duy trì DP sau update.\\
+\addlinespace
+E & Parallel Sums & Modular groups, range maximum query, sparse table, sqrt decomposition theo tham số $m$. & Tách case theo $\sqrt n$ và biến constraint tuyến tính thành RMQ.\\
+\addlinespace
+F & Minesweeper String & Polynomial convolution/FFT, divisor enumeration, difference array, case decomposition. & Khi mọi width cần tính, dùng convolution để gom đóng góp theo khoảng cách.\\
+\addlinespace
+G & Extra Transition & Series-parallel graph, graph reduction, dominator-tree reasoning, proof-heavy graph. & Regional/APAC graph thường khó ở mô hình và chứng minh, không chỉ template.\\
+\addlinespace
+H & Reflect Sort & Invariant, gcd, number theory trên hiệu liên tiếp. & Tìm đại lượng bất biến rồi rút bài thao tác về gcd.\\
+\addlinespace
+I & Growth Factor & Divisibility DP, binomial basis, Fermat identity, factor/multiple iteration. & DP đếm nâng cao dùng biểu diễn đại số để giảm trạng thái.\\
+\addlinespace
+J & Worldwide Playlist & Permutation positions, dynamic swaps, local contribution update. & Bài dễ-vừa APAC vẫn đòi hỏi tìm đúng đại lượng cần duy trì.\\
+\addlinespace
+K & Time Display Stickers & Greedy feasibility, binary search, resource allocation. & Modeling điều kiện khả thi trước rồi tối ưu bằng binary search.\\
+\addlinespace
+L & Onion & Computational geometry, convex hull layers, collinear grouping, $\sqrt n$ structure. & Geometry APAC cần proof để giảm candidate, không thể brute hull từng lớp.\\
+\addlinespace
+M & Deformed Balance & Formal grammar, bracket-state automaton, constructive prefix/suffix. & Biến grammar thành state nhỏ và tối ưu phần thêm vào.\\
+\bottomrule
+\end{longtable}
+
+\section{Thứ tự học đề xuất}
+
+\subsection{Giai đoạn 1: Nền tảng lấy điểm chắc}
+
+Thời lượng: 6--8 tuần đầu.
+
+\begin{enumerate}
+  \item C++ contest: I/O, template gọn, debug macro, overflow, precision, random test nhỏ.
+  \item Arrays/strings cơ bản: prefix, difference array, two pointers, binary search, KMP/Z/hash.
+  \item Graph cơ bản: BFS/DFS, topo, SCC, bridge/articulation, MST, Dijkstra, 0-1 BFS.
+  \item Data structures: Fenwick, segment tree lazy, DSU, sparse table, monotonic stack/queue.
+  \item DP nền: knapsack, interval, tree DP, DAG DP, bitmask nhỏ, digit DP.
+  \item Math nền: modular, combinatorics, sieve, GCD, CRT nhẹ, inclusion-exclusion.
+\end{enumerate}
+
+Mục tiêu kết thúc giai đoạn: làm virtual Southern 2021--2025, mỗi contest phải giải được nhóm bài dễ-vừa trong thời gian contest và upsolve hết các bài chưa AC trong 3--5 ngày.
+
+\subsection{Giai đoạn 2: Mở rộng National}
+
+Thời lượng: 6--8 tuần.
+
+\begin{enumerate}
+  \item Tree nâng: LCA chắc, rerooting, HLD cơ bản, DSU on tree.
+  \item DP nâng: divide-and-conquer optimization, convex hull trick cơ bản, DP trên bitmask lớn hơn, profile DP.
+  \item Strings nâng: suffix array, suffix automaton, Aho-Corasick, hashing chống collision.
+  \item Geometry chắc: convex hull, line/segment intersection, polygon area, point in polygon, rotating calipers.
+  \item Graph modeling: min-cut intuition, bipartite matching, Dinic, shortest path variants.
+\end{enumerate}
+
+Mục tiêu kết thúc giai đoạn: virtual National 2021--2025; sau mỗi contest phải viết lại editorial cá nhân cho ít nhất 3 bài chưa làm được.
+
+\subsection{Giai đoạn 3: Regional/APAC topics}
+
+Thời lượng: 8--10 tuần.
+
+\begin{enumerate}
+  \item Advanced DS: persistent segment tree, merge sort tree, segment tree beats cơ bản, Li Chao tree.
+  \item Flow/matching: Dinic tối ưu, min-cost max-flow, min-cut reductions, Hall theorem trong modeling.
+  \item FFT/NTT: convolution chuẩn, convolution nhiều mod, dùng bitset khi phù hợp.
+  \item Offline/dynamic: DSU rollback, parallel binary search, divide-and-conquer over time, Mo's algorithm.
+  \item Game/proof: Sprague-Grundy, minimax tree, invariant, exchange argument nâng.
+  \item APAC style: đọc analysis chính thức 2024--2026, tự viết lại lời giải ngắn trước khi code.
+\end{enumerate}
+
+Mục tiêu kết thúc giai đoạn: virtual Regional 2021--2025 và APAC 2024--2026. Với APAC, không cần AC hết ngay, nhưng mỗi bài phải phân loại được: biết hướng, thiếu kỹ thuật nào, template nào cần thêm.
+
+\section{Lịch luyện từ 06/2026 đến APAC mùa tới}
+
+Lịch 2026 đã được công bố: miền Nam ngày 17--18/10/2026, National ngày 08--09/11/2026, Asia Regional Đà Nẵng ngày 10--11/12/2026; APAC dự kiến vào tháng 03/2027 tại Tokyo. Từ ngày cập nhật còn 18 tuần tới miền Nam và gần 26 tuần tới Regional.
+
+\begin{longtable}{p{3.0cm}p{5.0cm}p{6.5cm}}
+\toprule
+\textbf{Thời gian} & \textbf{Trọng tâm} & \textbf{Kết quả cần có}\\
+\midrule
+13--30/06 & Baseline, chốt đội, contest engineering & Hai virtual Southern; đo số AC theo thời gian, WA, bottleneck code; chốt workflow stress/brute và template core.\\
+\addlinespace
+01/07--09/08 & Nền lấy điểm & Graph/DS/DP/tree/math/string core; Southern 2021--2023; ba bài dễ đầu trong 90 phút.\\
+\addlinespace
+10/08--20/09 & National core, Regional intro & LCA/HLD, Dinic, suffix, geometry, DP optimization; Southern 2024--2025 và National 2021--2023.\\
+\addlinespace
+21/09--16/10 & Peak miền Nam & Hai virtual/tuần nếu có thể; giảm học tag mới; tập solve order, communication và giảm WA.\\
+\addlinespace
+17--18/10 & ICPC miền Nam & Thi tập trung tại HCMUS; mục tiêu không rơi bài nền vì implementation hoặc strategy.\\
+\addlinespace
+19/10--07/11 & National sprint & National 2024--2025; flow, advanced DP, strings, geometry; đóng băng notebook trước thi 7 ngày.\\
+\addlinespace
+08--09/11 & ICPC National & Chốt đội đủ điều kiện và phân vai cho Regional.\\
+\addlinespace
+10/11--09/12 & Asia Regional sprint & Regional 2021--2025; 2 contest/tuần; advanced DS/offline/FFT chỉ bổ sung theo lỗ hổng.\\
+\addlinespace
+10--11/12 & Asia Regional Đà Nẵng & Thi một máy đúng strategy đã luyện.\\
+\addlinespace
+14/12--28/02 & APAC specific & APAC 2024--2026; FFT/NTT, linear algebra, game/proof, geometry nâng và interactive theo kết quả virtual.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Gate thay cho việc quét hết tag}
+
+\begin{itemize}
+  \item Trước miền Nam: phần lớn Southern cũ đạt 5--7 bài; ba bài dễ đầu trong 90 phút.
+  \item Trước National: mỗi người owner độc lập ít nhất hai nhóm bài; team có AC flow, HLD và suffix structure.
+  \item Trước Regional: Regional cũ đạt khoảng 6--8 bài tùy độ khó; có ít nhất hai luồng code độc lập.
+  \item Trước APAC: tiến dần tới 5--7 bài trên APAC cũ; không dành nhiều tuần cho bài one-team nếu kỹ thuật không chuyển giao.
+\end{itemize}
+
+Các con số trên là benchmark luyện tập, không phải bảo đảm thứ hạng hay suất đi tiếp.
+
+\section{Cách luyện hằng tuần}
+
+\subsection{Nhịp tối thiểu}
+
+\begin{itemize}
+  \item 1 buổi virtual contest 5 giờ theo format ICPC.
+  \item 1 buổi upsolve chung: mỗi bài chưa AC phải có người chịu trách nhiệm đọc, tóm tắt và code lại.
+  \item 2--3 block cá nhân, mỗi block 2--3 giờ, tập trung một chủ đề duy nhất.
+  \item 1 block code template: viết lại từ đầu và test bằng stress/random nếu có thể.
+\end{itemize}
+
+Trong bốn tuần trước Regional, tăng lên hai virtual mỗi tuần và giảm học chủ đề mới.
+
+\subsection{Luật upsolve}
+
+\begin{enumerate}
+  \item Nếu trong contest đã có hướng nhưng code sai: fix tới AC trong 24 giờ.
+  \item Nếu không có hướng: đọc editorial 15--20 phút, đóng lại, tự viết lại idea bằng tiếng Việt.
+  \item Nếu thiếu kỹ thuật: thêm vào notebook, tìm 3 bài cùng tag để luyện ngay trong tuần.
+  \item Nếu bài quá khó APAC: vẫn phải ghi ``mấu chốt chuyển hóa'' và template liên quan.
+\end{enumerate}
+
+\subsection{Strategy team}
+
+\begin{itemize}
+  \item Team cần ít nhất hai luồng implementation độc lập. Math/proof là chuyên môn có giá trị, nhưng người giữ vai trò này vẫn phải tự code được bài nền.
+  \item Phân vai gợi ý: implementation/DS, graph/flow/geometry, DP/math/string; vai trò được phép chồng lấn và phải đổi theo đề.
+  \item 30 phút đầu contest phải đọc rộng, phân loại nhanh: free, medium, hard, trap.
+  \item Không để cả team kẹt một bài quá 25--35 phút nếu chưa có tiến triển rõ.
+  \item Notebook chỉ hữu dụng nếu code đã từng được dùng AC trong contest/virtual, không phải copy template chưa kiểm chứng.
+\end{itemize}
+
+\section{Checklist library cần có}
+
+\begin{longtable}{p{4.0cm}p{9.9cm}}
+\toprule
+\textbf{Module} & \textbf{Nội dung}\\
+\midrule
+Core & Fast I/O, modular integer, combinatorics precompute, coordinate compression, random stress harness.\\
+Graph & BFS/DFS, topo, SCC, bridge/articulation, DSU, Kruskal, Dijkstra, 0-1 BFS, Bellman-Ford/SPFA chỉ khi cần.\\
+Flow & Dinic, min-cost max-flow, bipartite matching, min-cut extraction.\\
+Tree & LCA, Euler tour, HLD, rerooting skeleton, DSU on tree, virtual tree.\\
+Data structures & Fenwick, lazy segment tree, sparse table, persistent segment tree, Li Chao, merge sort tree, ordered set nếu compiler hỗ trợ.\\
+Strings & KMP, Z, rolling hash double, trie, Aho-Corasick, suffix array, suffix automaton.\\
+Math & Sieve, factorization, modular inverse, CRT, linear basis XOR, Gaussian elimination mod 2/mod p, FFT/NTT.\\
+Geometry & Point/vector, orientation, segment intersection, convex hull, polygon area, point in polygon, rotating calipers, circle basics.\\
+Offline & Mo's algorithm, DSU rollback, divide-and-conquer over time, parallel binary search.\\
+\bottomrule
+\end{longtable}
+
+\section{Danh sách bộ đề nên chạy lại}
+
+\subsection{Theo thứ tự tăng độ khó}
+
+\begin{enumerate}
+  \item Southern 2021, 2022, 2023, 2024, 2025.
+  \item National 2021, 2022, 2023, 2024, 2025.
+  \item Regional 2021, 2022, 2023, 2024, 2025.
+  \item APAC Championship 2024, 2025, 2026.
+\end{enumerate}
+
+\subsection{Cách dùng bộ đề}
+
+\begin{itemize}
+  \item Lần 1: virtual đúng 5 giờ, không đọc editorial.
+  \item Lần 2: upsolve trong 3--5 ngày.
+  \item Lần 3: sau 3--4 tuần, chọn lại các bài đã từng fail vì thiếu kỹ thuật và code lại không nhìn lời giải.
+  \item Với APAC, ưu tiên đọc official analysis sau contest để học cách ban giám khảo biến đổi bài.
+\end{itemize}
+
+\section{Danh mục chủ đề cuối cùng}
+
+Nếu phải rút gọn thành danh sách học, đây là thứ tự ưu tiên:
+
+\begin{enumerate}
+  \item Implementation, greedy, sorting, binary search, prefix/suffix, two pointers.
+  \item BFS/DFS, SCC, bridge/articulation, biconnected/block-cut tree, functional graph, MST, shortest paths.
+  \item Fenwick, segment tree lazy, sparse table, DSU.
+  \item DP: knapsack, interval, tree, DAG, bitmask, digit, rerooting.
+  \item Math: modular, combinatorics, sieve, factorization, CRT, inclusion-exclusion, Euler phi, Möbius và divisor transforms.
+  \item Tree nâng: LCA, HLD, virtual tree, DSU on tree.
+  \item Strings: KMP/Z/hash, trie/Aho-Corasick, suffix array, suffix automaton.
+  \item Geometry: robust orientation, hull, polygon, circle, sweep line cơ bản.
+  \item Flow/matching/min-cut modeling.
+  \item Advanced DS: persistent segment tree, segment tree beats, Li Chao, rollback.
+  \item Offline/sqrt: Mo, CDQ, rollback DSU, divide-and-conquer over time, parallel binary search.
+  \item FFT/NTT/convolution, bitset optimization.
+  \item Linear algebra: XOR basis, Gaussian elimination.
+  \item Game theory và invariant/proof-heavy constructive.
+  \item Interactive/communication style, đọc statement protocol cẩn thận.
+\end{enumerate}
+
+\section{Kết luận}
+
+Đường từ vòng trường HCMUS tới APAC không thiếu chủ đề, nhưng có thứ tự hợp lý. Ba việc quan trọng nhất từ tháng 6/2026 là:
+
+\begin{enumerate}
+  \item Hoàn thành nền lấy điểm qua Southern/National cũ.
+  \item Xây library đã test cho DS, graph, tree, string, math, geometry.
+  \item Chuyển dần sang Regional/APAC style bằng virtual contest 5 giờ và upsolve có ghi chép.
+\end{enumerate}
+
+Nếu giữ nhịp này từ 06/2026, tới vòng trường và miền sẽ đủ tốc độ; tới National/Regional sẽ có nền topic; sau Regional có thể dành 1--2 tháng cuối để đánh riêng APAC 2024--2026 và các contest tương đương.
+
+\end{document}

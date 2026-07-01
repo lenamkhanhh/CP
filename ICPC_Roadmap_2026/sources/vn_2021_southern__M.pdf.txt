@@ -1,0 +1,65 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                         Problem M
+                                          Solitaire
+                                    Time limit: 2 seconds
+                                  Mem limit: 256 Megabytes
+
+
+
+
+Mr. Bikrone invented the following solitaire:
+Let 𝑛 cards be laid out in a row, each of which contains one number 𝑎1 , 𝑎2 , … , 𝑎𝑛 .
+Mr. Bikrone looks through these cards from left to right and puts some of them to the right end.
+The condition for moving a card is the presence to the right of it at least one card with a larger
+value than its own. More strictly: the card at position 𝑖 with the value 𝑎𝑖 will be moved to the right
+if there is a position 𝑗 (𝑗 > 𝑖) such that 𝑎𝑗 > 𝑎𝑖 .
+
+Solitaire is completed when Mr. Bikrone cannot move any card to the right end.
+You need to help Mr. Bikrone figure out how many transfers will have to be done to complete the
+solitaire.
+
+Input
+The first line contains one integer 𝑛 (1 ≤ 𝑛 ≤ 106 ) – the number of cards in the solitaire.
+
+The second line contains 𝑛 space-separated integers 𝑎𝑖 - a description of the original location cards
+on the table from left to right (1 ≤ 𝑎𝑖 ≤ 109 ).
+
+Output
+Print one number - the number of transfers need to be done to finish the solitaire.
+
+Sample input                                       Sample output
+ 10                                                 14
+ 3 7 6 8 5 8 2 1 7 6
+
+
+The 2021 ICPC Vietnam Southern Provincial Contest                                          3|Page
+                                     The 2021 ICPC Vietnam
+                             Southern Provincial Programming Contest
+                                University of Science, VNU-HCM
+                                       December 05th, 2021
+
+
+Explanation
+      Originally, the cards having values 3,7,6,5,2,1 are first moved to the right end, which
+       take Mr. Bikrone 𝟔 transfers. After that, the new setup is 8,8,7,6,3,7,6,5,2,1.
+      Next, the cards having values 6,3 are moved to the right end, which leads to the sequence
+       8,8,7,7,6,5,2,1,6,3. Mr. Bikrone needs to transfer 𝟐 times.
+      The cards valued 5,2,1 are then transferred to the right end with 𝟑 transfers and leads to
+       the sequence 8,8,7,7,6,6,3,5,2,1.
+      After that, only one card of value 3 is transferred to the right end, which takes 𝟏 transfer
+       and the sequence is now 8,8,7,7,6,6,5,2,1,3.
+      Finally, the two cards 2,1 are transferred to the right end and Mr. Bikrone has the final
+       version of the card sequence 8,8,7,7,6,6,5,3,2,1, with the 𝟐 last transfers.
+
+The total number of transfers are 6 + 2 + 3 + 1 + 2 = 𝟏𝟒 transfers.
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Contest                                        4|Page
+

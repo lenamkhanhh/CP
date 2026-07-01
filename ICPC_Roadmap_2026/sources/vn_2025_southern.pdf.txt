@@ -1,0 +1,766 @@
+                                    Problem List
+Problem A: Two arrays . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    1
+Problem B: Metro System Development Simulation . . . . . . . . . . . . . . . . . . . .           2
+Problem C: Weighted Substring Queries . . . . . . . . . . . . . . . . . . . . . . . . . .        4
+Problem D: The Alchemist’s Diminishing Gold . . . . . . . . . . . . . . . . . . . . . . .        6
+Problem E: Delete sequence . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     7
+Problem F: Power Absorption . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      8
+Problem G: Electric Circuit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   10
+Problem H: Removing noisy data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      12
+Problem I: Draw a Polygon . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     13
+Problem J: The most famous game . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       14
+Problem K: Emma’s Array Balancing Challenge . . . . . . . . . . . . . . . . . . . . . .         15
+Problem L: Beautiful numbers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    17
+                                         The 2025 ICPC
+                                Vietnam Southern Provincial Contest
+
+
+
+                                              Problem A
+                                               Two arrays
+                                      Time limit: 1 second
+                                   Memory limit: 256 megabytes
+
+You are given two integer arrays a and b, each containing n elements: a1 , a2 , . . . , an and b1 , b2 , . . . , bn .
+You are allowed to perform the following operation any number of times:
+
+    • Choose an index i (1 ≤ i ≤ n), and increase both ai and bi by one.
+
+Given two integers C and D, determine the minimum number of operations required to make
+the two arrays satisfy:
+
+                          max(a) − min(a) ≤ C          and     max(b) − min(b) ≤ D.
+
+Here, max(a) and min(a) denote the maximum and minimum elements of array a, respectively;
+similarly for max(b) and min(b).
+
+Input
+The first line contains an integer T , which is the number of test cases. For each test case:
+
+    • The first line contains three integers n, C, D (1 ≤ n ≤ 105 , 0 < C, D ≤ 109 ).
+
+    • The second line contains n integers a1 , a2 , . . . , an (−109 ≤ ai ≤ 109 ).
+
+    • The third line contains n integers b1 , b2 , . . . , bn (−109 ≤ bi ≤ 109 ).
+
+The sum of n over all test cases is at most 105 .
+
+Output
+For each test case, print a single integer on a single line - the minimum number of operations
+required to make both arrays satisfy the given constraints. In case we cannot find a way to satisfy
+the condition, print −1.
+                 Sample Input                                         Sample Output
+ 2                                                    1
+ 4 2 3                                                -1
+ -1 -2 -3 -4
+ -1 -2 -3 -4
+ 5 2 1
+ -1 0 1 2 3
+ 2 2 2 2 2
+
+
+
+
+The 2025 ICPC                                                                                                      1
+Vietnam Southern Provincial Contest | Problem A: Two arrays
+                                     The 2025 ICPC
+                            Vietnam Southern Provincial Contest
+
+
+
+                                        Problem B
+                  Metro System Development Simulation
+                                  Time limit: 2 seconds
+                               Memory limit: 512 megabytes
+
+The bustling metropolitan city of TTT has been experiencing unprecedented growth in its tech
+industry, leading to severe traffic congestion and transportation challenges. As the Chief Metro
+Planning Engineer for the TTT Metropolitan Transit Authority, you’ve been assigned to design
+and simulate the city’s first comprehensive metro system.
+Currently, TTT has n metro stations planned, connected by m uni-directional metro lines, with
+stations numbered from 1 to n. The transit authority has approved a multi-phase metro expansion
+project to create an efficient underground transportation network. Your simulation system needs
+to handle two critical types of metro development operations that will be implemented across
+different construction phases.
+Your task is to simulate q metro development operations that represent real-world construction
+phases and route planning decisions. Each operation can have two types as described below:
+Operation Type 1 - Station Expansion: 1 x d
+A new metro station n+1 is constructed as part of the current expansion phase, and it is connected
+to existing station x with a new metro line to ensure network connectivity.
+
+   • If d = 0, the direction of the new metro line is from station x to the new station n + 1
+     (allowing metro travel from the existing station to the new station)
+
+   • If d = 1, the direction of the new metro line is from the new station n + 1 to station x
+     (allowing metro travel from the new station to the existing station)
+
+The value of n must be incremented by 1 after this operation as the metro system now has n + 1
+stations to manage.
+Operation Type 2 - Route Connectivity Check: 2 x y
+The operations control center needs to verify if passengers can travel from station x to station y
+using the current metro network. Print Yes if it’s possible to travel from station x to station y
+through the existing metro lines, print No otherwise.
+As the metro planning engineer, you need to process these operations in real-time to help tran-
+sit authority officials make informed decisions about TTT’s metro expansion phases and route
+optimization.
+
+Input
+The first line of input contains two space-separated integers n (the initial number of metro stations)
+and m (the number of existing metro lines).
+Next, m lines of input contain two space-separated integers u and v denoting that there is a
+uni-directional metro line from station u to station v.
+Next line contains an integer q denoting the number of metro development operations to simulate.
+Next q lines of input contain q operations, one per line, where each operation is one of the two
+possible types described above.
+
+The 2025 ICPC                                                                                       2
+Vietnam Southern Provincial Contest | Problem B: Metro System Development Simulation
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+Constraints
+   • 1 ≤ n, m ≤ 5 × 104
+   • 1 ≤ q ≤ 105
+   • 1 ≤ u, v ≤ n
+   • d ∈ {0, 1}
+   • The values of x, y always correspond to an existing metro station in TTT at the time of the
+     query.
+
+Output
+For each Operation Type 2 (route connectivity check), print Yes if it’s possible to travel from
+station x to station y, otherwise print No.
+               Sample Input                                 Sample Output
+ 3 3                                          Yes
+ 1 2                                          Yes
+ 2 3                                          No
+ 3 1                                          Yes
+ 6
+ 2 1 3
+ 1 2 0
+ 2 1 4
+ 2 4 1
+ 1 3 1
+ 2 5 1
+
+Explanation
+Initial State: Metro stations 1, 2, 3 with lines 1 → 2, 2 → 3, 3 → 1 forming a circular route.
+Operation 1: 2 1 3 - Check if passengers can travel from station 1 to station 3.
+Route exists: 1 → 2 → 3. Output: Yes
+Operation 2: 1 2 0 - Build new metro station 4, connect station 2 to station 4 (metro line
+2 → 4).
+Now we have stations 1, 2, 3, 4 with lines: 1 → 2, 2 → 3, 3 → 1, 2 → 4
+Operation 3: 2 1 4 - Check if passengers can travel from station 1 to station 4.
+Route exists: 1 → 2 → 4. Output: Yes
+Operation 4: 2 4 1 - Check if passengers can travel from station 4 to station 1.
+No route exists from station 4 to station 1. Station 4 is a terminal station with no outgoing lines.
+Output: No
+Operation 5: 1 3 1 - Build new metro station 5, connect station 5 to station 3 (metro line
+5 → 3).
+Now we have stations 1, 2, 3, 4, 5 with lines: 1 → 2, 2 → 3, 3 → 1, 2 → 4, 5 → 3
+Operation 6: 2 5 1 - Check if passengers can travel from station 5 to station 1.
+Route exists: 5 → 3 → 1. Output: Yes
+
+The 2025 ICPC                                                                                     3
+Vietnam Southern Provincial Contest | Problem B: Metro System Development Simulation
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+                                          Problem C
+                           Weighted Substring Queries
+                                 Time limit: 1 second
+                              Memory limit: 256 megabytes
+
+You are given N distinct strings. The i-th string is si and has weight ci . You are also given a text
+string T .
+For each query [L, R] (1-indexed, inclusive), consider the substring
+
+                                    st = T [L] T [L + 1] . . . T [R].
+
+Define the value of the substring st as
+                                                      N
+                                                      X
+                                      val(L, R) =            ci · k i ,
+                                                       i=1
+
+where ki is the number of (possibly overlapping) occurrences of si as a contiguous substring of
+st. For every query, output val(L, R).
+
+Input
+The first line contains two integers N and Q (1 ≤ N, Q ≤ 105 ).
+Each of the next N lines contains a string si and an integer ci (1 ≤ ci ≤ 109 ). All si are pairwise
+distinct.
+The next line contains the text string T .
+Each of the last Q lines contains two integers L and R denoting a query.
+Additional guarantees:
+
+   • The total length of all input strings (all si plus T ) does not exceed 105 .
+
+   • The total number of occurrences of all si inside T is at most 105 .
+
+Output
+Print Q lines. The j-th line contains a single integer — the answer to the j-th query.
+               Sample Input                                         Sample Output
+ 6 3                                            17
+ she 3                                          6
+ he 2                                           6
+ her 5
+ sh 1
+ er 4
+ us 2
+ ushersheher
+ 1 5
+ 2 4
+ 6 8
+
+The 2025 ICPC                                                                                      4
+Vietnam Southern Provincial Contest | Problem C: Weighted Substring Queries
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+Note
+For the first query [1, 5], the substring is usher. Occurrences inside usher:
+
+   • she occurs 1 time: contributes 3
+
+   • he occurs 1 time: contributes 2
+
+   • her occurs 1 time: contributes 5
+
+   • sh occurs 1 time: contributes 1
+
+   • er occurs 1 time: contributes 4
+
+   • us occurs 1 time: contributes 2
+
+Total: 3 + 2 + 5 + 1 + 4 + 2 = 17.
+
+
+
+
+The 2025 ICPC                                                                   5
+Vietnam Southern Provincial Contest | Problem C: Weighted Substring Queries
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+                                       Problem D
+                      The Alchemist’s Diminishing Gold
+                                 Time limit: 2 seconds
+                              Memory limit: 512 megabytes
+
+An alchemist has created a magical piece of gold with an initial Essence Value of n. He plans
+to perform a refining process exactly k times to purify it.
+Each time the process is performed on a piece of gold with Essence Value v, the gold fractures into
+several fragments. The Essence Values of these fragments are exactly the divisors of v. Due
+to the chaotic nature of the magical reaction, the alchemist must randomly pick one of the
+resulting fragments to continue the process. Every fragment (i.e., every divisor) has an equal
+chance of being selected.
+The alchemist wishes to forecast the outcome of his experiment. What is the expected Essence
+Value of the final piece of gold after k refining steps?
+                                            P
+The answer can be represented as a fraction Q , where P and Q are coprime and Q ̸≡ 0 (mod 109 +
+7). Output the result as P · Q−1 mod 109 + 7.
+
+Input
+A single line containing two integers n and k (1 ≤ n ≤ 1015 , 1 ≤ k ≤ 104 ).
+
+Output
+Print a single integer - the expected Essence Value after k steps of refining, modulo 109 + 7.
+               Sample Input                                Sample Output
+ 7 1                                          4
+ 7 3                                          750000007
+ 77 7                                         642333990
+
+
+
+
+The 2025 ICPC                                                                                    6
+Vietnam Southern Provincial Contest | Problem D: The Alchemist’s Diminishing Gold
+                                      The 2025 ICPC
+                             Vietnam Southern Provincial Contest
+
+
+
+                                          Problem E
+                                       Delete sequence
+                                    Time limit: 1 second
+                                 Memory limit: 512 megabytes
+You are given a sequence of n positive integers a1 , a2 , . . . , an arranged from left to right. You may
+perform the following operations:
+
+   • Operation 1: If the first two numbers of the current sequence are coprime or one of them
+     is a multiple of the other, delete both numbers.
+   • Operation 2: If Operation 1 cannot be applied to the first two numbers, choose an integer
+     x > 1, increase the first number by x (i.e. a1 ← a1 + x), and append x to the end of the
+     sequence.
+
+Your goal is to make the sequence empty (removing both the original numbers and any appended
+numbers) using the minimum number of operations.
+
+Input
+The first line contains an integer t — the number of test cases.
+For each test case:
+
+   • The first line contains an integer n (1 ≤ n).
+   • The second line contains n integers a1 , a2 , . . . , an (2 ≤ ai ≤ 106 ).
+
+Global constraints:
+
+   • 1 ≤ t ≤ 106 ,
+      X
+   •       n ≤ 106 .
+      all tests
+
+
+Output
+For each test case, print a single integer — the minimum number of operations needed to delete
+the entire sequence.
+                  Sample Input                                  Sample Output
+ 2                                                4
+ 2                                                2
+ 28 30
+ 1
+ 30
+
+Explanation
+In the first test case, one optimal sequence of operations is:
+                              (28, 30) → (31, 30, 3) → (3) → (5, 2) → ()
+which uses 4 operations.
+
+The 2025 ICPC                                                                                          7
+Vietnam Southern Provincial Contest | Problem E: Delete sequence
+                                     The 2025 ICPC
+                            Vietnam Southern Provincial Contest
+
+
+
+                                        Problem F
+                                    Power Absorption
+                                  Time limit: 1 second
+                               Memory limit: 256 megabytes
+
+You are playing a very popular Marvel video game called Dr. Strange. In this game, you take on
+the role of a superhero who is saving the world by absorbing the powers of monsters.
+You are given a list of n monsters. The i-th monster appears at time Li and remains present
+through time Ri , inclusive. It has a power level Pi . Multiple monsters may be present at the same
+time.
+To fight against the monsters, you will perform m power absorption moves in sequence. Before the
+first move, you start with an initial absorbed power value of Power0 = 1 (absorb from yourself).
+For each move j = 1, 2, . . . , m, your available energy Ej at that moment is calculated as:
+
+                              Ej = 1 + (Dj · Powerj−1 + Aj ) mod Fj
+
+Where Dj is the durability coefficient, Aj is the agility coefficient, Fj is the fatigue level at move
+j, Powerj−1 is the total power of the monsters absorbed in the previous move j − 1.
+Because you are Dr. Strange, you can travel through time. At time tj of the j-th move, with this
+energy Ej , you absorb the powers of the Ej weakest monsters (those with the smallest power
+values) currently present. If there are fewer than Ej monsters at that time, you absorb all of
+them. Absorbing their powers only affects your energy - it does not weaken or eliminate any
+monsters.
+Let Powerj denote the total power absorbed during the j-th move. Your task is to determine
+Power1 , Power2 , . . . , Powerm .
+
+Input
+
+   • The first line contains an integer n, m - the number of monsters and the number of absorption
+     moves. (1 ≤ n, m ≤ 105 )
+
+   • The next n lines each contain three integers Li , Ri , and Pi - the appearance time, disap-
+     pearance time, and power of the i-th monster. (1 ≤ Li ≤ Ri ≤ 105 , 1 ≤ Pi ≤ 107 )
+
+   • The next m lines each contain four integers tj , Dj , Aj , and Fj - the time of the j-th move,
+     and the coefficients used to compute the energy for this move. Note that all tj form a
+     permutation of numbers from 1 to m. (1 ≤ tj ≤ m, 0 ≤ Dj , Aj ≤ 105 , 1 ≤ Fj ≤ 105 )
+
+
+Output
+Print m lines. Each line should contain a single integer - the total power absorbed in the j-th
+move.
+
+
+
+
+The 2025 ICPC                                                                                       8
+Vietnam Southern Provincial Contest | Problem F: Power Absorption
+                                  The 2025 ICPC
+                         Vietnam Southern Provincial Contest
+
+
+
+             Sample Input                              Sample Output
+ 3 3                                       5
+ 1 2 10                                    25
+ 2 3 20                                    15
+ 1 3 5
+ 1 2 2 2
+ 3 3 1 3
+ 2 1 1 5
+
+Explanation
+
+   • In the first move at time t1 = 1, two monsters are present. You have Power0 = 1, so your
+     energy will be: E1 = 1 + (2 × 1 + 2) mod 2 = 1. The monster having power 5 is absorbed.
+
+   • Second move: E2 = 1 + (3 × 5 + 1) mod 3 = 2. So the total power absorbed is 25.
+
+   • Third move: E3 = 1 + (1 × 25 + 1) mod 5 = 2. Two monsters with powers 5 and 10 are
+     absorbed, so the total power is 15.
+
+
+
+
+The 2025 ICPC                                                                              9
+Vietnam Southern Provincial Contest | Problem F: Power Absorption
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+                                        Problem G
+                                      Electric Circuit
+                                 Time limit: 2 seconds
+                              Memory limit: 512 megabytes
+
+You are given an electric circuit consisting of a sequence of infinity switches, aligned in a row and
+labeled from left to right starting from 0.
+Each switch can be in one of two states: ON (closed) or OFF (open). All switches are initially
+OFF.
+You are told the following rule of interaction between adjacent switches:
+
+   • If a switch transitions from OFF to ON, it has no effect on other switches.
+   • If a switch transitions from ON to OFF, it will cause the switch immediately to its
+     right to toggle its current state (i.e., ON → OFF or OFF → ON).
+
+You plan to perform m operations. The i-th operation toggles the state of switch ai (0 ≤ ai ≤ n):
+
+   • If it is ON, it becomes OFF (and may cause a chain reaction to the right, per the rule above).
+   • If it is OFF, it becomes ON.
+
+Let the cost of an operation be defined as the number of switches whose state was changed
+(including both the directly toggled switch and any affected ones to the right via propagation).
+However, each operation is executed with a certain probability:
+
+   • The i-th operation is executed with probability pi = uvii .
+   • Otherwise, it is skipped with probability 1 − pi .
+
+You are required to compute the expected total cost of all m operations.
+                              P
+Let the expected value be E = Q , where P and Q are coprime integers. Output the value:
+
+                                     (P · Q−1 ) mod 998244353
+
+where Q−1 denotes the modular inverse of Q modulo 998244353.
+
+Input
+The first line contains two integers n, m (1 ≤ n, m ≤ 2 · 105 ) - the upper bound of ai and the
+number of operations.
+The next m lines each contain three integers ai , ui , vi (0 ≤ ai ≤ n, 0 ≤ ui < 998244353, 1 ≤
+vi < 998244353, ui ≤ vi ) - the position of the switch, and the probability of executing the i-th
+operation as a rational fraction pi = uvii .
+
+Note
+The number of switches is infinite, n is just the upper bound of ai in the input.
+
+The 2025 ICPC                                                                                     10
+Vietnam Southern Provincial Contest | Problem G: Electric Circuit
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+Output
+Print a single integer - the value of P · Q−1 mod 998244353, where Q
+                                                                   P
+                                                                     is the expected total cost of
+all operations.
+               Sample Input                               Sample Output
+ 3 3                                         499122178
+ 0 1 2
+ 1 1 2
+ 2 1 2
+ 100 5                                       610769569
+ 0 100 333
+ 0 333 666
+ 0 666 1234
+ 1 1234 1235
+ 2 1235 1236
+
+
+
+
+The 2025 ICPC                                                                                  11
+Vietnam Southern Provincial Contest | Problem G: Electric Circuit
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+                                       Problem H
+                                 Removing noisy data
+                                 Time limit: 1 second
+                              Memory limit: 512 megabytes
+
+During a break time in the “Noisy Data Processing” class, teacher gives each student a sequence
+of integers of length n ≥ 2. The teacher asks them to compute the product of all numbers in the
+sequence.
+Being top students, Luna and Thana could easily do this with a single line of code. However, the
+teacher wants them to apply the knowledge from the lecture on noise reduction. The challenge is
+that each student must remove exactly one number, can be considered as noisy data, from the
+original sequence so that the product of the remaining numbers is as large as possible.
+If there are multiple choices of which number to remove that lead to the same maximal product,
+then:
+
+   • Luna will remove the largest such number.
+
+   • Thana will remove the smallest such number.
+
+Your task is to help Luna and Thana determine which numbers they should remove.
+
+Input
+
+   • The first line contains an integer n (2 ≤ n ≤ 105 ).
+
+   • The second line contains n integers, not necessarily distinct, each having an absolute value
+     not exceeding 105 .
+
+Output
+Print two integers — the numbers that Luna and Thana should remove, respectively.
+               Sample Input                                 Sample Output
+ 4                                            0 0
+ 0 1 2 3
+               Sample Input                                 Sample Output
+ 4                                            2 -1
+ 0 0 -1 2
+
+Explanation
+In the first example, removing any number other than 0 results in a zero, so both of students should
+remove 0. In the second example, since there are two zeros, removing either does not change the
+product (it remains 0); thus, Luna removes the largest possible number (which is 2), while Thana
+removes the smallest possible number (which is −1).
+
+
+
+The 2025 ICPC                                                                                    12
+Vietnam Southern Provincial Contest | Problem H: Removing noisy data
+                                     The 2025 ICPC
+                            Vietnam Southern Provincial Contest
+
+
+
+                                         Problem I
+                                      Draw a Polygon
+                                  Time limit: 1 second
+                               Memory limit: 256 megabytes
+
+Your task is to draw a simple polygon with exactly n vertices. A simple polygon is a non-self-
+intersecting polygon without holes, and no three consecutive vertices are collinear. All vertex
+coordinates must be integers within the range [−109 , 109 ].
+In addition, the number of diagonals lying entirely inside the polygon must be exactly k. (A
+diagonal of a polygon is a segment connecting two non-adjacent vertices.)
+
+Input
+The only line contains two integers n and k (4 ≤ n ≤ 100, 0 ≤ k ≤ n(n−3)
+                                                                     2
+                                                                         ).
+
+Output
+If it is impossible to draw such a polygon, print a single word No. Otherwise, print Yes on the first
+line, followed by n lines containing integer pairs (xi , yi ) (−109 ≤ xi , yi ≤ 109 ) — the vertices of
+the polygon listed either clockwise or counterclockwise.
+The polygon must not intersect or touch itself, no two vertices may coincide, and no three con-
+secutive vertices may lie on a common line.
+               Sample Input                                  Sample Output
+ 5 4                                            Yes
+                                                0 0
+                                                3 0
+                                                2 1
+                                                3 2
+                                                0 2
+ 5 2                                            Yes
+                                                0 0
+                                                2 0
+                                                1 1
+                                                2 2
+                                                0 2
+ 4 0                                            No
+
+
+
+
+The 2025 ICPC                                                                                       13
+Vietnam Southern Provincial Contest | Problem I: Draw a Polygon
+                                       The 2025 ICPC
+                              Vietnam Southern Provincial Contest
+
+
+
+                                        Problem J
+                                The most famous game
+                                   Time limit: 1 second
+                                Memory limit: 256 megabytes
+
+Two players play a single round of Rock–Paper–Scissors game. Each player chooses one of the following
+moves:
+
+   • Rock
+
+   • Paper
+
+   • Scissors
+
+The rules are standard:
+
+   • Rock beats Scissors.
+
+   • Scissors beats Paper.
+
+   • Paper beats Rock.
+
+   • Same moves result in a draw.
+
+Task. Given the two moves, determine the outcome of the game.
+
+Input
+The input contains two strings a and b ("Rock", "Paper", or "Scissors"), representing the moves of
+Player 1 and Player 2 respectively.
+
+Output
+Print one of the following:
+
+   • Player 1 — if Player 1 wins.
+
+   • Player 2 — if Player 2 wins.
+
+   • Draw — if both moves are the same.
+
+              Sample Input                                   Sample Output
+ Rock Scissors                                 Player 1
+ Paper Paper                                   Draw
+ Scissors Rock                                 Player 2
+
+
+
+
+The 2025 ICPC                                                                                     14
+Vietnam Southern Provincial Contest | Problem J: The most famous game
+                                       The 2025 ICPC
+                              Vietnam Southern Provincial Contest
+
+
+
+                                           Problem K
+                       Emma’s Array Balancing Challenge
+                                    Time limit: 1 second
+                                 Memory limit: 512 megabytes
+
+Emma is a data analyst working for a tech startup that specializes in creating balanced datasets
+for machine learning applications. Her company has developed a revolutionary algorithm that
+requires perfectly balanced numerical arrays to function optimally.
+Emma has an array [a0 , a1 , a2 , . . . , an−1 ] of size n where n is an even number representing critical
+sensor data from IoT devices. An array is balanced if the sum of the left half of the array elements
+is equal to the sum of right half - what her team calls "balanced arrays."
+For example:
+
+   • Balanced Array: [1, 2, 5, 2, 4, 2] where left half sum = 1 + 2 + 5 = 8 and right half sum =
+     2+4+2=8
+
+   • Unbalanced Array: [1, 2, 1, 2, 1, 3] where left half sum = 1 + 2 + 1 = 4 and right half sum
+     = 2+1+3=6
+
+Unfortunately, the raw sensor data rarely comes in balanced form. Emma has discovered that she
+can fix unbalanced arrays by adding non-negative values to any elements in the array. However,
+her company wants to minimize data modification to preserve the integrity of the original sensor
+readings.
+To balance an array, Emma can increase exactly one element ai by a non-negative integer x. Your
+task is to help Emma find the smallest value of x that makes the array balanced, ensuring the AI
+algorithm can process the data while maintaining maximum data authenticity.
+
+Input
+The first line contains an even integer n.
+The second line contains the n integer elements of the array a0 , a1 , a2 , . . . , an−1 .
+
+Constraints
+
+   • 1 ≤ n ≤ 100000
+
+   • 0 ≤ ai ≤ 1000
+
+   • n is an even number.
+
+Output
+Print the minimum value of x on a single line.
+                Sample Input                                     Sample Output
+ 6                                                 2
+ 1 2 1 2 1 3
+
+The 2025 ICPC                                                                                          15
+Vietnam Southern Provincial Contest | Problem K: Emma’s Array Balancing Challenge
+                                    The 2025 ICPC
+                           Vietnam Southern Provincial Contest
+
+
+
+Explanation
+To balance the array, Emma needs to add 2 to a2 : For example:
+
+   • Adding 2 to a2 : [1, 2, 3, 2, 1, 3] gives left sum = 1 + 2 + 3 = 6 and right sum = 2 + 1 + 3 = 6
+
+The array is now balanced with minimum addition of x = 2.
+
+
+
+
+The 2025 ICPC                                                                                     16
+Vietnam Southern Provincial Contest | Problem K: Emma’s Array Balancing Challenge
+                                     The 2025 ICPC
+                            Vietnam Southern Provincial Contest
+
+
+
+                                         Problem L
+                                    Beautiful numbers
+                                  Time limit: 1 second
+                               Memory limit: 512 megabytes
+
+For each positive integer x, let S(x) denote the sum of digits of x in decimal representation. For
+example, S(2025) = 2 + 0 + 2 + 5 = 9.
+A positive integer n is called “beautiful” if it satisfies both of the following conditions:
+
+   • There exist positive integers a, b such that n = a + b and S(a) = S(b).
+
+   • There exist positive integers c, d, e such that n = c + d + e and S(c) = S(d) = S(e).
+
+You are asked to answer q queries. In each query, you are given two integers L and R (1 ≤ L ≤
+R ≤ 1018 ). For each query, determine how many beautiful numbers are contained in the interval
+[L, R].
+
+Input
+The first line contains a single integer q (1 ≤ q ≤ 105 ) — the number of queries. Each of the next
+q lines contains two integers L and R (1 ≤ L ≤ R ≤ 1018 ).
+
+Output
+For each query, output a single integer — the count of beautiful numbers in the interval [L, R].
+               Sample Input                                   Sample Output
+ 2                                              1
+ 1 10                                           1
+ 2024 2026
+
+Explanation
+In the first test case, the only beautiful number in [1; 10] is 6, since 6 = 3 + 3 = 2 + 2 + 2, because
+S(3) = S(3) = 3 and S(2) = S(2) = S(2) = 2. In the second test case, the only beautiful number
+in [2024; 2026] is 2025, because 2025 = 2016 + 9 = 2013 + 6 + 6 and S(2016) = S(9) = 9, while
+S(2013) = S(6) = S(6) = 6. No other numbers in these intervals satisfy both given conditions.
+
+
+
+
+The 2025 ICPC                                                                                       17
+Vietnam Southern Provincial Contest | Problem L: Beautiful numbers
+

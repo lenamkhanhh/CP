@@ -1,0 +1,608 @@
+                     The 2023 ICPC Vietnam
+      Southern Provincial Programming Contest
+              University of Science, VNU-HCM
+                           October 15th, 2023
+
+
+
+
+Contest length: 5 hours
+
+The problem set consists of 13 problems in 13 pages (excluding the cover page):
+
+     •    Problem A:         A Game with Cows
+     •    Problem B:         Bouquet
+     •    Problem C:         Cube
+     •    Problem D:         Danger Detection
+     •    Problem E:         Exact Permutation Mapping
+     •    Problem F:         Fibonacci Power
+     •    Problem G:         Goals
+     •    Problem H:         Harry’s Magical Number
+     •    Problem I:         Intricate Polygons
+     •    Problem J:         Journey to Sequence Sum
+     •    Problem K:         Keystone Triangle
+     •    Problem L:         Luffy and The One Piece
+     •    Problem M:         Mingle Lineup
+                                             The 2023 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 15th, 2023
+                                     Problem A
+                                  A Game with Cows
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+Hieu and RR are two cowherd boys working in a barn. This barn has 10!
+stalls, numbered 1 to 10! from the left to the right. Each stall can hold at
+most one cow.
+There are 𝑁 cows numbered from 1 to 𝑁 (𝑁 ≤ 10" ). Every day at 3PM,
+the cows come back to the stalls from the lawn. Each cow will take a
+random stall. The 𝑖 #$ cow will take stall 𝑎% and all 𝑎% are pairwise distinct.
+To make the feeding process easier, Hieu and RR want to move all 𝑁 cows
+to the left (occupied stall 1 to stall 𝑁). They decided to make a game, taking
+alternative turns:
+    • Hieu is the first to move.
+    • In each turn, the player must move the rightmost cow (the cow in the stall max(𝑎% )) to any empty
+         stall on its left.
+    • If a player can not make a move, he loses.
+
+Given the initial positions of 𝑁 cows, your task is to determine who wins if they both play optimally.
+
+Input
+The input contains multiple test cases, starting with an integer 𝑇 (1 ≤ 𝑇 ≤ 10& ) – the number of test
+cases. The following lines contain the description of each test case.
+Each test case starts with a single integer 𝑁 – the number of cows. (1 ≤ 𝑁 ≤ 10" ). The second line
+consists of 𝑁 distinct integers 𝑎' , 𝑎( , … , 𝑎) . (1 ≤ 𝑎% ≤ 10! ).
+It is guaranteed that the sum of 𝑁 over all test cases does not exceed 10" .
+
+Output
+For each test case, output “Hieu” (without the quotes) if Hieu wins or “RR” (without the quotes) if RR
+wins, given that they both play optimally.
+
+ Sample Input                                      Sample Output
+ 4                                                 RR
+ 2                                                 Hieu
+ 3 4                                               Hieu
+ 3                                                 RR
+ 1 2 4
+ 3
+ 1 3 5
+ 5
+ 1 2 3 4 5
+                                                     1
+                                            The 2023 ICPC Vietnam
+                                    Southern Provincial Programming Contest
+                                        University of Science, VNU-HCM
+                                               October 15th, 2023
+                                          Problem B
+                                           Bouquet
+                                     Time Limit: 1 second
+                                  Memory Limit: 512 megabytes
+For the Vietnamese Women’s Day in the next few days, Phuoc wish to buy
+a bouquet for his mother. He knows she holds a special affection for a lucky
+number, which has a value of 𝑛.
+
+Upon visiting a flower stall, he orders a bouquet of exactly 𝑘 flowers. A
+bouquet is constructed by combining different flowers in a particular
+sequence. There are precisely 10 varieties of flowers, each numbered from
+0 to 9, and the availability of each type is deemed infinite. The product of
+the numbers on the selected flowers must match the lucky number 𝑛, which
+his mother cherishes.
+The price of the bouquet is determined by the sequence in which Phuoc chooses to combine the flowers.
+For instance, selecting a type 8 flower followed by a type 3 flower results in a cost of 83. In contrast,
+choosing a type 3 flower and then a type 8 flower would make the price 38. When he chooses a type 4
+flower followed by a type 6 flower, he will have a bouquet with the same lucky number 𝑛 = 24, but the
+price will be 46.
+Given his student budget, Phuoc aims to assemble a bouquet of 𝑘 flowers at the lowest possible cost and
+the bouquet must match his mother’s lucky number 𝑛.
+
+Input
+The input contains a single line of two integers 𝑛 and 𝑘 (1 ≤ 𝑛 ≤ 10! ; 1 ≤ 𝑘 ≤ 10* ).
+
+Output
+The price of the bouquet. If there is no bouquet that satisfies the conditions, output −1.
+
+ Sample Input                                     Sample Output
+ 12 2                                             26
+ 34 2                                             -1
+
+
+
+
+                                                    2
+                                               The 2023 ICPC Vietnam
+                                       Southern Provincial Programming Contest
+                                           University of Science, VNU-HCM
+                                                  October 15th, 2023
+                                           Problem C
+                                             Cube
+                                         Time Limit: 1 second
+                                      Memory Limit: 512 megabytes
+Prof. Thanh designs a very special rectangular cube with
+dimensions of 𝑛 × 𝑛 × 𝑛 units. He builds a coordinate system
+𝑂+,- at a particular corner of the cube, with the three faces of the
+cube being the three planes 𝑂+, , 𝑂,- , and 𝑂-+ .
+
+Each unit block of the cube is defined by a set of three numbers
+(𝑥, 𝑦, 𝑧) as a point in 3-dimensional space (0 ≤ 𝑥, 𝑦, 𝑧 ≤ 𝑛 − 1).
+Prof. Thanh says that potential unit blocks are located at (𝑥, 𝑦, 𝑧),
+where exactly one of the coordinates is 0, which means that they
+are located on one of the three faces 𝑂+, , 𝑂,- , 𝑂-+ , but not on the
+axes.
+
+Prof. Thanh chooses 𝑘 potential unit blocks and for each of the blocks, he drills from the center of the
+square located on the cube’s face and from the direction perpendicular to the face containing that cell.
+Suppose that he drills through the cube.
+Your task is to help Prof. Thanh determine how many unit blocks are passed by at least one drill.
+
+Input
+The first line contains two integers, 𝑛 and 𝑘 (1 ≤ 𝑛 ≤ 10! ; 1 ≤ 𝑘 ≤ 10. ).
+
+In the following 𝑘 lines, each line contains three integers 𝑥, 𝑦, 𝑧 (0 ≤ 𝑥, 𝑦, 𝑧 ≤ 𝑛 − 1) indicating the
+location of a potential unit block. For each line, exactly one of the three integers is 0.
+
+Output
+A single integer indicates the number of unit blocks passed by at least one drill.
+
+ Sample Input                     Sample Output                     Explanation
+ 3 4                              9                                 As illustrated in the figure above
+ 2 1 0
+ 0 1 1
+ 1 0 1
+ 2 0 1
+
+
+
+
+                                                      3
+                                             The 2023 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 15th, 2023
+                                      Problem D
+                                   Danger Detection
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+A land is described by a grid of size 𝑛 × 𝑛 square units. The rows are
+numbered from 1 to 𝑛 from top to bottom, and the columns are numbered
+from 1 to 𝑛 from left to right. The cell located in row 𝑖 and column 𝑗 is
+called cell (𝑖, 𝑗). Through an assessment, each cell has a specific load-
+bearing capacity, and cell (𝑖, 𝑗) has a positive integer load-bearing capacity
+of 𝑎%/ .
+A robot starts moving from cell (1, 1) and needs to reach cell (𝑛, 𝑛) by
+moving to adjacent cells (with a common edge). Suppose the robot has a
+weight of 𝐺, then entering a cell with a load-bearing capacity less than 𝐺 is considered dangerous. Your
+task is to solve the following two problems:
+   1. Given the robot’s weight 𝐺, find its path to minimize the number of dangerous cells it goes
+      through. Determine the number of dangerous cells on such path.
+   2. For the given grid, determine the maximum weight of the robot so that it can move to the cell
+      (𝑛, 𝑛) without entering any dangerous cells.
+Input
+The first line contains a number 1 or 2 corresponding to problem 1 or 2 you need to solve.
+If the first line contains the number 1, the second line contains two integers 𝑛 and 𝐺. If the first line
+contains the number 2, the second line contains a single integer 𝑛. (1 ≤ 𝑛 ≤ 500; 1 ≤ 𝐺 ≤ 5000).
+In the next 𝑛 lines, the 𝑖 #$ line contains 𝑛 numbers on row 𝑖 of the grid 𝑎 with the value from 1 to 104.
+Output
+The output contains a single integer, which is the result of the corresponding problem.
+ Sample Input                                      Sample Output
+ 1                                                 3
+ 5 6
+ 7 1 3 4 6
+ 6 2 1 7 5
+ 2 6 7 2 3
+ 4 2 1 1 7
+ 9 1 6 1 6
+ 2                                                 2
+ 5
+ 7 1 3 4 6
+ 6 2 1 7 5
+ 2 6 7 2 3
+ 4 2 1 1 7
+ 9 1 6 1 6
+
+                                                       4
+                                                The 2023 ICPC Vietnam
+                                        Southern Provincial Programming Contest
+                                            University of Science, VNU-HCM
+                                                   October 15th, 2023
+                                   Problem E
+                           Exact Permutation Mapping
+                                        Time Limit: 1.5 seconds
+                                      Memory Limit: 512 megabytes
+
+In a universe linked by cosmic tunnels, Futuristic Interstellar Tubes (FIT)
+beckon explorers for traveling between planets. To embark, travelers need
+to solve challenges related to permutations of positive integers.
+Consider the set of permutations of 2𝑛 positive integers 1, 2, … , 2𝑛:
+                         𝑎' , 𝑎( , 𝐼, 𝑎0 , 𝑎01' , 𝐼, 𝑎(0
+with the following properties:
+    ● The sequence 𝑎' , 𝑎( , 𝐼, 𝑎0 is in increasing order.
+    ● The sequence 𝑎01' , 𝐼, 𝑎(0 is in increasing order.
+    ● For all 𝑖 (1 ≤ 𝑖 ≤ 𝑛), 𝑎% < 𝑎01% .
+All these permutations are sorted in lexicographic order and consecutively numbered starting from 1.
+Thus, each permutation has a serial number, and we call it the permutation index.
+ For example, with 𝑛 = 3, we have all 5 permutations, after sorting          Index    Permutation
+ the dictionary is numbered as illustrated in the table on the right.          1      1 2 3 4 5 6
+ Given the number 𝑛 , your task is to solve the following two                  2      1 2 4 3 5 6
+ problems from the guardians of the Universal Passage:                         3      1 2 5 3 4 6
+                                                                               4      1 3 4 2 5 6
+     1. Given an index 𝑘, find the permutation with index 𝑘.
+                                                                               5      1 3 5 2 4 6
+     2. Given a permutation 𝑎' , 𝑎( , … , 𝑎(0 , find the index of this
+        permutation.
+
+Input
+The input contains at most 2000 test cases. Each test case is in one line, with a number 1 or 2 at the
+beginning of the line indicating the problem you need to solve.
+    ● If the first number is 1, it is followed by two integers 𝑛 and 𝑘 (1 ≤ 𝑛 ≤ 1000; 1 ≤ 𝑘 ≤ 10! ).
+    ● If the first number is 2, it is followed by an integer 𝑛 and 2𝑛 integers 𝑎' , 𝑎( , … , 𝑎(0 .
+Note that the input is guaranteed correct, and the solution always exists.
+
+Output
+You need to output the results of each test case in the order they appear in the input.
+ Sample Input                                          Sample Output
+ 1 3 4                                                 1 3 4 2 5 6
+ 2 3 1 3 5 2 4 6                                       5
+ 1 4 2                                                 1 2 3 5 4 6 7 8
+ 2 4 1 2 3 6 4 5 7 8                                   3
+
+                                                           5
+                                           The 2023 ICPC Vietnam
+                                   Southern Provincial Programming Contest
+                                       University of Science, VNU-HCM
+                                              October 15th, 2023
+                                      Problem F
+                                   Fibonacci Power
+                                     Time Limit: 2 seconds
+                                  Memory Limit: 512 megabytes
+In the heart of an ancient forest, adventurer Minh the Sorcerer embarked
+on a quest of solving enigmatic puzzles. A family heirloom journal unveiled
+a cryptic message: a hidden treasure guarded by mathematical riddles tied
+to the Fibonacci sequence.
+To recap, Fibonacci numbers are defined as follows:
+   ● 𝐹(0) = 0
+   ● 𝐹(1) = 1
+   ● 𝐹(𝑖) = 𝐹(𝑖 – 2) + 𝐹(𝑖 – 1) for all 𝑖 ≥ 2.
+To unlock the treasure, Minh should quickly calculate the sum 𝑆 of the first 𝑛 Fibonacci numbers raised
+to the power of 𝑘.
+Formally:
+                                                  0
+
+                                            𝑆 = I 𝐹(𝑖)2
+                                                 %3'
+
+Given 𝑛 and 𝑘 (1 ≤ 𝑛 ≤ 10'4 , 1 ≤ 𝑘 ≤ 10" ), help Minh calculate 𝑆 modulo 998244353.
+
+Input
+The input contains two integers 𝑛 and 𝑘 (1 ≤ 𝑛 ≤ 10'4 , 1 ≤ 𝑘 ≤ 10" ).
+
+Output
+You should print the value 𝑆 modulo 998244353.
+
+ Sample Input                Sample Output             Explanation
+ 3 2                         6                         𝐹 (1)! + 𝐹 (2)! + 𝐹 (3)!
+                                                       = 1! + 1! + 2!
+                                                       = 6
+ 5 1                         12                        𝐹 (1)" + 𝐹 (2)" + 𝐹 (3)" + 𝐹 (4)" + 𝐹 (5)"
+                                                       = 1" + 1" + 2" + 3" + 5"
+                                                       = 12
+ 1000 1000                   954643773
+
+
+
+
+                                                   6
+                                              The 2023 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 15th, 2023
+                                            Problem G
+                                              Goals
+                                       Time Limit: 1 second
+                                    Memory Limit: 512 megabytes
+Quang and Trong participate in a special soccer match. In this competition,
+each of them is given 𝑁 soccer balls at random, each with a random weight
+in the range of [1, 10'4 ].
+The match unfolds as follows: the soccer field has 𝑁 goals, numbered from
+1 to 𝑁. Quang kicks off the game by shooting his 𝑁 balls into these 𝑁
+goals, with one ball going into each goal (assuming both Quang and Trong
+have 100% shooting accuracy). He is free to choose the order in which the
+balls are shot. After Quang has taken all his shots, Trong considers the
+weight of Quang’s balls in the current goals and then decides to shoot his
+𝑁 balls into the corresponding 𝑁 goals, each ball into each goal.
+At the end of the match, for the 𝑖 #$ goal, the player whose ball has a higher weight wins and gets 𝑖 score
+(𝑖 = 1, 2, . . . , 𝑁). If both balls in the 𝑖 #$ goal have the same weight, the score is split equally, meaning
+each player gets i/2 score. The player who has a higher total score wins the match.
+As an example of the match, suppose 𝑁 = 3, Quang is given 𝑁 balls with weights 1, 2, and 4, and
+Thuc is given balls with weights 1, 3, and 5. Quang may shoot balls weighted 4, 2 and 1 on goals 1, 2
+and 3, respectively. After seeing Quang's moves, Trong may shoot the balls weighted 3, 5 and 1 on
+goals 1, 2 and 3, respectively. In this case, Quang earns 1 point for slot 1, 0 points for slot 2, and
+3/2 = 1.5 points for slot 3. His total score is 2.5 points. The purpose of the above example is to
+illustrate the rules of the match. Quang and Trong may not shoot the balls as described because both
+play optimally.
+Knowing that, during his turn, Trong is aware of the positions of Quang's balls. Trong chooses his
+shooting strategy to maximize the score he can earn. Meanwhile, during Quang's turn, he does not know
+the information about Trong's balls. Still, he is aware of Trong's optimal strategy and that the ball
+weights are uniformly and randomly distributed. Hence, Quang chooses his playing strategy to
+maximize the expected value of his total score.
+Given 𝑁, please help Quang calculate the expected value of his total score at the end of the match if
+both players make their choices optimally as described.
+Input
+The input contains a single integer 𝑁 (1 ≤ 𝑁 ≤ 100), the number of goals.
+Output
+A single number indicating the expected value of Quang’s total score at the end of the match. The result
+must have exactly six digits after decimal point, rounded if necessary.
+ Sample Input                                       Sample Output
+ 1                                                  0.500000
+ 2                                                  1.333333
+ 100                                                598.874902
+
+
+                                                      7
+                                             The 2023 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 15th, 2023
+                                   Problem H
+                            Harry’s Magical Number
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+
+In Starlight Essence Laboratory (SELab), the famed wizard Harry Potter
+and his friend Hai are performing a magical show to students. Harry asks
+Hai to think of a magical number 𝑛. In Hai’s mind, this number dances and
+sparkles. Harry does not know what it is, but he will try to guess!
+
+   1. First, Harry asks Hai to reveal a divisor 𝐴 of 𝑛. Hai picks one and
+      announces it.
+   2. Next, Hai will need to tell Harry a number 𝐵, but this number must
+      not be a divisor of 𝑛.
+   3. Not stopping there, Harry then requests Hai to let him know a multiple 𝐶 of 𝑛.
+   4. Lastly, Harry wishes for another number 𝐷, which must not be a multiple of 𝑛.
+
+With a flourish of his wand and magical chimes, Harry will attempt to deduce the magical number 𝑛
+Hai thought of. However, Harry warns that sometimes there might be more than one solution, and he
+will try to identify the smallest magical number 𝑛. If it is undeterminable, Harry will humbly admit
+defeat and say “−1”.
+
+Now, standing on stage with Harry, help him determine the magical number 𝑛.
+
+Note: To assist Harry, be aware that 𝐴, 𝐵, 𝐶, and 𝐷 are all less than or equal to 10! .
+
+Input
+The input consists of a line containing four integers 𝐴, 𝐵, 𝐶, and 𝐷 (1 ≤ 𝐴, 𝐵, 𝐶, 𝐷 ≤ 10! ).
+
+Output
+Your program must output a single line. If there is at least some number 𝑛 for which 𝐴, 𝐵, 𝐶 and 𝐷 are
+significant, then that line must contain the smallest 𝑛 possible. Otherwise, the line must contain −1.
+
+ Sample Input                                      Sample Output
+ 2 12 8 2                                          4
+ 3 4 60 105                                        6
+
+
+
+
+                                                       8
+                                            The 2023 ICPC Vietnam
+                                    Southern Provincial Programming Contest
+                                        University of Science, VNU-HCM
+                                               October 15th, 2023
+                                       Problem I
+                                  Intricate Polygons
+                                     Time Limit: 1 Second
+                                  Memory Limit: 512 megabytes
+On a beautiful sunny day in Dam Sen Park, Mr. Don holds a bag of sticks
+of various lengths. Mr. Don has realized that, with these sticks, some sticks
+can be combined to create interesting polygons, while others cannot.
+For example, Mr. Don has three sticks in his bag with lengths of 5, 3, and
+4, respectively. He knows that with these three sticks, he can arrange them
+to form a beautiful triangle. However, the previous day, when Mr. Don had
+four sticks in his bag with lengths of 5, 3, 4, and 20, he knew there was no
+way to arrange them into a valid quadrilateral.
+Here is your task: Help Mr. Don calculate how many different ways to choose sticks from his bag to
+create different polygons. Two polygons are considered different if at least one stick is used in one
+polygon but not present in the other, and vice versa.
+
+Input
+The first line contains an integer 𝑛 (1 ≤ 𝑛 ≤ 5000) – number of sticks in Mr. Don’s bag.
+The second line contains 𝑛 integers 𝑙' , 𝑙( , . . . , 𝑙0 (1 ≤ 𝑙% ≤ 5000) , which are the lengths of the
+𝑛 corresponding sticks.
+
+Output
+The output contains a positive integer, which is the number of different polygons that can be created
+modulo 10! + 7.
+
+ Sample Input                Sample Output                   Explanation
+ 4                           5                               There are 4 triangles with
+ 2 2 2 2                                                     sides {2,2,2}
+                                                             and 1 quadrilateral with
+                                                             sides {2,2,2,2}
+ 5                           9                               There are 9 polygons
+ 1 2 3 4 5                                                   {2,3,4}, {2,4,5}, {3,4,5},
+                                                             {1,2,3,4}, {1,2,3,5},
+                                                             {1,2,4,5}, {1,3,4,5},
+                                                             {2,3,4,5}, {1,2,3,4,5}
+
+
+
+
+                                                    9
+                                              The 2023 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 15th, 2023
+                                  Problem J
+                           Journey to Sequence Sum
+                                       Time Limit: 2 Seconds
+                                    Memory Limit: 512 megabytes
+Once upon a time, in a realm where mathematics held great power, a young
+scholar named Quang discovered a mysterious sequence. This sequence,
+denoted as 𝐴% , had a captivating formula:
+
+                               𝐴% = 𝑖 5 × 𝑅 % .
+Quang was determined to unlock its secrets.
+As he delved deeper into his studies, he realized that his ultimate quest was
+to find the sum of the first 𝑛 terms of this sequence (𝐴' , 𝐴( , … , 𝐴0 ), which
+he called 𝑆0 .
+
+To keep things manageable in this enchanted land, 𝑆0 had to be calculated modulo 10! + 7. Can you
+help him compute 𝑆0 .
+
+Input
+The first line of input contains 𝑇 (1 ≤ 𝑇 ≤ 10), the number of test cases.
+Each test case consists of three lines, including 𝐾 (1 ≤ 𝐾 ≤ 10. ), 𝑛 (1 ≤ 𝑛 ≤ 10'" ), and
+𝑅 (2 ≤ 𝑅 ≤ 10'" ) respectively.
+
+Output
+For each test case, print your answer in a line.
+
+ Sample Input                                       Sample Output
+ 1                                                  21
+ 1
+ 2
+ 3
+
+
+
+
+                                                     10
+                                              The 2023 ICPC Vietnam
+                                      Southern Provincial Programming Contest
+                                          University of Science, VNU-HCM
+                                                 October 15th, 2023
+                                      Problem K
+                                   Keystone Triangle
+                                       Time Limit: 1 Second
+                                    Memory Limit: 512 megabytes
+
+In a classic art exhibition room, Leo Da Vi creates artwork
+from 𝑛 consecutive stone pillars with respective heights
+𝑎' , 𝑎( , . . . , 𝑎0 . He wants to create an isosceles triangle
+sculpture, but currently, each stone pillar has a different
+height, similar to the illustrated figure beside.
+
+Leo decided to start sculpting each stone pillar, always from the top to the bottom of each column, so
+that in the end, only an isosceles triangle remains from the stone pillars. He can only sculpt on each
+stone pillar and not transfer them to another pillar. The image below illustrates the first five stone triangle
+                                                           shapes that Leonardo desires, with heights of 1,
+                                                           2, 3, 4, and 5, respectively.
+
+                                                           Given the sequence of heights of each stone
+pillar, could you help Leonardo determine the maximum height the isosceles triangle can reach? In the
+illustrative figure above, with 30 pieces of stone, the tallest isosceles triangle has a height of 7.
+
+Input
+The first line of the input contains an integer 𝑛 (1 ≤ 𝑛 ≤ 50000), representing the number of pillars.
+The second line contains 𝑛 integers 𝑎' , 𝑎( , . . . , 𝑎0 (1 ≤ 𝑎% ≤ 𝑛), indicating the heights of each pillar.
+
+Output
+Your program must produce a single line with an integer H, representing the maximum height a triangle
+could have at the end.
+
+ Sample Input                                           Sample Output
+ 16                                                     6
+ 5 6 5 8 9 10 5 8 9 5 7 9 9 9 6 3
+ 8                                                      1
+ 5 1 1 1 1 1 1 3
+
+
+
+
+                                                     11
+                                             The 2023 ICPC Vietnam
+                                     Southern Provincial Programming Contest
+                                         University of Science, VNU-HCM
+                                                October 15th, 2023
+                                   Problem L
+                            Luffy and The One Piece
+                                      Time Limit: 1 second
+                                   Memory Limit: 512 megabytes
+Captain Luffy, accompanied by his esteemed crew, is embarking
+on a quest to discover the legendary treasure known as "One Piece".
+In his possession, Captain Luffy holds the distinguished map of the
+Grand Line. This cartographic representation illustrates a maritime
+region, dimensioned as 𝑚 × 𝑛, subdivided into individual square
+units starting with an index of 1. Captain Luffy is currently stationed on an island positioned precisely
+at coordinates (𝑥, 𝑦) on the said map. He was conferred a cryptic hint: "In the remotest location shall
+you seek, and by the 𝑘#$ attempt, the treasure shall you meet."
+Guided by this counsel, Captain Luffy strategizes his expeditionary endeavors as follows:
+   • For the inaugural voyage, he will navigate to the most distant part of the sea relative to the island
+      and commence his exploration therein.
+   • During the subsequent sortie, Captain Luffy intends to scout the location that is second in
+      remoteness to the island yet untouched by previous explorations.
+   • On the tertiary expedition, his objective is to explore the third most distant square from the island
+      that remains uncharted.
+   • This methodical progression continues until the 𝑘#$ exploration, where, concealed beneath the
+      maritime abyss, the illustrious One Piece treasure is believed to reside.
+Nonetheless, Captain Luffy, in his astuteness, recognizes the myriad potential locales that might harbor
+the treasure. Should he maintain this sequential trajectory, there's a looming concern that rival pirates
+might preemptively locate the treasure. So, Captain Luffy earnestly asks for your expertise. However,
+his primary requirement is to know the distance from the island to the presumptive treasure locale. With
+this knowledge, Captain Luffy is confident in leveraging his unparalleled intuition to pinpoint the precise
+resting place of the One Piece treasure. It is pertinent to note, as advised by Captain Luffy, that within
+this maritime expanse, all distances are gauged using the Manhattan metric.
+For clarity, the Manhattan distance between two designated coordinates (𝑥' , 𝑦' ) and (𝑥( , 𝑦( ) is
+articulated as |𝑥' − 𝑥( | + |𝑦' − 𝑦( |.
+
+Input
+A single line contains 5 integers 𝑚, 𝑛, 𝑥, 𝑦, and 𝑘.
+(2 ≤ 𝑚, 𝑛 ≤ 10! ; 1 ≤ 𝑥 ≤ 𝑚; 1 ≤ 𝑦 ≤ 𝑛; 1 ≤ 𝑘 ≤ 𝑚 × 𝑛 − 1)
+
+Output
+A single number indicates the Manhattan distance from the island to the One Piece.
+
+ Sample Input                                      Sample Output
+ 5 6 4 3 4                                         5
+ 5 6 4 3 6                                         4
+
+
+
+                                                       12
+                                                The 2023 ICPC Vietnam
+                                        Southern Provincial Programming Contest
+                                            University of Science, VNU-HCM
+                                                   October 15th, 2023
+                                           Problem M
+                                          Mingle Lineup
+                                         Time Limit: 3 seconds
+                                      Memory Limit: 512 megabytes
+Imagine you are organizing a show at school. You already have 𝑛 students
+from group A standing in a vertical line, with their heights in order as
+𝑎' , 𝑎( , . . . , 𝑎0 . Just then, a group of students B consisting of 𝑚 students with
+heights 𝑏' , 𝑏( , . . . , 𝑏6 want to join the line.
+The catch is that the students from group A want to keep their positions the
+same, but the students from group B are very flexible and can stand
+anywhere: right at the beginning, between any two students in the line, or
+at the end.
+A mistake is counted when a taller student stands in front of a shorter one. So, after inserting the students
+from group B into group A, what is the minimum number of mistakes you can arrange?
+Input
+Each test consists of multiple test cases. The first line contains one integer 𝑡 (1 ≤ 𝑡 ≤ 10* ) — the
+number of test cases.
+   • The first line of each test case contains two integers 𝑛 and 𝑚 (3 ≤ 𝑛, 𝑚 ≤ 10" ) - the number of
+       students in group A and B, respectively.
+   • The second line each input test case contains 𝑛 integers 𝑎' , 𝑎( , . . . , 𝑎0 (1 ≤ 𝑎% ≤ 10! ) – the
+       heights of students in group A.
+   • The third line of each input test case contains 𝑚 integers 𝑏' , 𝑏( , . . . , 𝑏6 (1 ≤ 𝑏% ≤ 10! ) – the
+       heights of students in group B.
+
+It is guaranteed that the sum of 𝑛 over all input data sets does not exceed 10" and the sum of 𝑚 over all
+input data sets does not exceed 10" .
+
+Output
+For each test case, output one integer — the minimum number of mistakes that you can arrange.
+
+ Sample Input                                          Sample Output
+ 3                                                     4
+ 3 3                                                   0
+ 3 2 1                                                 6
+ 1 2 3
+ 3 4
+ 1 2 3
+ 4 3 2 1
+ 5 4
+ 1 3 5 3 1
+ 4 3 6 1
+
+                                                         13
+

@@ -1,0 +1,67 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                        Problem B
+                                       Planning Tree
+                                    Time Limit: 1 second
+                                  Mem limit: 512 Megabytes
+A new beautiful park has just been built in our city. Your team is now responsible for planting
+trees in the park.
+The park can be considered as a grid with 𝑁 rows and 𝑁 columns. The rows are numbered from 1
+to 𝑁 from top to bottom. The columns are numbered from 1 to 𝑁 from left to right. Let us denote
+the cell at 𝑖 𝑡ℎ row and 𝑗𝑡ℎ column by (𝑖, 𝑗).
+Your team will plant exactly 𝑁 trees, such that in each row and in each column, there is exactly
+one tree.
+The entrance of the park is at cell (1, 1) and the exit of the park is at cell (𝑁, 𝑁); your team cannot
+plant trees at these two cells. Furthermore, there must exist a path from the entrance to the exit of
+the park such that a visitor only needs to move right or down. Obviously, visitors cannot walk
+through trees.
+
+
+            The following park is not valid, because column 3 has 2 trees
+
+
+          The following park is not valid, because cell (1, 1) is not empty,
+                            and there are only 3 trees
+
+           The following park is not valid, because it is not possible to go
+                  from (1, 1) to (4, 4) moving only right or down
+
+
+                              The following park is valid
+
+
+Please determine the number of different valid parks. Two parks are considered different if there
+is at least one tree at different positions in the two parks.
+
+Input
+The first line of input contains a single integer 𝑇 (𝑇 ≤ 105 ) – the number of test cases.
+𝑇 lines follow, each line contains a single integer 𝑁 (1 ≤ 𝑁 ≤ 107 ).
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+Output
+Print exactly 𝑇 lines, each line contains the number of ways to plant trees, satisfying all the given
+conditions. As the result can be very large, please prints the answer modulo 109 + 7.
+
+Sample Input                                      Sample Output
+ 3                                                 0
+ 1                                                 0
+ 2                                                 2
+ 3                                                 12
+ 4
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

@@ -1,0 +1,83 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                        Problem D
+                                       Puzzle Pieces
+                                  Time Limit: 2 seconds
+                                 Mem limit: 512 Megabytes
+You are given 𝑛 pieces of 1 × 𝑎 puzzle (one dimensional puzzle) as shown in the figure below.
+
+
+
+
+Each piece has two heads which can be one of three types: “in”, “out”, or “none”.
+    The “in” type means that the border of the head is concave.
+    The “out” type describe a convex border.
+    The “none” type denotes a straight border.
+
+For example,
+                             This piece has two “out” heads, or two convex heads.
+
+                             This piece has an “in” head on the left and a “none” head
+                             on the other side.
+
+There are a few rules for you:
+   1. You cannot reverse these pieces, in other words, you cannot swap left and right borders of
+       any piece.
+   2. Any “in” head can be connected with any “out” head and vice versa.
+   3. You cannot connect pieces that have “none” heads.
+
+You have to connect many pieces (possibly one), one after another, in order to achieve a single
+large piece of length 𝐿. Both heads of this combined piece must be “none” type. You wonder how
+many different sets of pieces that you can build up the large piece of length 𝐿, using all the pieces
+in the set. Because the number of different sets could be large, you have to calculate it modulo
+109 + 7.
+
+Note: You should count the number of sets of pieces, not the number of ways of connecting them.
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+Input
+The first line contains two integers 𝑛 and 𝐿 – the number of puzzle pieces and the desire length of
+the large piece (1 ≤ 𝑛 ≤ 300, 1 ≤ 𝐿 ≤ 300).
+
+The following 𝑛 lines contain the description of the pieces. Each line contains an integer and two
+strings 𝑎𝑖 , 𝑙𝑖 and 𝑟𝑖 — the length of the piece, type of its left head, and type of its right head,
+respectively (1 ≤ 𝑎𝑖 ≤ 𝐿; 𝑙𝑖 , 𝑟𝑖 ∈ {“in”, “out”, “none”}). String “in” denotes concave border,
+“out” — convex, “none” — straight.
+
+Output
+Output a single integer — the number of sets of pieces, such that you can build the desired large
+piece using the given pieces, modulo 109 + 7.
+
+Sample Input                                      Sample Output
+ 5 10                                              3
+ 1 out out
+ 6 none in
+ 10 none none
+ 4 out none
+ 3 in none
+ 4 5                                               1
+ 1 none out
+ 1 in out
+ 2 in out
+ 1 in none
+
+Explain
+The following figure explains the first sample test. There are three sets of pieces as illustrated in
+the figure.
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

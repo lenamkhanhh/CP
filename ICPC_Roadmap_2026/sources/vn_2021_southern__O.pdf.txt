@@ -1,0 +1,63 @@
+                                       The 2021 ICPC Vietnam
+                               Southern Provincial Programming Contest
+                                  University of Science, VNU-HCM
+                                         December 05th, 2021
+
+
+                                          Problem O
+                                          Watchmen
+                                   Time Limit: 2 seconds
+                                  Mem limit: 256 Megabytes
+Watchmen are in a danger and Doctor Manhattan together with his friend Daniel Dreiberg should
+warn them as soon as possible. There are 𝑛 watchmen on a plane, the 𝑖 𝑡ℎ watchman is located at
+point (𝑥𝑖 ; 𝑦𝑖 ).
+They need to arrange a plan, but there are some difficulties on their way. As you know, Doctor
+Manhattan considers the distance between watchmen 𝑖 and 𝑗 to be |𝑥𝑖 − 𝑥𝑗 | + |𝑦𝑖 − 𝑦𝑗 |. Daniel, as
+an ordinary person, calculates the distance using the formula:
+
+                                                 2              2
+                                     √(𝑥𝑖 − 𝑥𝑗 ) + (𝑦𝑖 − 𝑦𝑗 ) .
+
+The success of the operation relies on the number of pairs (𝑖; 𝑗) (1 ≤ 𝑖 < 𝑗 ≤ 𝑛), such that the
+distance between watchman i and watchmen j calculated by Doctor Manhattan is equal to the
+distance between them calculated by Daniel. You were asked to compute the number of such pairs.
+
+Input
+The first line of the input contains an integer 𝑛 (1 ≤ 𝑛 ≤ 200 000), the number of watchmen.
+Each of the following n lines contains two integers 𝑥𝑖 and 𝑦𝑖 (|𝑥𝑖 |, |𝑦𝑖 | ≤ 109 ).
+
+Output
+Print the number of pairs of watchmen such that the distance between them calculated by Doctor
+Manhattan is equal to the distance calculated by Daniel.
+
+Sample Input                                         Sample output
+ 3                                                   2
+ 1 1
+ 7 5
+ 1 5
+ 6                                                   11
+ 0 0
+ 0 1
+ 0 2
+ -1 1
+ 0 1
+ 1 1
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                    The 2021 ICPC Vietnam
+                            Southern Provincial Programming Contest
+                               University of Science, VNU-HCM
+                                      December 05th, 2021
+
+
+Explanation
+In the first sample, the distance between watchman 1 and watchman 2 is equal to |1 − 7| +
+|1 − 5| = 10 for Doctor Manhattan and √(1 − 7)2 + (1 − 5)2 = 2 ∙ √13 for Daniel. For pairs
+(1; 1), (1; 5) and (7; 5), (1; 5) Doctor Manhattan and Daniel will calculate the same distances.
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

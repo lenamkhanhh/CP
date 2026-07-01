@@ -1,0 +1,668 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\usepackage{amsmath}
+\usepackage{unicode-math}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{margin=1in}
+\setmainfont{Consolas}[Scale=0.94]
+\setmonofont{Consolas}[Scale=0.92]
+\setmathfont{Cambria Math}[Scale=1.03]
+\setlist{itemsep=0.25em, topsep=0.45em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\renewcommand{\arraystretch}{1.12}
+
+\definecolor{ink}{HTML}{1F2933}
+\definecolor{muted}{HTML}{52606D}
+\definecolor{line}{HTML}{CBD5E1}
+\definecolor{paperblue}{HTML}{EEF6FF}
+\definecolor{paperblueframe}{HTML}{2563EB}
+\definecolor{papergreen}{HTML}{ECFDF5}
+\definecolor{papergreenframe}{HTML}{059669}
+\definecolor{paperamber}{HTML}{FFFBEB}
+\definecolor{paperamberframe}{HTML}{D97706}
+\definecolor{papergray}{HTML}{F8FAFC}
+
+\hypersetup{
+    pdftitle={Zero AND Sum - Editorial và Tư duy giải bài},
+    pdfauthor={}
+}
+
+\titleformat{\section}
+  {\Large\bfseries\color{ink}}
+  {\thesection.}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{ink}}
+  {\thesubsection.}{0.6em}{}
+
+\pagestyle{fancy}
+\setlength{\headheight}{14pt}
+\fancyhf{}
+\lhead{\small Zero AND Sum}
+\rhead{\small Editorial}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\MOD}{998244353}
+\newcommand{\popc}{\operatorname{popcount}}
+\newcommand{\cnt}{\mathrm{cnt}}
+\newcommand{\coef}{\mathrm{coeff}}
+\newcommand{\freq}{\mathrm{freq}}
+\newcommand{\msk}{\mathrm{mask}}
+
+\tcbset{
+    enhanced,
+    breakable,
+    sharp corners,
+    boxrule=0.8pt,
+    left=9pt,
+    right=9pt,
+    top=7pt,
+    bottom=7pt,
+    before skip=0.8em,
+    after skip=0.9em,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{resultbox}[1]{
+    colback=paperblue,
+    colframe=paperblueframe,
+    title={#1}
+}
+
+\newtcolorbox{thinkbox}[1]{
+    colback=paperamber,
+    colframe=paperamberframe,
+    title={#1}
+}
+
+\newtcolorbox{notebox}[1]{
+    colback=papergreen,
+    colframe=papergreenframe,
+    title={#1}
+}
+
+\newtcolorbox{plainbox}[1]{
+    colback=papergray,
+    colframe=line,
+    title={#1}
+}
+
+\title{\vspace{-1.5em}\textbf{Zero AND Sum}\\[0.25em]\large Editorial đan xen Tư duy giải bài}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{plainbox}{Mục tiêu của tài liệu}
+Tài liệu này không tách riêng editorial và phần tư duy. Mỗi bước sẽ đi theo nhịp:
+\[
+\text{bài toán con} \longrightarrow \text{công thức} \longrightarrow \text{vì sao nghĩ ra bước đó}.
+\]
+Nhờ vậy khi đọc tới đâu, ta thấy luôn cả lời giải chuẩn lẫn cách nhận ra hướng đi trong lúc thi.
+\end{plainbox}
+
+\section{Ký hiệu và công thức cơ bản}
+
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.28\linewidth} p{0.62\linewidth}}
+\toprule
+Ký hiệu & Ý nghĩa \\
+\midrule
+\(p\) & Một hoán vị của \(1,2,\ldots,n\) \\
+\(f_i(p)\) & AND của \(i\) phần tử đầu trong hoán vị \(p\) \\
+\(g(p)\) & Chỉ số lớn nhất sao cho \(f_i(p)>0\) \\
+\(P(x,y)\) & Số chỉnh hợp chọn \(y\) phần tử từ \(x\) phần tử \\
+\(\cnt[\msk]\) & Số phần tử \(a_j\) chứa đầy đủ các bit của \texttt{mask} \\
+\(\coef[c]\) & Tổng dấu PIE của các mask có \(\cnt[\msk]=c\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Ta dùng:
+\[
+P(x,y)=
+\begin{cases}
+\dfrac{x!}{(x-y)!}, & x\ge y,\\
+0, & x<y.
+\end{cases}
+\]
+
+\begin{thinkbox}{Tư duy khi thi}
+Trước khi biến đổi, cần gọi tên đúng các đại lượng. Ở bài này có ba thứ rất quan trọng: prefix, phép AND, và hoán vị. Khi thấy ``largest \(i\)'' trên prefix, thường nên thử biến nó thành tổng các indicator theo từng vị trí \(i\).
+\end{thinkbox}
+
+\section{\texorpdfstring{Biến \(g(p)\) thành contribution theo prefix}{Biến g(p) thành contribution theo prefix}}
+
+Với một hoán vị \(p\):
+\[
+f_i(p)=a_{p_1}\mathbin{\&}a_{p_2}\mathbin{\&}\cdots\mathbin{\&}a_{p_i}.
+\]
+
+Phép AND có tính đơn điệu: AND thêm phần tử mới chỉ có thể làm tắt bit, không thể bật lại bit đã tắt. Vì thế nếu một lúc nào đó \(f_i(p)=0\), thì mọi prefix dài hơn cũng có AND bằng \(0\).
+
+Do đó dãy:
+\[
+[f_1(p)>0], [f_2(p)>0], \ldots, [f_n(p)>0]
+\]
+có dạng một đoạn đúng ở đầu, rồi toàn sai ở sau.
+
+\begin{resultbox}{Công thức contribution đầu tiên}
+\[
+g(p)=\sum_{i=1}^{n}[f_i(p)>0].
+\]
+Suy ra:
+\[
+\mathrm{Ans}
+=
+\sum_p g(p)
+=
+\sum_{i=1}^{n}\#\{p\mid f_i(p)>0\}.
+\]
+\end{resultbox}
+
+\begin{thinkbox}{Tư duy khi thi}
+Đếm trực tiếp \(g(p)\) theo từng hoán vị là bế tắc vì có \(n!\) hoán vị. Điểm mở khóa là nhận ra \(g(p)\) thật ra là ``số prefix còn sống'', không phải một vị trí khó đoán.
+
+Nói ngắn gọn:
+\[
+\texttt{largest i} + \text{prefix đơn điệu}
+\Rightarrow
+\text{tổng indicator}.
+\]
+\end{thinkbox}
+
+\section{\texorpdfstring{Đếm \(\#\{p\mid f_i(p)>0\}\) bằng phần bù}{Đếm số hoán vị bằng phần bù}}
+
+Với mỗi \(i\), ta cần đếm:
+\[
+\#\{p\mid f_i(p)>0\}.
+\]
+
+Điều kiện \(f_i(p)>0\) nghĩa là sau khi AND \(i\) phần tử đầu, vẫn còn ít nhất một bit sống. Đây là điều kiện ``tồn tại bit'', thường khó đếm trực tiếp.
+
+Ta chuyển sang phần bù:
+\[
+\#\{p\mid f_i(p)>0\}
+=
+n!-\#\{p\mid f_i(p)=0\}.
+\]
+
+Chỉ \(i\) phần tử đầu ảnh hưởng tới \(f_i(p)\). Gọi \(S_i\) là số bộ có thứ tự độ dài \(i\), không trùng chỉ số, sao cho AND của các phần tử được chọn bằng \(0\). Khi đã cố định \(i\) phần tử đầu, \(n-i\) phần tử còn lại có thể xếp tùy ý.
+
+\begin{resultbox}{Tách phần prefix và phần đuôi}
+\[
+\#\{p\mid f_i(p)=0\}=S_i\cdot (n-i)!.
+\]
+Vì vậy:
+\[
+\#\{p\mid f_i(p)>0\}
+=
+n!-S_i\cdot(n-i)!.
+\]
+\end{resultbox}
+
+\begin{thinkbox}{Tư duy khi thi}
+Điều kiện ``AND dương'' là ``tồn tại ít nhất một bit sống'', tức là có chữ ``tồn tại''. Các bài đếm có ``tồn tại'' thường gợi hai hướng: bao hàm loại trừ hoặc đếm phần bù. Ở đây phần bù \(f_i(p)=0\) lại có nghĩa rất rõ: không bit nào sống trong tất cả phần tử đã chọn.
+\end{thinkbox}
+
+\section{\texorpdfstring{Đếm \(S_i\) bằng bao hàm loại trừ trên bit}{Đếm Si bằng bao hàm loại trừ trên bit}}
+
+AND của một bộ bằng \(0\) nghĩa là không có bit nào xuất hiện trong tất cả các phần tử được chọn. Ngược lại, nếu một bit vẫn sống sau AND, thì bit đó phải xuất hiện trong mọi phần tử của bộ.
+
+Với một \texttt{mask}, định nghĩa:
+\[
+\cnt[\msk]=\#\{j\mid (a_j\mathbin{\&}\msk)=\msk\}.
+\]
+
+Tức là \(\cnt[\msk]\) là số phần tử chứa đầy đủ các bit \(1\) của \texttt{mask}. Nếu yêu cầu mọi bit trong \texttt{mask} đều sống sau AND, thì tất cả phần tử được chọn đều phải chứa \texttt{mask}. Số bộ có thứ tự độ dài \(i\) là:
+\[
+P(\cnt[\msk],i).
+\]
+
+\begin{resultbox}{Công thức PIE cho \(S_i\)}
+\[
+S_i=
+\sum_{\msk=0}^{2^k-1}
+(-1)^{\popc(\msk)}P(\cnt[\msk],i).
+\]
+\end{resultbox}
+
+\begin{notebox}{Ý nghĩa dấu}
+\begin{itemize}
+    \item \(\popc(\msk)\) chẵn: cộng.
+    \item \(\popc(\msk)\) lẻ: trừ.
+\end{itemize}
+Đây là bao hàm loại trừ trên tập các bit còn sống sau phép AND.
+\end{notebox}
+
+\begin{thinkbox}{Tư duy khi thi}
+Khi một điều kiện nói về ``bit nào đó sống trong tất cả phần tử'', ta thử cố định tập bit sống. Cố định tập bit đó chính là chọn một \texttt{mask}. Sau đó bài toán chỉ còn hỏi: có bao nhiêu phần tử chứa mask này? Câu trả lời là \(\cnt[\msk]\).
+\end{thinkbox}
+
+\section{\texorpdfstring{Tính \(\cnt[\msk]\) bằng Superset SOS DP}{Tính cnt[mask] bằng Superset SOS DP}}
+
+Ta cần:
+\[
+\cnt[\msk]=
+\sum_{\substack{x\\(x\mathbin{\&}\msk)=\msk}}
+\freq[x].
+\]
+
+Nói cách khác, ta cần tổng tần suất của mọi \(x\) là siêu tập của \texttt{mask}.
+
+Ban đầu:
+\[
+\freq[x]=\#\{j\mid a_j=x\}.
+\]
+
+Sau đó chạy Superset SOS DP:
+\[
+\freq[\msk]\leftarrow \freq[\msk]+\freq[\msk\mid 2^b]
+\]
+với mọi bit \(b\) chưa bật trong \texttt{mask}. Sau khi xử lý tất cả bit:
+\[
+\freq[\msk]=\cnt[\msk].
+\]
+
+\begin{resultbox}{Chi phí của phần đếm mask}
+\[
+O(k2^k).
+\]
+\end{resultbox}
+
+\begin{thinkbox}{Tư duy khi thi}
+Biểu thức \((x\mathbin{\&}\msk)=\msk\) nghĩa là \(x\) chứa mọi bit của \(\msk\), tức \(x\) là một siêu tập của \(\msk\). Khi cần cộng trên mọi siêu tập của mask, đó là đúng dạng Superset SOS DP.
+\end{thinkbox}
+
+\section{Gom nhóm theo cùng giá trị \texorpdfstring{\(\cnt\)}{cnt}}
+
+Từ PIE:
+\[
+S_i=
+\sum_{\msk=0}^{2^k-1}
+(-1)^{\popc(\msk)}P(\cnt[\msk],i).
+\]
+
+Nếu tính công thức này cho mọi \(i=1,2,\ldots,n\), độ phức tạp là:
+\[
+O(n2^k).
+\]
+
+Quan sát quan trọng:
+\[
+P(\cnt[\msk],i)
+\]
+chỉ phụ thuộc vào giá trị \(\cnt[\msk]\), không phụ thuộc trực tiếp vào \texttt{mask}. Vì vậy ta gom các mask có cùng giá trị \(\cnt\).
+
+Định nghĩa:
+\[
+\coef[c]=
+\sum_{\substack{\msk\\\cnt[\msk]=c}}
+(-1)^{\popc(\msk)}.
+\]
+
+\begin{resultbox}{Công thức sau khi gom mask}
+\[
+S_i=
+\sum_{c=0}^{n}\coef[c]P(c,i)
+=
+\sum_{c=i}^{n}\coef[c]P(c,i).
+\]
+\end{resultbox}
+
+\begin{thinkbox}{Tư duy khi thi}
+Đến đây ta đã có công thức đúng, nhưng vẫn chậm vì mỗi \(i\) phải quét toàn bộ mask. Câu hỏi tự nhiên là: trong biểu thức theo mask, phần nào thật sự phụ thuộc vào mask?
+
+Câu trả lời: chỉ dấu PIE cần cộng dồn theo từng giá trị \(\cnt[\msk]\). Sau khi gom vào \(\coef[c]\), vòng theo mask biến mất khỏi từng \(i\).
+\end{thinkbox}
+
+\section{Lắp công thức vào đáp án}
+
+Ta có:
+\[
+\mathrm{Ans}
+=
+\sum_{i=1}^{n}
+\left(
+n!-(n-i)!S_i
+\right).
+\]
+
+Thay công thức \(S_i\):
+\[
+\mathrm{Ans}
+=
+\sum_{i=1}^{n}
+\left(
+n!-(n-i)!
+\sum_{c=i}^{n}\coef[c]P(c,i)
+\right).
+\]
+
+Vì:
+\[
+P(c,i)=\frac{c!}{(c-i)!},
+\]
+nên:
+\[
+\mathrm{Ans}
+=
+n\cdot n!
+-
+\sum_{i=1}^{n}
+(n-i)!
+\sum_{c=i}^{n}
+\coef[c]\frac{c!}{(c-i)!}.
+\]
+
+\begin{thinkbox}{Tư duy khi thi}
+Sau khi gom mask, công thức còn hai vòng \(i,c\). Đây là lúc nhìn miền chỉ số thay vì nhìn code. Nếu miền có dạng \(1\le i\le n,\ i\le c\le n\), thường có thể đổi thứ tự tổng để kéo phần phụ thuộc vào \(c\) ra ngoài.
+\end{thinkbox}
+
+\section{Đổi cận tổng và rút gọn}
+
+Tổng hai lớp có miền:
+\[
+1\le i\le n,\qquad i\le c\le n.
+\]
+
+Đổi thứ tự:
+\[
+\sum_{i=1}^{n}
+\sum_{c=i}^{n}
+(\cdots)
+=
+\sum_{c=1}^{n}
+\sum_{i=1}^{c}
+(\cdots).
+\]
+
+Áp dụng vào đáp án:
+\[
+\mathrm{Ans}
+=
+n\cdot n!
+-
+\sum_{c=1}^{n}
+\coef[c]c!
+\left(
+\sum_{i=1}^{c}
+\frac{(n-i)!}{(c-i)!}
+\right).
+\]
+
+Đặt:
+\[
+T(c)=
+\sum_{i=1}^{c}
+\frac{(n-i)!}{(c-i)!}.
+\]
+
+Đổi biến \(j=c-i\). Khi đó \(i=c-j\). Trong \(T(c)\),
+\(c\) là cố định, còn \(i\) là biến chạy của tổng.
+
+Cận đổi như sau:
+\[
+\begin{aligned}
+i=1 &\Rightarrow j=c-1,\\
+i=c &\Rightarrow j=0.
+\end{aligned}
+\]
+Nghĩa là khi \(i\) tăng từ \(1\) đến \(c\), thì \(j\) chạy lần lượt
+\(c-1,c-2,\ldots,0\). Vì tổng hữu hạn không phụ thuộc thứ tự cộng,
+ta viết lại theo chiều tăng của \(j\), tức là từ \(0\) đến \(c-1\).
+Thay \(i=c-j\) vào biểu thức:
+\[
+T(c)=
+\sum_{j=0}^{c-1}
+\frac{(n-c+j)!}{j!}.
+\]
+
+Ta viết hạng tử trong tổng dưới dạng tổ hợp. Nhớ rằng:
+\[
+\binom{A}{j}
+=
+\frac{A!}{j!(A-j)!}.
+\]
+Chọn \(A=n-c+j\), khi đó \(A-j=n-c\), nên:
+\[
+\binom{n-c+j}{j}
+=
+\frac{(n-c+j)!}{j!(n-c)!}.
+\]
+Nhân hai vế với \((n-c)!\), ta được:
+\[
+\frac{(n-c+j)!}{j!}
+=
+(n-c)!\binom{n-c+j}{j}.
+\]
+Vì \((n-c)!\) không phụ thuộc vào \(j\), ta kéo ra ngoài tổng được.
+
+Suy ra:
+\[
+T(c)=
+(n-c)!
+\sum_{j=0}^{c-1}
+\binom{n-c+j}{j}.
+\]
+
+Dùng đồng nhất thức hockey-stick:
+\[
+\sum_{j=0}^{c-1}
+\binom{n-c+j}{j}
+=
+\binom{n}{c-1}.
+\]
+
+\begin{notebox}{Chứng minh nhanh hockey-stick}
+Dạng tổng quát quen thuộc là:
+\[
+\binom{r}{r}
++
+\binom{r+1}{r}
++
+\binom{r+2}{r}
++
+\cdots
++
+\binom{n}{r}
+=
+\binom{n+1}{r+1}.
+\]
+Viết gọn:
+\[
+\sum_{k=r}^{n}\binom{k}{r}
+=
+\binom{n+1}{r+1}.
+\]
+Đây chính là công thức hockey-stick: chỉ số dưới \(r\) được giữ cố định,
+còn chỉ số trên chạy từ \(r\) tới \(n\).
+
+Chứng minh nhanh bằng Pascal:
+\[
+\binom{k}{r}
+=
+\binom{k+1}{r+1}-\binom{k}{r+1}.
+\]
+Cộng từ \(k=r\) tới \(n\), các hạng tử ở giữa triệt tiêu dạng telescope:
+\[
+\begin{aligned}
+\sum_{k=r}^{n}\binom{k}{r}
+&=
+\sum_{k=r}^{n}
+\left(
+\binom{k+1}{r+1}-\binom{k}{r+1}
+\right)\\
+&=
+\binom{n+1}{r+1}-\binom{r}{r+1}\\
+&=
+\binom{n+1}{r+1}.
+\end{aligned}
+\]
+
+Áp dụng vào bài này:
+\[
+\begin{aligned}
+\sum_{j=0}^{c-1}\binom{n-c+j}{j}
+&=
+\sum_{j=0}^{c-1}\binom{n-c+j}{n-c}\\
+&=
+\sum_{k=n-c}^{n-1}\binom{k}{n-c}.
+\end{aligned}
+\]
+Dòng thứ hai dùng đối xứng tổ hợp:
+\[
+\binom{n-c+j}{j}
+=
+\binom{n-c+j}{(n-c+j)-j}
+=
+\binom{n-c+j}{n-c}.
+\]
+Dòng thứ ba đặt \(k=n-c+j\). Khi \(j=0\) thì \(k=n-c\);
+khi \(j=c-1\) thì \(k=n-1\).
+
+Bây giờ tổng đã đúng dạng hockey-stick quen thuộc:
+\[
+\binom{n-c}{n-c}
++
+\binom{n-c+1}{n-c}
++
+\cdots
++
+\binom{n-1}{n-c}.
+\]
+So với công thức tổng quát, ta có chỉ số dưới cố định là \(r=n-c\)
+và cận cuối của chỉ số trên là \(n-1\). Vì vậy:
+\[
+\begin{aligned}
+\sum_{k=n-c}^{n-1}\binom{k}{n-c}
+&=
+\binom{(n-1)+1}{(n-c)+1}\\
+&=
+\binom{n}{n-c+1}\\
+&=
+\binom{n}{c-1}.
+\end{aligned}
+\]
+\end{notebox}
+
+Do đó:
+\[
+T(c)
+=
+(n-c)!\binom{n}{c-1}
+=
+\frac{n!}{(c-1)!(n-c+1)}.
+\]
+
+Vì đáp án cần \(c!T(c)\), ta có:
+\[
+c!T(c)
+=
+\frac{c\cdot n!}{n-c+1}.
+\]
+
+\begin{resultbox}{Công thức cuối cùng}
+\[
+\boxed{
+\mathrm{Ans}
+=
+n\cdot n!
+-
+\sum_{c=1}^{n}
+\coef[c]\cdot
+\frac{c\cdot n!}{n-c+1}
+}
+\pmod{\MOD}.
+\]
+Mọi phép chia đều là nhân với nghịch đảo modulo \(\MOD\).
+\end{resultbox}
+
+\begin{thinkbox}{Tư duy khi thi}
+Phần rút gọn \(T(c)\) nhìn hơi ma thuật nếu đọc nhanh. Cách nhớ là: đổi \(i\) sang khoảng cách \(j=c-i\), rồi cố tách ra \((n-c)!\) để lộ tổng nhị thức. Khi thấy:
+\[
+\sum_j \binom{r+j}{j},
+\]
+hãy nghĩ tới hockey-stick.
+\end{thinkbox}
+
+\section{Thuật toán cuối cùng}
+
+Với mỗi test:
+\begin{enumerate}
+    \item Đếm tần suất \(\freq[a_i]\).
+    \item Chạy Superset SOS DP để biến \(\freq[\msk]\) thành \(\cnt[\msk]\).
+    \item Khởi tạo \(\coef[0\ldots n]=0\).
+    \item Với mỗi \texttt{mask}, đặt \(c=\cnt[\msk]\):
+    \[
+    \coef[c]\mathrel{+}=(-1)^{\popc(\msk)}.
+    \]
+    \item Tính \(n!\) và các nghịch đảo cần dùng.
+    \item Khởi tạo:
+    \[
+    \mathrm{Ans}=n\cdot n!.
+    \]
+    \item Với mỗi \(c=1,2,\ldots,n\), trừ:
+    \[
+    \coef[c]\cdot \frac{c\cdot n!}{n-c+1}.
+    \]
+\end{enumerate}
+
+\begin{notebox}{Cài đặt modulo}
+Nếu \(\popc(\msk)\) chẵn thì cộng \(1\) vào \(\coef[c]\), ngược lại cộng \(-1\). Các phép trừ nên được chuẩn hóa về đoạn \([0,\MOD-1]\).
+\end{notebox}
+
+\section{Độ phức tạp và checklist}
+
+Với mỗi test:
+\[
+O(n+k2^k).
+\]
+
+Bộ nhớ:
+\[
+O(n+2^k).
+\]
+
+\begin{plainbox}{Checklist tư duy}
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.43\linewidth} p{0.47\linewidth}}
+\toprule
+Câu hỏi & Hướng nghĩ \\
+\midrule
+Tổng trên mọi hoán vị có duyệt được không? & Không, phải dùng contribution \\
+\texttt{g(p)} là gì về mặt prefix? & Số prefix có AND dương \\
+Vì sao đổi được như vậy? & AND đơn điệu, về 0 rồi không sống lại \\
+Đếm \texttt{AND > 0} trực tiếp dễ không? & Không, chuyển sang phần bù \texttt{AND = 0} \\
+\texttt{AND = 0} gợi gì? & Không bit nào sống trong tất cả phần tử \\
+Đếm theo bit bằng gì? & Bao hàm loại trừ \\
+Cần dữ liệu gì cho mỗi mask? & \(\cnt[\msk]\), số phần tử chứa mask \\
+Tính \(\cnt[\msk]\) kiểu gì? & Superset SOS DP \\
+Công thức còn chậm ở đâu? & Vòng \(i\) nhân với toàn bộ mask \\
+Tối ưu bằng gì? & Gom mask theo cùng \(\cnt[\msk]\), tạo \(\coef[c]\) \\
+Vì sao đổi tổng được? & Miền \(1\le i\le n,\ i\le c\le n\) đổi thành \(1\le c\le n,\ 1\le i\le c\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{plainbox}
+
+\begin{resultbox}{Tóm gọn}
+Biến \(g(p)\) thành tổng prefix còn dương, đếm phần bù \texttt{AND = 0} bằng PIE trên bit, lấy \(\cnt[\msk]\) bằng SOS DP, gom các mask cùng \(\cnt\), rồi đổi thứ tự tổng để ra công thức \(O(n+k2^k)\).
+\end{resultbox}
+
+\end{document}

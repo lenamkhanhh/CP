@@ -1,0 +1,507 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=2.1cm]{geometry}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+\setmainfont{Times New Roman}
+\setmonofont{Consolas}
+
+\definecolor{deepblue}{HTML}{17324D}
+\definecolor{softblue}{HTML}{EEF5FF}
+\definecolor{softgray}{HTML}{F5F6F8}
+\definecolor{codebg}{HTML}{FAFAFA}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=deepblue,
+  urlcolor=deepblue
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textsf{Shortest GCD Paths}}
+\rhead{\textsf{Tutorial}}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\emergencystretch=2em
+
+\lstset{
+  language=C++,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{deepblue}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  backgroundcolor=\color{codebg},
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  rulecolor=\color{gray!35},
+  tabsize=4,
+  showstringspaces=false
+}
+
+\newenvironment{insight}
+{\par\medskip\noindent\begin{minipage}{0.96\linewidth}\color{deepblue}\textbf{Nhận xét.}\ }
+{\end{minipage}\par\medskip}
+
+\newcommand{\g}{\gcd}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\taufunc}{\tau}
+
+\title{\Huge\bfseries Shortest GCD Paths\\[4pt]\Large Tutorial suy luận và lời giải tối ưu}
+\author{Competitive Programming Notes}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Bài toán}
+
+Ta có đồ thị vô hướng đầy đủ gồm \(n\) đỉnh, đánh số từ \(1\) đến \(n\). Với mỗi cặp đỉnh phân biệt \(u,v\), trọng số cạnh là
+\[
+  w(u,v)=\frac{\max(u,v)}{\gcd(u,v)}.
+\]
+Cần tìm độ dài đường đi ngắn nhất từ \(a\) đến \(b\), với
+\[
+  2\le n\le 10^9,\qquad 1\le a,b\le n,\qquad a\ne b.
+\]
+
+Ví dụ:
+\[
+\begin{array}{c|c}
+\text{Input} & \text{Output}\\
+\hline
+10\ 9\ 8 & 7\\
+100\ 16\ 27 & 10\\
+100\ 55\ 11 & 5
+\end{array}
+\]
+
+\section{Phân tích giới hạn}
+
+Vì \(n\le 10^9\), các hướng trực tiếp đều không khả thi.
+
+\begin{itemize}
+  \item Không thể dựng toàn bộ đồ thị vì số cạnh là \(\Theta(n^2)\).
+  \item Không thể chạy Dijkstra trên \(1,\ldots,n\), vì chỉ riêng số đỉnh đã quá lớn.
+  \item Không thể DP theo giá trị đỉnh, vì mảng kích thước \(10^9\) không thực tế.
+  \item Không thể duyệt mọi đỉnh trung gian.
+\end{itemize}
+
+\begin{insight}
+Khi miền giá trị rất lớn nhưng công thức transition chứa \(\gcd\), chia hết, tỉ lệ hoặc thừa số, ta nên thử rời bỏ miền giá trị \(1,\ldots,n\), và chuyển sang trạng thái theo ước số hoặc thừa số nguyên tố.
+\end{insight}
+
+Với bài này, điểm đáng nhìn nhất không phải là đồ thị đầy đủ, mà là công thức trọng số. Ta sẽ bóc nó ra.
+
+\section{Phân tích một cạnh}
+
+Lấy hai số \(u,v\). Đặt
+\[
+  g=\gcd(u,v),\qquad u=gx,\qquad v=gy,
+\]
+trong đó
+\[
+  \gcd(x,y)=1.
+\]
+Khi đó
+\[
+  w(u,v)=\frac{\max(gx,gy)}{g}=\max(x,y).
+\]
+
+Nghĩa là một bước đi từ \(u\) sang \(v\) có thể hiểu như sau:
+
+\begin{itemize}
+  \item bỏ hệ số \(x\);
+  \item thêm hệ số \(y\);
+  \item chi phí là \(\max(x,y)\).
+\end{itemize}
+
+Ví dụ:
+\[
+16\rightarrow 24.
+\]
+Ta có
+\[
+\gcd(16,24)=8,\qquad 16=8\cdot 2,\qquad 24=8\cdot 3.
+\]
+Vậy chi phí cạnh là
+\[
+\max(2,3)=3.
+\]
+
+\section{\texorpdfstring{Loại bỏ phần chung của \(a\) và \(b\)}{Loại bỏ phần chung của a và b}}
+
+Đặt
+\[
+  g=\gcd(a,b),\qquad A=\frac{a}{g},\qquad B=\frac{b}{g}.
+\]
+Khi đó
+\[
+  \gcd(A,B)=1.
+\]
+
+Phần \(g\) là phần chung đã có ở cả điểm đầu và điểm cuối. Trong một lời giải tối ưu, ta không cần xem nó là thứ phải thay đổi. Phần thực sự cần xử lý là:
+
+\begin{itemize}
+  \item loại bỏ toàn bộ thừa số thuộc \(A\);
+  \item thêm toàn bộ thừa số thuộc \(B\).
+\end{itemize}
+
+Vì \(A\) và \(B\) nguyên tố cùng nhau, mọi thừa số thuộc \(A\) và mọi thừa số thuộc \(B\) cũng nguyên tố cùng nhau. Điều này làm cho chi phí của từng nhóm rất sạch.
+
+\section{Từ đường đi sang bài toán phân nhóm}
+
+Giả sử một bước loại bỏ hệ số \(x\) và thêm hệ số \(y\). Chi phí là
+\[
+  \max(x,y).
+\]
+Nếu cả đường đi gồm các bước
+\[
+  (x_1,y_1),(x_2,y_2),\ldots,(x_m,y_m),
+\]
+thì phần bị loại bỏ phải nhân lại thành \(A\):
+\[
+  x_1x_2\cdots x_m=A,
+\]
+và phần được thêm vào phải nhân lại thành \(B\):
+\[
+  y_1y_2\cdots y_m=B.
+\]
+Tổng chi phí là
+\[
+  \sum_{i=1}^{m}\max(x_i,y_i).
+\]
+
+\begin{insight}
+Bài toán đường đi ngắn nhất trên đồ thị khổng lồ đã biến thành bài toán phân nhóm thừa số: chia thừa số của \(A\) và \(B\) thành các nhóm, rồi ghép từng nhóm của \(A\) với một nhóm của \(B\).
+\end{insight}
+
+\section{Chứng minh hai chiều}
+
+Đây là phần quan trọng nhất. Nếu bỏ qua chứng minh này, ta rất dễ viết một DP đẹp nhưng không chắc nó đang giải đúng bài gốc.
+
+\subsection{Từ đường đi bất kỳ sang phân nhóm}
+
+Xét một đường đi bất kỳ
+\[
+  a=z_0,z_1,\ldots,z_m=b.
+\]
+Với bước \(i\), đặt
+\[
+  h_i=\gcd(z_{i-1},z_i),\qquad
+  r_i=\frac{z_{i-1}}{h_i},\qquad
+  s_i=\frac{z_i}{h_i}.
+\]
+Khi đó \(\gcd(r_i,s_i)=1\), và chi phí bước \(i\) là
+\[
+  \max(r_i,s_i).
+\]
+
+Nhìn theo số mũ nguyên tố. Với một prime \(p\) thuộc \(A\), tổng số lần số mũ của \(p\) giảm trừ tổng số lần nó tăng đúng bằng số mũ của \(p\) trong \(A\). Nếu một prime thuộc \(A\) bị giảm rồi lại tăng, phần tăng đó là dao động trung gian, không đóng góp vào biến đổi ròng từ \(a\) sang \(b\).
+
+Vì vậy, từ các lần giảm của prime thuộc \(A\), ta chọn đúng lượng giảm ròng cần thiết để tạo các \(x_i\). Tương tự, từ các lần tăng của prime thuộc \(B\), ta chọn đúng lượng tăng ròng cần thiết để tạo các \(y_i\).
+
+Khi đó:
+\[
+  x_i\mid r_i,\qquad y_i\mid s_i.
+\]
+Do đó
+\[
+  \max(x_i,y_i)\le \max(r_i,s_i).
+\]
+Đồng thời các phần được chọn nhân lại đúng bằng
+\[
+  \prod_i x_i=A,\qquad \prod_i y_i=B.
+\]
+Suy ra từ mọi đường đi ta lấy được một cách phân nhóm có tổng chi phí không lớn hơn đường đi ban đầu.
+
+\subsection{Từ phân nhóm sang đường đi hợp lệ}
+
+Ngược lại, giả sử ta có các cặp
+\[
+  (x_1,y_1),\ldots,(x_m,y_m)
+\]
+thỏa
+\[
+  \prod_i x_i=A,\qquad \prod_i y_i=B.
+\]
+Vì \(A\) và \(B\) nguyên tố cùng nhau, nên \(\gcd(x_i,y_i)=1\) với mọi \(i\).
+
+Từ một trạng thái hiện tại \(z\), nếu \(x_i\mid z\), ta đi sang
+\[
+  z'=\frac{z}{x_i}\cdot y_i.
+\]
+Khi đó
+\[
+  \gcd(z,z')=\frac{z}{x_i},
+\]
+và cạnh có chi phí đúng bằng
+\[
+  \max(x_i,y_i).
+\]
+Do các \(x_i\) nhân lại thành \(A\), ta có thể loại bỏ chúng lần lượt từ \(a=gA\). Do các \(y_i\) nhân lại thành \(B\), sau cùng ta đến \(gB=b\).
+
+\section{\texorpdfstring{Vì sao không vượt quá \(n\)?}{Vì sao không vượt quá n?}}
+
+Còn một ràng buộc phải xử lý: mọi đỉnh trung gian phải nằm trong \(1,\ldots,n\).
+
+Phân loại các bước:
+
+\begin{itemize}
+  \item bước giảm hoặc giữ nguyên: \(y_i\le x_i\);
+  \item bước tăng: \(y_i>x_i\).
+\end{itemize}
+
+Ta có thể sắp xếp tất cả bước giảm trước, bước tăng sau. Lý do là các tỉ lệ
+\[
+  \frac{y_i}{x_i}
+\]
+nhân với nhau, nên thứ tự không ảnh hưởng đến tích cuối. Tổng chi phí cũng không phụ thuộc vào thứ tự.
+
+Sau khi sắp:
+
+\begin{itemize}
+  \item giai đoạn giảm không bao giờ vượt quá \(a\);
+  \item giai đoạn tăng là một dãy tăng dần và kết thúc tại \(b\), nên không vượt quá \(b\).
+\end{itemize}
+
+Vậy mọi đỉnh trung gian không vượt quá
+\[
+  \max(a,b)\le n.
+\]
+
+Điều kiện chia hết cũng được giữ: tại thời điểm xử lý \(x_i\), các thừa số của \(x_i\) vẫn còn nằm trong phần \(A\) chưa bị loại bỏ. Những thừa số đã thêm từ \(B\) không gây cản trở vì \(A\) và \(B\) nguyên tố cùng nhau.
+
+\section{DP trên các ước}
+
+Ta liệt kê tất cả ước của \(A\) và \(B\). Định nghĩa
+\[
+  dp[x][y]
+\]
+là chi phí nhỏ nhất để xử lý xong phần \(x\) của \(A\) và phần \(y\) của \(B\), trong đó
+\[
+  x\mid A,\qquad y\mid B.
+\]
+Base:
+\[
+  dp[1][1]=0.
+\]
+
+Giả sử bước cuối xử lý nhóm
+\[
+  d\mid x,\qquad e\mid y,\qquad (d,e)\ne(1,1).
+\]
+Trước bước cuối, ta đã xử lý
+\[
+  \frac{x}{d},\qquad \frac{y}{e}.
+\]
+Do đó
+\[
+  dp[x][y]=
+  \min_{\substack{d\mid x,\ e\mid y\\(d,e)\ne(1,1)}}
+  \left(
+    dp\left[\frac{x}{d}\right]\left[\frac{y}{e}\right]
+    +\max(d,e)
+  \right).
+\]
+
+Ta duyệt các ước theo thứ tự tăng dần. Nếu \((d,e)\ne(1,1)\), thì hoặc \(x/d<x\), hoặc \(y/e<y\). Vì vậy trạng thái phụ đã được tính trước.
+
+\section{Độ phức tạp}
+
+Gọi
+\[
+  D_A=\tau(A),\qquad D_B=\tau(B),
+\]
+trong đó \(\tau(x)\) là số ước của \(x\).
+
+Với \(x\le 10^9\), số ước lớn nhất là
+\[
+  1344,
+\]
+đạt tại
+\[
+  735134400=2^6\cdot 3^3\cdot 5^2\cdot 7\cdot 11\cdot 13\cdot 17.
+\]
+
+Số trạng thái DP là
+\[
+  D_A D_B.
+\]
+
+Ta tiền xử lý, với mỗi ước \(x\), danh sách các cặp
+\[
+  (d,x/d),\qquad d\mid x.
+\]
+Nếu
+\[
+  S(A)=\sum_{x\mid A}\tau(x),
+\]
+thì tổng số transition thực sự là
+\[
+  S(A)S(B).
+\]
+
+Với phân tích thừa số
+\[
+  A=\prod p_i^{\alpha_i},
+\]
+ta có
+\[
+  S(A)=\prod_i \frac{(\alpha_i+1)(\alpha_i+2)}{2}.
+\]
+Riêng với một số không vượt quá \(10^9\), \(S(x)\) lớn nhất là \(136080\). Trong bài này \(A\) và \(B\) nguyên tố cùng nhau sau khi chia \(\gcd(a,b)\), nên hai phía không thể đồng thời đạt cấu hình xấu nhất dùng cùng các prime nhỏ.
+
+Trong thực tế, số transition đủ nhỏ cho một test. Việc sinh ước chỉ cần \(O(\sqrt A+\sqrt B)\), với \(\sqrt{10^9}<31623\).
+
+\section{Dry run}
+
+\subsection{Ví dụ 1}
+
+\[
+n=10,\quad a=9,\quad b=8.
+\]
+Ta có \(\gcd(9,8)=1\), nên
+\[
+A=9,\qquad B=8.
+\]
+Một phân nhóm tối ưu là
+\[
+(3,2),(3,4).
+\]
+Tổng chi phí:
+\[
+\max(3,2)+\max(3,4)=3+4=7.
+\]
+Đường đi tương ứng:
+\[
+9\rightarrow 6\rightarrow 8.
+\]
+Kiểm tra:
+\[
+w(9,6)=\frac{9}{3}=3,\qquad
+w(6,8)=\frac{8}{2}=4.
+\]
+
+\subsection{Ví dụ 2}
+
+\[
+n=100,\quad a=16,\quad b=27.
+\]
+Ta có
+\[
+A=16,\qquad B=27.
+\]
+Một phân nhóm tối ưu:
+\[
+(2,3),(2,3),(4,3).
+\]
+Tổng chi phí:
+\[
+3+3+4=10.
+\]
+Đường đi:
+\[
+16\rightarrow 24\rightarrow 36\rightarrow 27.
+\]
+Kiểm tra:
+\[
+w(16,24)=3,\qquad w(24,36)=3,\qquad w(36,27)=4.
+\]
+
+\subsection{Ví dụ 3}
+
+\[
+n=100,\quad a=55,\quad b=11.
+\]
+Ta có
+\[
+g=11,\qquad A=5,\qquad B=1.
+\]
+Chỉ cần bỏ hệ số \(5\), nên đáp án là \(5\). Đường đi trực tiếp:
+\[
+55\rightarrow 11,\qquad w(55,11)=5.
+\]
+
+\section{Những hướng sai dễ mắc}
+
+\begin{itemize}
+  \item \textbf{Dijkstra trực tiếp trên \(1,\ldots,n\).} Không chạy được vì \(n\le 10^9\).
+  \item \textbf{Chỉ xét đường đi trực tiếp.} Sai với \(16\rightarrow 27\): trực tiếp tốn \(27\), nhưng \(16\rightarrow24\rightarrow36\rightarrow27\) tốn \(10\).
+  \item \textbf{Chỉ xét đỉnh là ước của \(ab\) mà không chứng minh.} Ý tưởng gần đúng, nhưng cần chứng minh bằng phân tích thừa số ròng.
+  \item \textbf{Dijkstra trên cặp ước với transition tùy ý.} Làm được nhưng thừa; DP đã có thứ tự topo tự nhiên.
+  \item \textbf{Greedy ghép thừa số nhỏ nhất.} Không có tính chất local-choice rõ ràng; grouping cần tối ưu tổng \(\max(d,e)\).
+  \item \textbf{Greedy ghép thừa số gần nhau nhất.} Có thể bị kẹt vì một nhóm lớn đôi khi nên ghép với nhiều nhóm nhỏ.
+  \item \textbf{Bỏ qua giới hạn đỉnh trung gian.} Cần chứng minh sắp bước giảm trước, tăng sau để mọi đỉnh không vượt quá \(\max(a,b)\).
+\end{itemize}
+
+\section{Pattern cho bài khác}
+
+Checklist nhận diện:
+
+\begin{enumerate}
+  \item Constraint cực lớn nên không duyệt miền giá trị.
+  \item Phân tích công thức của một transition.
+  \item Tách phần \(\gcd\) chung nếu có.
+  \item Diễn giải transition thành thao tác trên thừa số.
+  \item Xác định tài nguyên còn lại để xây dựng state.
+  \item DP trên ước thay vì DP trên giá trị.
+  \item Dùng tính giao hoán để đổi thứ tự thao tác và xử lý ràng buộc trung gian.
+\end{enumerate}
+
+\section{Kiểm chứng bằng brute force}
+
+Ta viết checker riêng:
+
+\begin{itemize}
+  \item Với \(n\le 30\), dựng đầy đủ graph.
+  \item Chạy Dijkstra thật trên \(n\) đỉnh.
+  \item So sánh với lời giải DP cho mọi cặp \(a\ne b\).
+  \item Sau đó random thêm với \(n\le 100\).
+\end{itemize}
+
+Kết quả khi chạy checker trong thư mục dự án:
+\[
+\texttt{All tests passed,\ Total tests: 13990.}
+\]
+
+\section{Code C++17}
+
+\subsection{Solution}
+
+\lstinputlisting{solution.cpp}
+
+\subsection{Bruteforce checker}
+
+\lstinputlisting{bruteforce_checker.cpp}
+
+\section{Tóm tắt để ôn nhanh}
+
+\begin{itemize}
+  \item Cạnh \(u\rightarrow v\): viết \(u=gx,v=gy,\gcd(x,y)=1\), chi phí là \(\max(x,y)\).
+  \item Chia \(g=\gcd(a,b)\), còn lại \(A=a/g,B=b/g\), với \(\gcd(A,B)=1\).
+  \item Cần bỏ các thừa số của \(A\), thêm các thừa số của \(B\).
+  \item Một lời giải là phân nhóm \((x_i,y_i)\) sao cho \(\prod x_i=A,\prod y_i=B\), chi phí \(\sum\max(x_i,y_i)\).
+  \item DP trên cặp ước:
+  \[
+    dp[x][y]=\min_{d\mid x,e\mid y,(d,e)\ne(1,1)}
+    dp[x/d][y/e]+\max(d,e).
+  \]
+  \item Ràng buộc \(1..n\) không bị phá vì có thể sắp bước giảm trước, tăng sau.
+  \item Luôn brute force các bài kiểu này nếu có thể: graph nhỏ dựng được, lời giải tối ưu khó chứng minh một phát ăn ngay.
+\end{itemize}
+
+\end{document}

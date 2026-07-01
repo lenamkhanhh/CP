@@ -1,0 +1,893 @@
+                  The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+               Problem A: Adherence to the Oath
+ As a contestant of The 2025 ICPC Vietnam National Contest, you are required to take the ICPC
+ contestant’s oath:
+
+ICPC contestant’s oath
+
+
+I, as a contestant of the International Collegiate Programming Contest, and on behalf of my team,
+do hereby pledge:
+
+1. Uphold integrity and ethics throughout the contest.
+2. Do not seek or receive external help from people, platforms, tools or AI.
+3. Follow all ICPC rules and guidelines, accept decisions made by organizers and judges as final.
+4. Show good sportmanship and treat competitors, volunteers, staff and judges with respect.
+5. Compete with creativity and teamwork, honor the contest spirit and pursue excellence.
+
+We make this pledge to honor our university, our team, and the global community of competitive
+programmers.
+
+
+ In this problem, you get a single integer p, you need to state the p-th item in the ICPC contes-
+ tant’s oath.
+
+
+ Input
+ The input consists of a single integer p (1 ≤ p ≤ 5).
+
+
+ Output
+ Print out the p-th item in the ICPC contestant’s oath.
+
+  Sample Input 1         Sample Output 1
+  1                      Uphold integrity and ethics throughout the contest.
+
+
+
+
+  Vietnam National 2025 Problem A: Adherence to the Oath                                       1
+This page is intentionally left blank.
+                  The 2025 ICPC Vietnam National Contest
+                      HCMC University of Technology – 09 November 2025
+
+                     Problem B: Blowing Balloons
+In the International Collegiate Programming Contest (ICPC), each problem has its own balloon
+color: problem A might be red, B blue, C yellow, and so on. Whenever a team solves a problem,
+a volunteer goes to the balloon area to grab that color and rush it to the team’s table. Today the
+balloon area is coordinated by Paul. His station already has a mix of balloons – some partly
+inflated from earlier prep, others still flat and waiting for air. There are n balloons, numbered 1
+to n. Balloon i initially contains vi liters of air. From experience, Paul can estimate when each
+balloon will be needed: balloon i will be dispatched ti seconds after the contest starts.
+The contest has just begun, and Paul may start blowing now. At any second, he can blow
+exactly 1 liter of air into exactly one balloon. As balloon i is dispatched ti seconds after the
+contest starts, it may be blown only at times strictly before ti seconds. Once a balloon is taken,
+it cannot be blown anymore.
+Paul wants big balloons because they make better photos and happier teams. He defines beauty
+score of a balloon be the square of its final amount of air (in liters). In other words, if a balloon’s
+final amount of air is x liters, its beauty score equals x2 . For each balloon, the final amount of
+air is its initial air plus the amount Paul blows into it before it is dispatched. The total beauty
+score is the sum of the beauty scores of all balloons.
+Your task is to help Paul decide how to allocate his blowing over time so that the total beauty
+score is as large as possible.
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases τ (1 ≤
+τ ≤ 104 ). The description of the test cases follows.
+
+• The first line contains an integer n (1 ≤ n ≤ 2 · 105 ) — the number of balloons.
+• The i-th line of the next n lines contains two integers ti and vi (1 ≤ ti ≤ 109 ; 0 ≤ vi ≤
+  106 ) — the dispatch time (seconds after the contest starts) and the initial liters of air for
+  balloon i.
+
+It is guaranteed that the sum of n over all test cases does not exceed 2 · 105 .
+
+
+Output
+For each test case, print a single integer — the maximum total beauty score.
+
+
+
+
+Vietnam National 2025 Problem B: Blowing Balloons                                                    3
+                  The 2025 ICPC Vietnam National Contest
+                      HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                     Sample Output 1
+ 2                                                  50
+ 3                                                  34
+ 3 2
+ 1 4
+ 2 3
+ 2
+ 5 0
+ 1 3
+
+
+Sample Explanation
+In the first test case, one optimal schedule is:
+• blow balloon 2 for 1 second, adding 1 liter;
+• blow balloon 1 for 2 seconds, adding 2 liters.
+The final amounts of air in all balloons are [4, 5, 3] (liters), so the total beauty score is 42 + 52 +
+32 = 16 + 25 + 9 = 50.
+It can be shown that no other schedule yields a larger total beauty score.
+
+
+
+
+Vietnam National 2025 Problem B: Blowing Balloons                                                    4
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+                  Problem C: Counting Contours
+Please refer to the judging system for the colored illustrations.
+A recursive island, is an island that lies within a lake (which may itself be inside an island). A
+recursive lake, is a lake that lies within an island (which may itself be inside a lake).
+Bash is fascinated with this idea. He wants to create some drawings with islands and lakes,
+where some can potentially be recursive.
+Bash has a grid with R rows and C columns, divided into R × C cells. Bash then colors some
+cells red, and some cells green.
+Now bash wants to draw some non-intersecting contours on this grid. A contour is a border
+between land and water, and must satisfy the following conditions:
+• It must be a polygon, with all vertices being centers of some non-colored grid cells.
+• All edges are axis-aligned.
+• It doesn’t self intersect.
+• No edge intersects with any colored cells.
+Note that it is possible for one contour to be completely inside another. However, no point can
+lie on the borders of more than one contours.
+Here are some examples of valid way to draw contours:
+
+
+
+
+Here are some examples of invalid way to draw contours:
+
+
+
+
+       Some edges are not           Some vertices are not grid      A contour touches colored
+         axis-aligned.                   cells’ centers.                      cells.
+
+
+
+
+   Two contours intersect each      A contour intersects itself.      This is not a polygon.
+            others.
+
+After drawing all contours, Bash wants to draw islands and lakes in between the contours such
+that:
+
+Vietnam National 2025 Problem C: Counting Contours                                              5
+                 The 2025 ICPC Vietnam National Contest
+                    HCMC University of Technology – 09 November 2025
+
+• For each contour, the parts inside and outside of it must be different (one must be water and
+  the other must be land).
+• The parts touching the border of the grid must be land.
+A drawing is considered valid iff:
+• All red cells are land.
+• All green cells are water.
+Here are some valid drawings after filling in land and water:
+
+
+
+
+Here are some invalid drawings after filling in land and water:
+
+
+
+
+Please count the number of valid drawings. Two drawings are considered different iff there
+exists some part of the grid that is land in one way, and is water in the other.
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases τ (1 ≤
+τ ≤ 104 ). The description of the test cases follows.
+• The first line contains three integers: R, C and k (1 ≤ R ≤ 12; 1 ≤ C ≤ 100; 0 ≤ k ≤
+  R · C), where k is the number of colored cells.
+• In the next k lines, each line contains two integers r, c and a string s (1 ≤ r ≤ R; 1 ≤ c ≤ C,
+  s is either red or green) – meaning that the cell (r, c) is colored by s. It is guaranteed that
+  all k cells are distinct.
+It is guaranteed that the sum of R · C over all test cases does not exceed 1200.
+
+Output
+For each test case, print one line containing the number of valid drawings, modulo 109 + 7.
+
+ Sample Input 1                                  Sample Output 1
+ 2                                               1
+ 3 3 1                                           1
+ 2 2 green
+ 3 3 1
+ 2 2 red
+
+Vietnam National 2025 Problem C: Blowing Balloons                                              6
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+                   Problem D: Difficulty Distance
+Mimi, a rhythm game released in 201x, has been attracting more and more players - from young
+teenagers to adults. As a social-based game, it requires players to join in pairs and choose the
+same song to play together (note that in this fictional version of the game, each song only has
+only one level of difficulty).
+At a certain arcade, there is a club of n Mimi players who are about to participate in a practice
+session. The i-th player has a preferred song difficulty level ai , which also represents their skill
+level. No two players have the same skill level.
+The team leader wants to select a subset of players and organize them into pairs such that
+the difference in skill levels between the two players in each pair is at most 1. Formally,
+suppose that x0 (i), x1 (i) are the indices of the players in the i-th pair; then it must hold that
+ ax0 (i) − ax1 (i) ≤ 1.
+The team leader aims to form as many pairs of players as possible for the practice session.
+Your task is to count the number of ways to form the maximum number of pairs. Two ways are
+considered different iff there exists at least one pairs of players that appear in one way but not
+in the other.
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases τ (1 ≤
+τ ≤ 2 · 105 ). The description of the test cases follows.
+
+• The first line contains an integer n (1 ≤ n ≤ 2 · 105 ) — the number of players in the club.
+• The second line contains n integers a1 , a2 , . . . , an (1 ≤ ai ≤ 109 ) — the skill level of the
+  players. It is guaranteed that all skill levels are distinct.
+
+It is guaranteed that the sum of n over all test cases does not exceed 2 · 105 .
+
+
+Output
+For each test case, output a single integer — the number of ways to form the maximum number
+of pairs, modulo 998 244 353.
+
+
+
+
+Vietnam National 2025 Problem D: Difficulty Distance                                               7
+                     The 2025 ICPC Vietnam National Contest
+                       HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                    Sample Output 1
+ 3                                                 1
+ 6                                                 2
+ 2 4 5 7 9 10                                      1
+ 6
+ 1 3 4 9 8 5
+ 2
+ 1 100
+
+
+Sample Explanation
+In the first test case, one can select players with skill levels 4, 5, 9 and 10 and form two pairs:
+(4, 5) and (9, 10). It can be shown that this is the only way to form two pairs, and it is impossible
+to form more than two pairs.
+In the second test case, there are 2 ways to form two pairs of players:
+
+• [(3, 4), (8, 9)]
+• [(4, 5), (8, 9)]
+
+In the third test case, it is impossible to form any pair of players, and the number of ways to
+form zero pairs is 1.
+
+
+
+
+Vietnam National 2025 Problem D: Difficulty Distance                                               8
+                  The 2025 ICPC Vietnam National Contest
+                      HCMC University of Technology – 09 November 2025
+
+          Problem E: Extended Fermat Theorem
+In number theory, Fermat’s Last Theorem (sometimes called Fermat’s conjecture) states that
+no three positive integers a, b and c satisfy the equation an + bn = cn for any integer value of
+n greater than 2. This problem had been unsolved for 358 years until the first successful proof
+was released in 1994 by Andrew Wiles.
+In this problem, we are going to solve an extended version of the Fermat’s Last Theorem:
+Given a sequence of n + 1 distinct primes a1 , a2 , . . . , an , an+1 and an integer p. You need to
+find n + 1 positive integers x1 , x2 , . . . , xn , xn+1 such that:
+
+• xi < p,
+  P n ai       an+1
+•    i=1 xi ≡ xn+1 (mod p).
+
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases τ (1 ≤
+τ ≤ 100). The description of the test cases follows.
+
+• The first line contains two integers n and p (1 ≤ n ≤ 105 , 109 ≤ p ≤ 1018 ).
+• The second line contains n + 1 integers a1 , a2 , . . . , an , an+1 (1 ≤ ai ≤ 109 ).
+
+It is guaranteed that the sum of n over all test cases does not exceed 105 .
+
+
+Output
+For each test case, print one line containing n + 1 integers x1 , x2 , . . . , xn , xn+1 (0 < xi < p).
+If there is no solution, print NO SOLUTION instead.
+If there are multiple solutions, you can output any of them.
+
+ Sample Input 1                                      Sample Output 1
+ 1                                                   1 1 1 1 2
+ 4 1000000009
+ 3 5 7 11 2
+
+
+Sample Explanation
+13 + 15 + 17 + 111 ≡ 22 (mod 1000000009)
+
+
+
+
+Vietnam National 2025 Problem E: Extended Fermat Theorem                                                 9
+This page is intentionally left blank.
+                  The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+                    Problem F: Feast of Delicacy
+After the great exodus from the Tower of God, the maidens’ party wants to celebrate with a
+huge feast. And the one in charge of it is none other than the party’s self-proclaimed leader —
+Hameln the Hero!
+In a hurry, Hameln has found n pieces of spice and put them into a conveyor belt in order,
+which leads straight to the pot. The i-th spice has a deliciousness of ai . Hameln takes so long
+being proud of her handful skill to notice one thing only at the last second — some spices can
+worsen the feast! In other words, ai can be negative.
+Having only a second to spare, Hameln has devised a brilliant plan to save the celebration:
+
+• First, she chooses 2 numbers l and r (1 ≤ l ≤ r ≤ n) and reverse the segment in the
+  conveyor belt containing spices al , al+1 , . . . , ar .
+• Second, she chooses a number k (0 ≤ k ≤ n). She only uses k first spices and discard the
+  rest of them. The deliciousness of the feast is the total deliciousness of these k spices used.
+  Note that if Hameln uses 0 spices, the deliciousness is 0.
+
+The plan is almost as sweet as Gretel’s cakes, but Hameln’s mind is not made for these deci-
+sions! Can you help her find the maximum deliciousness of the feast if she proceeds with her
+plan optimally?
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases t (1 ≤
+t ≤ 104 ). The description of the test cases follows.
+The first line contains an integer n (2 ≤ n ≤ 2 · 105 ) — the number of spices in the conveyor
+belt.
+The second line contains n integers a1 , a2 , . . . , an (−109 ≤ ai ≤ 109 ).
+It is guaranteed that the sum of n over all test cases does not exceed 2 · 105 .
+
+
+Output
+For each test case, print a single number that denotes the maximum deliciousness Hameln can
+get for the feast.
+
+
+
+
+Vietnam National 2025 Problem F: Feast of Delicacy                                            11
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                    Sample Output 1
+ 3                                                 18
+ 5                                                 0
+ 1 3 5 -7 9                                        24
+ 4
+ -7 -1 -4 -6
+ 10
+ 1 -3 5 -7 9 -11 13 -15 17 -19
+
+
+Sample Explanation
+In the first test case, Hameln reverses the segment [−7, 9]. The conveyor belt now looks like
+this: [1, 3, 5, 9, −7]. Then she takes the first 4 spices. Thus, the deliciousness is 1 + 3 + 5 + 9 =
+18. It can be proven that the best possible deliciousness is 18.
+In the second test case, since all spices have negative deliciousness, she discards all spices.
+Thus, the deliciousness of the feast is, unfortunately, 0.
+
+
+
+
+Vietnam National 2025 Problem F: Feast of Delicacy                                                12
+                     The 2025 ICPC Vietnam National Contest
+                         HCMC University of Technology – 09 November 2025
+
+                      Problem G: Goodifying Strings
+FWMC receives a string s of length n, consisting of characters s0 , s1 , . . . , sn−1 , as a birthday
+gift. Initially, every character in s is the letter ‘A’.
+FWMC then starts playing around with the string. The process can be described as a sequence
+of q queries, each is one of the following two types:
+
+ • 1 l r c — FWMC assigns all positions i in the range [l, r] to the character c (that is, set
+   si = c for all l ≤ i ≤ r).
+ • 2 k — FWMC dislikes long sequences of consecutive identical characters. FWMV con-
+   siders a string good if there is no consecutive substring1 of more than k identical characters.
+   Considering the current string s, FWMC wants to determine the minimum number of char-
+   acters that must be deleted to make s a good string.
+   Note that FWMC just wants to know the minimum number of deleted characters, but does
+   not make any changes to s.
+
+Your task is to help FWMC determine the answer to each query of the second type.
+
+
+Input
+The first line contains two integers n and q (1 ≤ n, q ≤ 300 000) — the length of the string and
+the number of queries.
+Each of the next q lines describes a query. The first integer is t (1 ≤ t ≤ 2) —– the type of the
+query.
+ • If t = 1, two integers l and r (0 ≤ l ≤ r < n) and an uppercase Latin letter c are given.
+ • If t = 2, an integer k (1 ≤ k ≤ n) is given.
+
+
+Output
+For each query of the second type, output a single integer — the minimum number of characters
+that need to be deleted to make the string good.
+
+
+
+
+   1
+     A string α is a substring of a string β if α can be obtained from β by the deletion of several (possibly, zero or
+all) characters from the beginning and several (possibly, zero or all) characters from the end.
+
+
+Vietnam National 2025 Problem G: Goodifying Strings                                                               13
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                   Sample Output 1
+ 11 10                                            1
+ 1 0 1 F                                          4
+ 1 2 10 C                                         0
+ 1 3 8 W                                          3
+ 1 9 9 M
+ 1 4 6 M
+ 2 2
+ 2 1
+ 2 5
+ 1 5 7 C
+ 2 1
+
+ Sample Input 2                                   Sample Output 2
+ 12 5                                             8
+ 1 3 7 G
+ 1 7 11 G
+ 1 4 5 C
+ 1 0 6 C
+ 2 2
+
+
+Sample Explanation
+The following is the explanation for the first test case.
+In the first five queries, the string changes as follows:
+                                 AAAAAAAAAAA → FFAAAAAAAAA
+                                 FFAAAAAAAAA → FFCCCCCCCCC
+                                 FFCCCCCCCCC → FFCWWWWWWCC
+                                 FFCWWWWWWCC → FFCWWWWWWMC
+                                 FFCWWWWWWMC → FFCWMMMWWMC
+In the sixth query, it is sufficient to delete one character:
+                                  FFCWMMMWWMC → FFCWMMWWMC
+The groups of consecutive identical characters are FF|C|W|M|MM|WW|M|C, none of which
+contain more than k = 2 identical characters, thus the final string is good.
+In the seventh query, with k = 1, one possible solution to delete 4 characters is:
+                                    FFCWMMMWWMC → FCWMWMC
+It can be shown that there exists no solution that delete fewer characters.
+In the eighth query, with k = 5, the current string s is already a good string, so no deletions are
+needed.
+In the ninth query, the string changes as follows:
+                                 FFCWMMMWWMC → FFCWMCCCWMC
+In the tenth query, with k = 1, one possible solution to delete 3 characters is:
+                                   FFCWMCCCWMC → FCWMCWMC
+It can be shown that there exists no solution that delete fewer characters.
+
+Vietnam National 2025 Problem G: Goodifying Strings                                             14
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+                   Problem H: Harmonic Strings
+Today, professor Awk teaches Bash about binary strings and their various beautiful properties.
+A binary string of length n consists of exactly n characters, which are either 0 or 1.
+Given a binary string, we can always decompose it into runs, each run is a maximal con-
+tiguous block of equal characters. For example, the binary string 1110011011000 can be
+decomposed into 6 runs: 111, 00, 11, 0, 11, and 000. We call a run with only 0 a zero-run,
+and a run with only 1 a one-run.
+For a binary string w, professor Awk is interested in the two following values:
+
+• L0 : the length of the longest zero-run of w,
+• S1 : the length of the shortest one-run of w.
+
+Note that if w doesn’t have any zero-runs, L0 is set to 0. If w doesn’t have any one-runs, S1 is
+set to 0.
+Professor Awk then asks Bash to help him find a Harmonic String w, which is a binary string
+that satisfies all the following conditions:
+
+• The number of 1 in w must be exactly k.
+• The value L0 · (n + 1) − S1 is minimal.
+
+
+Input
+The first line of the input contains τ (1 ≤ τ ≤ 105 ) – the number of test cases. τ test cases
+follow, each is presented by a single line with two integers n and k (1 ≤ n ≤ 105 , 0 ≤ k ≤ n).
+It is guaranteed that the sum of n over all test cases does not exceed 105 .
+
+
+Output
+For each test case, print a Harmonic string. If there are multiple optimal solutions, you can
+print any of them.
+
+ Sample Input 1                                   Sample Output 1
+ 2                                                110
+ 3 2                                              0110
+ 4 2
+
+
+
+
+Vietnam National 2025 Problem H: Harmonic Strings                                            15
+This page is intentionally left blank.
+                  The 2025 ICPC Vietnam National Contest
+                      HCMC University of Technology – 09 November 2025
+
+        Problem I: Impulsive Particle Experiment
+The scientists have discovered a new kind of particle that can revolutionize transportation.
+In the ideal environment, if there is a nearby flat object, the particle will shoot itself in the
+direction to the closest point on the object, almost instantly. After that, the particle will be
+stabilized and rest. The scientists call the flat object reflector, and based on the material of the
+reflector, the particle can rest at a different position:
+
+• if the reflector is gold, the particle’s resting position will rest on the reflector itself;
+• if the reflector is diamond, the particle’s resting position will be directly on the opposite
+  side of the reflector, at the same perpendicular distance from it.
+
+
+
+
+ Shoot the particle at point A to a gold reflector   Shoot the particle at point A to a diamond reflector
+
+The scientists realizes that this can make teleportation become a reality. However, more test-
+ing is required to ensure everyone’s safety and also to optimize the cost for such a travelling
+method. So several experiments are conducted.
+The experiment’s environment can be seen as an Oxy plane. The scientists have prepared n
+reflectors, the i-th reflector is made of the material mi (which is either gold or diamond) and
+it is model as a line of form ai x + bi y + ci = 0. Then the scientists perform q actions of the
+following types:
+
+• 1 j m a b c – replace the j-th reflector with another one, made of the material m, on the line
+  ax + by + c = 0.
+• 2 x y l r – the scientists place a particle at the position (x, y). For each i from l to r, the
+  scientists shoot the particle to the i-th reflector, moving the particle to a new resting position.
+
+For each action of the second type, please help the scientists find the final resting position of
+the particle.
+
+
+
+
+Vietnam National 2025 Problem I: Impulsive Particle Experiment                                        17
+                  The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+Input
+The first line contains two integers n and q (1 ≤ n, q ≤ 2 · 105 ) – the number of reflectors and
+the number of actions to perform.
+The i-th of the next n lines contains a character mi and three integers ai , bi , ci (mi ∈ {G, D},
+|ai |, |bi |, |ci | ≤ 104 , a2i + b2i > 0) – the material of the i-th reflector (G for gold, and D for
+diamond) and the model line coefficients of the i-th reflector.
+The i-th of the next q lines describes the actions with the following form:
+• 1 j m a b c (1 ≤ j ≤ n, m ∈ {G, D}, |a|, |b|, |c| ≤ 104 , a2 + b2 > 0) – description of the
+  action type 1.
+• 2 x y l r (|x|, |y| ≤ 104 , 1 ≤ l ≤ r ≤ n) – description of the action type 2.
+
+
+Output
+For each action of the second type, print two integers x′ , y ′ (0 ≤ x′ , y ′ < 998 244 353) – the
+coordinates of particle’s final resting position, modulo 998 244 353.
+Formally, let M = 998, 244, 353. It can be shown that every coordinate can be expressed as
+an irreducible fraction αβ , where α and β are integers and β ̸≡ 0 (mod M ). Output the integer
+equal to α · β −1 mod M . In other words, output such an integer χ that 0 ≤ χ < M and
+χ · β ≡ α (mod M ).
+
+
+
+
+Vietnam National 2025 Problem I: Impulsive Particle Experiment                                     18
+                 The 2025 ICPC Vietnam National Contest
+                    HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                   Sample Output 1
+ 2 5                                              1 5
+ G 1 0 -1                                         1 998244350
+ D 0 1 -1                                         998244348 998244352
+ 2 3 5 1 1                                        998244344 998244347
+ 2 3 5 1 2
+ 1 2 D 1 1 0
+ 2 3 5 1 2
+ 2 6 9 2 2
+
+
+Sample Explanation
+In the below illustraion, the connected line represents the gold reflector, while the dashed-line
+represents the diamond reflector.
+                             Illustration for the actions 1 and 2.
+                              • The point A′1 = (1, 5) is the answer for the first action.
+                              • The point A′2 = (1, −3) is the answer for the second action.
+
+
+
+
+                                                 Illustration for the actions 3, 4 and 5.
+                                                  • The second reflector is changed after the 3-
+                                                    rd action.
+                                                  • The point A′2 = (−5, −1) is the answer for
+                                                    the 4-th action.
+                                                  • The point B2′ = (−9, −6) is the answer for
+                                                    the 5-th action.
+
+
+
+
+Vietnam National 2025 Problem I: Impulsive Particle Experiment                                 19
+This page is intentionally left blank.
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+                 Problem J: Jeopardizing Justice
+The Shell is a great prison where the members of Adwent were imprisoned. It is said to be
+somewhere deep underground within this world, but its exact location is unknown.
+At the core of The Shell, there are n prison cells. Each cell is equipped with a surveillance
+camera that must be constantly monitored. There are n monitoring rooms, the i-th room is
+connected to the cameras of a specific subset of cells. The monitoring rooms and the cells are
+numbered from 0 to n − 1.
+For security reasons, each room can monitor exactly one of the camera it is connected to. The
+Shell is considered secure if and only if there exists a way to assign one camera to each room
+such that all cameras are monitored. It is guaranteed that The Shell is secure at the beginning.
+After escaping from The Shell, the members of Adwent are now planning to sabotage the
+security of The Shell. However, due to limited resources, they can only perform at most 50
+sabotage actions. In each sabotage action, they may choose a monitoring room i and a cell j
+such that room i is currently connected to cell j’s camera, and delete that connection.
+The leader of Adwent wants to determine whether it is possible to perform a sequence of at
+most 50 sabotage actions such that The Shell is no longer secure. If it is possible, you must
+output one valid sequence of sabotage actions.
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases τ (1 ≤
+τ ≤ 50). The description of the test cases follows.
+
+• The first line contains an integer n (1 ≤ n ≤ 50) — the number of monitoring rooms and
+  cells.
+• The i-th of the next n lines contains n integers ai,0 , ai,1 , . . . , ai,n−1 (0 ≤ ai,j ≤ 1). Here,
+  ai,j = 1 means that the i-th monitoring room is connected to the j-th cell’s camera; other-
+  wise, ai,j = 0.
+
+It is guaranteed that The Shell is secure in the initial configuration.
+
+
+Output
+For each test case, if it is impossible to make The Shell insecure using at most 50 sabotage
+actions, output a single integer −1. Otherwise, output the following:
+
+• The first line contains an integer m (0 ≤ m ≤ 50) — the number of sabotage actions.
+• The i-th of the next m lines contains two integers ri and ci (0 ≤ ri , ci < n) — the indices of
+  the chosen room and cell for the i-th sabotage action. The connection between the selected
+  room and cell’s camera must exist before the action is performed.
+
+
+
+
+Vietnam National 2025 Problem J: Jeopardizing Justice                                             21
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                   Sample Output 1
+ 2                                                2
+ 3                                                0 0
+ 1 1 0                                            1 2
+ 0 1 1                                            4
+ 1 0 1                                            0 0
+ 2                                                0 1
+ 1 1                                              1 0
+ 1 1                                              1 1
+
+
+Sample Explanation
+In the first test case, after the sabotage actions, it can be shown that no valid assignment exists
+that allows all cameras to be monitored simultaneously. Therefore, The Shell is no longer
+secure.
+
+
+
+
+Figure J.1: The following is the illustration for the first test case. Vertices on the left and the
+right represent monitoring rooms and cells, respectively. Lines represent existing connections,
+and dashed lines represent deleted connections.
+
+In the second test case, note that the number of sabotage actions does not need to be minimized.
+
+
+
+
+                         Figure J.2: Illustration of the second test case.
+
+
+
+
+Vietnam National 2025 Problem J: Jeopardizing Justice                                           22
+                 The 2025 ICPC Vietnam National Contest
+                     HCMC University of Technology – 09 November 2025
+
+                   Problem K: Kilo Kilter Kerfuffle
+This is an interactive problem.
+It is well-known that the precise strength of Earth’s gravity varies with location. Alice and Bob
+live in different countries, and they want to do experiments to verify this fact. First, the friends
+decide to meet up in Vietnam, and each of them will buy the same scale there. Then they fly
+back to their countries and prepare some weights, making sure that the scale shows exactly
+1KG for each of the weights. Finally, they fly to Vietnam again, and this time compare their
+weights. Sure enough, when putting one of Bob’s weights and one of Alice’s weights onto
+different sides of a balance scale, the scale is not balanced!
+After doing the experiment all day, the friends decide to take a break. However, since they do
+not clean up, when going back, Alice and Bob do not know which weights are whose. They
+also do not remember the amount of weights each of them bring either, as there are a lot of
+weights. Now the friends need to clean up and bring home their weights. Here is the summary
+of what is known by Alice and Bob:
+• There are exactly 2n weights, numbered from 1 to 2n , indistinguishable from each other;
+• Each of the friends brings at least one weight;
+• All weights brought by Alice have the same weight;
+• All weights brought by Bob have the same weight;
+• Alice’s weights’ weight are different from Bob’s weights’ weight;
+• The number of Alice’s weights is less than or equal to the number of Bob’s weights.
+They want to start by figuring out the number of weights each of them bring. To do so, they
+use the same balance scale. In one operation, they can put some of the weights on each side of
+the balance scale and observe one of the following results:
+
+• The left side is heavier;
+• The right side is heavier;
+• The scale is balanced.
+
+Please help the friends find the number of weights brought by Alice, using no more than n2
+operations.
+
+
+Interaction Protocol
+Each test contains multiple test cases. Your program read the number of test cases τ (1 ≤ τ ≤
+1000). For each test case, your program interact with the jury’s program as follows.
+First, your program read the integer n (1 ≤ n ≤ 10) meaning that the total number of weights
+the friends have is 2n .
+Then, your program can use the scale as follows:
+
+• On the first line, print ? cntl cntr (1 ≤ cntl , cntr ; cntl + cntr ≤ 2n ) – the number of weights
+  to put onto the left side and the right side of the balance scale, respectively;
+
+Vietnam National 2025 Problem K: Kilo Kilter Kerfuffle                                           23
+                    The 2025 ICPC Vietnam National Contest
+                         HCMC University of Technology – 09 November 2025
+
+• On the next line, print cntl numbers l1 , l2 , . . . , lcntl (1 ≤ li ≤ 2n ) – the indices of the weights
+  to put on the left side of the balance scale;
+• On the next line, print cntr numbers r1 , r2 , . . . , rcntr (1 ≤ ri ≤ 2n ) – the indices of the
+  weights to put on the right side of the balance scale;
+   All cntl + cntr integers l1 , l2 , . . . , lcntl , r1 , r2 , . . . , rcntr must be distinct.
+• Then read a character c (c ∈ {>, =, <}) – the balance scale result:
+   – If > is read, the left side is heavier;
+   – If < is read, the right side is heavier;
+   – If = is read, the scale is balanced.
+
+When your program knows k – the number of weights that Alice brings, print ! k, then continue
+with the next test case, or terminate the program when there are no more test cases. Printing
+this does not count towards the number of operations limit.
+It is guaranteed that the sum of 2n over all test cases does not exceed 5000.
+The jury’s program is not adaptive. The weight and the owner of each weight is known by the
+jury’s program before the interaction and will not be changed during the interaction process.
+After printing each query do not forget to output the end of line and flush2 the output.
+   2
+    To flush, use:
+ • fflush(stdout) or cout.flush() in C++;
+ • sys.stdout.flush() in Python;
+ • see the documentation for other languages.
+
+
+
+
+Vietnam National 2025 Problem K: Kilo Kilter Kerfuffle                                                 24
+                  The 2025 ICPC Vietnam National Contest
+                    HCMC University of Technology – 09 November 2025
+
+Sample Interaction
+ Stdin   Stdout      Comment
+     2               The number of test cases
+                                             Test case 1
+     1               n = 1, so there are 2n = 21 = 2 weights in total
+         ?    1 1    Put 1 weight onto the left side, and 1 weight onto the right side of the scale
+         1           Put the 1-st weight onto the left side.
+         2           Put the 2-nd weight onto the right side.
+     <               The right side is heavier.
+         !    1      Answer that Alice brings k = 1 weights
+                                             Test case 2
+     2               n = 2, so there are 2n = 22 = 4 weights in total
+         ? 2 2       Put 2 weights onto the left side, and 2 weights onto the right side of the scale
+         1 4         Put the 1-st and 4-th weights onto the left side.
+         2 3         Put the 2-nd and 3-rd weights onto the right side.
+     <               The right side is heavier.
+         ?    1 1    Put 1 weight onto the left side, and 1 weight onto the right side of the scale
+         1           Put the 1-st weight onto the left side.
+         3           Put the 3-rd weight onto the right side.
+     =               Both sides have the same weight.
+         !    1      Answer that Alice brings k = 1 weights
+The example interaction only shows how your program and the jury’s program interact with
+each other, and does not show how the answer is deduced.
+In the first test case, there are 2 weights. Since each friend bring at least 1 weight, Alice must
+have brought 1 weight.
+In the second test case, suppose that one of Alice’s weights is 1.01 KG, and one of Bob’s
+weights is about 0.99 KG. Alice brings the 2-nd weight, while Bob brings the 1-st, 3-rd, and
+4-th weights:
+
+• In the first operation, the sum of the 1-st and 4-th weights (0.99 + 0.99 = 1.98 (KG)) is less
+  than the sum of the 2-nd and 3-rd weights (1.01 + 0.99 = 2 (KG)).
+• In the second operation, the 1-st weight and the 3-rd weight have the same weight (0.99
+  (KG)).
+
+The observations result is consistent with the fact that Alice brings only the 2-nd weight.
+
+
+
+
+Vietnam National 2025 Problem K: Kilo Kilter Kerfuffle                                         25
+This page is intentionally left blank.
+                    The 2025 ICPC Vietnam National Contest
+                       HCMC University of Technology – 09 November 2025
+
+                          Problem L: Laning Phase
+The year is 2030. Kiaya, one of the most decorated Leaf of Lemons players in the world, queues
+up a ranked match to prepare for the next tournament. On the loading screen, a familiar name
+appears. Kiaya cannot believe his eyes. Facing him in the top lane is Zeros the GOAT† , his
+former teammate, once considered the most promising prospect in the game, who was sadly
+banned from competitions years ago due to numerous scandals.
+†
+    GOAT stands for Globally banned frOm All compeTitions. Not quite what you expected...
+“Let’s have a good match, old man” — murmurs Kiaya as he charges his champion into the
+top lane. Zeros is within his sight, flashing taunting dances as he always did when they were
+young.
+In Leaf of Lemons, the first phase of the game is called the laning phase, where players go up
+against their opponent in one of three lanes: top, middle, and bottom. For simplicity, the top
+lane where Kiaya and Zeros fight can be described as a strip of n squares numbered from 1 to n.
+Currently, Kiaya’s and Zeros’ champions are positioned at square x and square y, respectively
+(1 ≤ x < y ≤ n). The players take turns alternatively to move, with Kiaya going first.
+On his turn, a player at position p must dash his champion by choosing a non-zero integer k
+such that:
+    • −a ≤ k ≤ a for Kiaya, −b ≤ k ≤ b for Zeros;
+    • 1≤p+k ≤n
+After the dash, the mover’s new position is p + k.
+Moreover, since they are both supremely skilled players, if a player dashes his champion into
+or over his opponent, he will be slain immediately. Therefore, the player who can force his
+opponent to dash into or over his champion wins the laning phase. More precisely, a player
+dashes his champion into or over his opponent iff after his turn, Kiaya’s current position is
+greater than or equal to Zeros’s.
+Given the current state of the top lane, Kiaya wants to know who, if any, will win the laning
+phase, assuming both players play optimally. Please help him!
+
+Input
+The first line of the input contains τ (1 ≤ τ ≤ 105 ) – the number of test cases. τ test cases
+follow, each is presented by a single line with five integers n, x, y, a, b (2 ≤ n ≤ 109 ,
+1 ≤ x < y ≤ n, 1 ≤ a, b < n) – the number of squares on the lane, the starting position of
+Kiaya and Zeros, and maximum number of steps of Kiaya and Zeros in one turn, respectively.
+
+Output
+For each test case:
+    • if Kiaya has a winning strategy, print Kiaya.
+    • if Zeros has a winning strategy, print Zeros.
+    • if neither player has a winning strategy, print Draw.
+
+Vietnam National 2025 Problem L: Laning Phase                                               27
+                 The 2025 ICPC Vietnam National Contest
+                    HCMC University of Technology – 09 November 2025
+
+ Sample Input 1                                   Sample Output 1
+ 3                                                Zeros
+ 3 2 3 2 1                                        Kiaya
+ 4 3 4 2 1                                        Kiaya
+ 999 1 999 1 1
+
+
+Sample Explanation
+In the first test case, Kiaya has to move back one step to square 1. Zeros then wins by moving
+to square 2, forcing Kiaya to dash into or over him next turn.
+In the second test case, Kiaya wins as follows:
+• Kiaya moves to square 1.
+• Zeros has to move to square 3.
+• Kiaya moves to square 2.
+• Zeros has to move to square 4.
+• Kiaya moves to square 3, forcing Zeros to dash into him next turn.
+In the third test case, it can be shown that Kiaya can win by keeping moving forward one step,
+no matter what Zeros does.
+
+
+
+
+Vietnam National 2025 Problem L: Laning Phase                                              28
+

@@ -1,0 +1,45 @@
+                                     The 2021 ICPC Vietnam
+                             Southern Provincial Programming Contest
+                                University of Science, VNU-HCM
+                                       December 05th, 2021
+
+
+                                       Problem I
+                                   Inversion Number
+                                   Time limit: 1 second
+                                 Mem limit: 256 Megabytes
+You are given an array of 𝑛 integers 𝑎1 , 𝑎2 , 𝑎3 , … , 𝑎𝑛 , which is a permutation of 𝑛 numbers
+from 1 to 𝑛. An inversion number of an array is the number of inversions, i.e. pairs (𝑖, 𝑗) that
+satisfy the condition 1 ≤ 𝑖 < 𝑗 ≤ 𝑛 and 𝑎𝑖 > 𝑎𝑗 .
+
+You are allowed to perform a transformation on the array as follows:
+
+       You pick an integer 𝑥 that has value in range 1 to 𝑛.
+       All the elements that are less than 𝑥 will be moved to the left of 𝑥 and all the elements
+        that are greater than 𝑥 will be moved to the right of 𝑥.
+       The order of the elements that are less than 𝑥 and the order of elements that are greater
+        than 𝑥 have to be the same after the transformation.
+
+For example, given an array of [6,2,3,5,1,4] and you pick 𝑥 = 4. After the transformation, the
+array will be [2,2,1,4,6,5] and it has three inversions. However, if you pick 𝑥 = 5, then the
+array will be [2,3,1,4,5,6] and it has only two inversions.
+
+Task: Find the minimum inversion number of the array after your transformation.
+
+Input
+The first line contains an integer 𝑛 (1 ≤ 𝑛 ≤ 106 ) – the number of elements in the array.
+
+The second line contains 𝑛 integers 𝑎1 , 𝑎2 , … , 𝑎𝑛 – the array itself.
+
+Output
+The minimum inversion number.
+
+Sample input                                        Sample output
+ 6                                                  2
+ 6 2 3 5 1 4
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest                          3|Page
+

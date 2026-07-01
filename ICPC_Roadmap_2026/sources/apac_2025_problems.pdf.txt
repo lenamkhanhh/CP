@@ -1,0 +1,999 @@
+                                                Problem A
+                                               Control Towers
+                                          Time limit: 2 seconds
+
+You are an architect tasked with designing the new airport in your city. After you have completed your design, you
+just realize you forgot to allocate spaces for the control towers.
+The layout of the new airport can be represented by a 2D grid of r rows and c columns, with the rows numbered from
+1 to r (top to bottom) and the columns numbered from 1 to c (left to right). The cell in row i and column j is denoted
+by (i, j). Each cell can either be occupied or empty.
+You need to place four control towers (numbered from 1 to 4), each in a different empty cell. To allow easier commu-
+nication between different towers, for all k = 1, 2, 3, you want tower k and tower k + 1 to be placed either in the same
+row or in the same column.
+You want to calculate the number of ways to place the control towers to satisfy the requirements above. Two ways are
+considered different if there exists k where control tower k is placed in different cells.
+
+Input
+The first line of input contains two integers r and c (1 ≤ r, c ≤ 2000). Each of the next r lines contains a string of c
+characters. The j-th character in the i-th line is # if cell (i, j) is occupied; otherwise, it is . (dot).
+
+Output
+Output the number of ways to place the control towers to satisfy the requirements above.
+
+ Sample Input #1                                              Sample Output #1
+  3 4                                                         10
+  .#.#
+  #...
+  .###
+
+
+Explanation for the sample input/output #1
+Figure A.1 illustrates all 10 possible ways to place the control towers, where the cells numbered 1, 2, 3, and 4 represent
+control towers 1, 2, 3, and 4 respectively.
+
+         1 # 2 #               1 # 2 #                . # 1 #               . # 1 #                4 # 3 #
+         # 4     3 .           # . 3       4          # 3     2    4        # 4     2   3          # 1     2 .
+         . # # #               . # # #                . # # #               . # # #                . # # #
+         . # 4 #               3 # 2 #                . # 4 #                4 # 3 #               2 # 3 #
+         # 1     3   2         # . 1 .                # 2     3    1        # . 2       1          # . 4 .
+         . # # #               4 # # #                . # # #               . # # #                1 # # #
+
+                             Figure A.1: All 10 possible ways to place the control towers.
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem A: Control Towers
+ Sample Input #2                                             Sample Output #2
+ 4 6                                                         0
+ ######
+ #.#.#.
+ .#.#.#
+ ######
+
+
+Explanation for the sample input/output #2
+It is impossible for any control tower in row 2 to be in the same column as any control tower in row 3. Since there are
+not enough empty cells to place all four control towers in the same row, there is no way to place the control towers to
+satisfy the requirements above.
+
+ Sample Input #3                                             Sample Output #3
+ 1 10                                                        5040
+ ..........
+
+
+Explanation for the sample input/output #3
+All 10 × 9 × 8 × 7 = 5040 ways of control tower positions satisfy the requirements above.
+
+ Sample Input #4                                             Sample Output #4
+ 1 10                                                        0
+ ##########
+
+
+Explanation for the sample input/output #4
+There is no empty cell to place any control tower.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem A: Control Towers
+                                                      Problem B
+                                     Three-Dimensional Embedding
+                                               Time limit: 2 seconds
+
+An embedding of a graph in a space is a way of placing each vertex at a distinct point in that space and drawing each
+edge as a simple arc connecting its two vertices, so that no two arcs intersect except at a shared vertex. In this problem,
+we focus on embeddings in a three-dimensional space under certain conditions.
+You are given a simple undirected graph with n vertices and m edges, which means there is at most one edge con-
+necting any pair of vertices and each edge connects different vertices. The vertices are numbered from 1 to n, and the
+edges are numbered from 1 to m. Edge j connects the two distinct vertices vj and wj . Each vertex is incident to at
+most five edges.
+Find an embedding of the graph such that all of the following conditions are satisfied.
+
+    • Each vertex i is embedded as a point (xi , yi , 0) in the space. The coordinates xi and yi must be integers between
+      0 and 400, inclusive. All points must have distinct coordinates.
+
+    • Each edge j is embedded as a polyline (a connected series of line segments) with the embedded points for
+      vertices vj and wj as its endpoints. Each segment of the polyline must be parallel to the x-, y-, or z-axis. Each
+      node of the polyline must have integer coordinates between 0 and 400, inclusive. Each polyline must have no
+      more than 30 nodes, counting its endpoints.
+
+    • Polylines must not have self-intersections. Distinct polylines must not share any point, except when they corre-
+      spond to edges incident to the same vertex. In that case, they may share only that single endpoint.
+
+
+Input
+The first line of input contains two integers n and m (2 ≤ n ≤ 1600, 1 ≤ m ≤ 4000). The j-th of the following m
+lines contains two integers vj and wj (1 ≤ vj < wj ≤ n).
+The input guarantees that each vertex is incident to at most five edges. Further, there are no parallel edges; that is, if
+j ̸= j ′ , (vj , wj ) ̸= (vj ′ , wj ′ ) holds.
+
+Output
+First, output n lines. The i-th of these lines should contain two integers xi and yi , representing the coordinates where
+vertex i is embedded. Then, output m lines, where the j-th line represents the polyline corresponding to edge j, using
+the following format:
+
+        k x′1 y1′ z1′ · · · x′k yk′ zk′
+
+Here, k is the number of nodes, which must be between 2 and 30, inclusive. The points (x′1 , y1′ , z1′ ), . . . , (x′k , yk′ , zk′ )
+are the nodes of the polyline. The first point (x′1 , y1′ , z1′ ) must be (xvj , yvj , 0), and the last point (x′k , yk′ , zk′ ) must be
+(xwj , ywj , 0). Each pair of consecutive points is connected by a segment to form the polyline. Each segment must
+have a positive length. Two consecutive segments may have the same orientation; for example, both can be parallel to
+the x-axis.
+The embedding that you output must satisfy all of the conditions mentioned above.
+
+
+The 2025 ICPC Asia Pacific Championship Problem B: Three-Dimensional Embedding
+Under the given input constraints, it can be shown that there exists at least one valid output. If there are multiple
+outputs, any one of them will be accepted.
+Notes on special judging:
+You are provided with a command-line tool for local testing. You can download the file from DOMjudge. The tool
+has comments at the top to explain its use.
+
+ Sample Input #1                                              Sample Output #1
+ 3 3                                                          0 0
+ 1 2                                                          400 0
+ 1 3                                                          0 399
+ 2 3                                                          3 0 0 0 100 0 0 400 0 0
+                                                              4 0 0 0 0 0 200 0 399 200 0 399 0
+                                                              3 400 0 0 400 399 0 0 399 0
+
+
+Explanation for the sample input/output #1
+Figure B.1 illustrates the embedding represented by the sample output.
+
+
+
+
+                                                                                                  400
+
+
+
+
+                                                                                                  300
+
+
+
+
+                                                                                                        Z
+                                                                                                 200
+
+
+
+
+                                                      Vertex 3
+
+                                                                                                 100
+
+
+
+
+                                                                                                 0
+
+                                                                                                400
+
+
+                                Vertex 1
+                                                                                          300
+
+
+                            0
+                                                                                    200
+                                    100                                               Y
+                                                                 Vertex 2
+                                              200                           100
+
+                                             X          300
+
+
+                                                                   400 0
+
+
+
+
+                                       Figure B.1: Illustration of the embedding.
+
+
+The 2025 ICPC Asia Pacific Championship Problem B: Three-Dimensional Embedding
+                                                         Problem C
+                                                Cactus Connectivity
+                                                  Time limit: 2 seconds
+
+You are interested in the topic of graphs and their properties. In this problem, we assume that all graphs are simple
+undirected graphs, meaning there is at most one edge connecting any pair of vertices and each edge connects different
+vertices.
+A simple cycle of a graph is a sequence of three or more distinct vertices (v1 , v2 , . . . , vc ) such that there exists an edge
+connecting vertices vi and vi+1 for each 1 ≤ i < c and there also exists an edge connecting vertices v1 and vc . For
+a simple cycle (v1 , v2 , . . . , vc ), its edge set is defined as {(v1 , v2 ), (v2 , v3 ), . . . , (vc−1 , vc ), (vc , v1 )}, where (vi , vj )
+represents an edge connecting vertices vi and vj . Two simple cycles are the same if they share the same edge set.
+A graph is a cactus if any two distinct simple cycles share at most one common vertex. For example, Figure C.1
+illustrates three graphs. Graph X is a cactus since the two simple cycles (1, 2, 3) and (3, 4, 5) only share vertex 3
+as the common vertex. Note that the sequence of vertices (1, 2, 3, 4, 5, 3) does not form a simple cycle since vertex
+3 appears twice. Also, the simple cycle (2, 3, 1) is the same simple cycle as the simple cycle (1, 2, 3). Meanwhile,
+graph Y is not a cactus since the two simple cycles (1, 2, 4) and (2, 3, 4) share vertices 2 and 4 as the common vertices.
+Graph Z is a cactus since there is only one simple cycle.
+
+              1            2            5                       1             4                      1            2
+
+
+
+                           3            4                       2             3                                   3            4
+                      Graph X                                       Graph Y                                  Graph Z
+                                Figure C.1: Graphs X and Z are cactii. Graph Y is not a cactus.
+
+A graph is connected if there is a path connecting every pair of vertices. In particular, a graph with one vertex is
+connected.
+For any positive integer k, a graph is k-edge-connected if, for any set of fewer than k edges, removing those edges
+leaves the graph connected. In particular, all connected graphs are 1-edge-connected. For example, graph Y in
+Figure C.1 is 1-edge-connected and 2-edge-connected, but not 3-edge-connected, since removing both edges incident
+to vertex 1 does not leave the graph connected.
+A graph H is a supergraph of a graph G if H can be obtained by adding zero or more vertices and edges to G without
+removing any vertices and edges from G. Note that two graphs are the same if they have the same set of vertices and
+the same set of edges. For example, in Figure C.1 above, graph X is a supergraph of graph Z, while graph Y is not a
+supergraph of graph Z since it is missing the edge connecting vertices 1 and 3.
+The connectivity value of a graph G is the smallest positive integer k such that, for any k-edge-connected graph H
+that is a supergraph of G, removing all the edges of G from H keeps H connected. For example, in Figure C.1 above,
+graph X is a 2-edge-connected supergraph of graph Z, and removing all the edges of Z from X leaves vertices 1 and
+2 disconnected from the rest, as illustrated by Figure C.2 below. Therefore, the connectivity value of Z is more than
+2. It can be shown that the connectivity value of Z is 3.
+You are given a cactus with n vertices and m edges, where the vertices are numbered from 1 to n and the edges are 1
+
+
+The 2025 ICPC Asia Pacific Championship Problem C: Cactus Connectivity
+                                                1         2          5
+
+
+
+                                                          3          4
+
+                             Figure C.2: Removing the edges of graph Z from graph X
+
+
+to m. Edge i connects vertices ui and vi . You are required to compute the connectivity value of the cactus.
+
+Input
+The first line of input contains two integers n and m (1 ≤ n ≤ 100 000; 0 ≤ m ≤ 200 000). The i-th of the next
+m lines contains two integers ui and vi (1 ≤ ui < vi ≤ n). The input represents a cactus with at most one edge
+connecting any pair of vertices.
+
+Output
+Output the connectivity value of the given graph.
+
+ Sample Input #1                                              Sample Output #1
+ 4 3                                                          3
+ 1 2
+ 2 3
+ 1 3
+
+
+Explanation for the sample input/output #1
+This corresponds to graph Z from the problem description.
+
+ Sample Input #2                                              Sample Output #2
+ 3 0                                                          1
+
+
+Explanation for the sample input/output #2
+Any 1-edge-connected supergraph is a connected graph. Since the given graph has no edges, removing all the edges
+of the given graph from a connected graph keeps the graph connected.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem C: Cactus Connectivity
+                                                  Problem D
+                                                Tower of Hanoi
+                                            Time limit: 2 seconds
+
+While visiting Hanoi to compete in The ICPC Asia Pacific Championship last year, you learned about the famous
+Tower of Hanoi problem. In the problem, there are three rods and several disks of distinct radii, which can slide onto
+any rod. The rods are numbered from 1 to 3. At any point in time, each disk must be stacked on one of the rods, and
+the disks stacked on each rod must be arranged in increasing order of radius from top to bottom. In one step, you can
+move the disk on top of one rod to the top of another rod, provided this move does not violate the restriction above.
+The goal is to move all the disks to rod 1 in the minimum number of steps.
+You are solving an extension of this famous problem. You have a sequence of n integers p1 , p2 , . . . , pn , the initial
+values of which are given to you.
+You are also given q operations. Each operation is either of the following:
+
+Change operation: Two integers x and y are given. This operation requires you to change the value of px to y.
+Solve operation: Two integers l and r are given. This operation requires you to solve the Tower of Hanoi problem
+      with r − l + 1 disks of radii l, l + 1, . . . , r, where the disk of radius i is initially stacked on rod pi , for each
+      l ≤ i ≤ r. The order of the disks initially stacked on each rod satisfies the restriction explained earlier. You
+      need to find the minimum number of steps to move all disks to rod 1 modulo 998 244 353.
+
+Your task is to perform all the given operations sequentially.
+
+Input
+The first line of input contains two integers n and q (1 ≤ n ≤ 100 000; 1 ≤ q ≤ 100 000). The second line contains n
+integers representing the initial values of p1 , p2 , . . . , pn (1 ≤ pi ≤ 3). The next q lines represent the operations in the
+order they are to be performed. Each line is in one of the following formats:
+
+   1. “c x y” (1 ≤ x ≤ n; 1 ≤ y ≤ 3) to apply a Change operation for the specified integers x and y.
+   2. “s l r” (1 ≤ l ≤ r ≤ n) to apply a Solve operation for the specified integers l and r.
+
+The input contains at least one Solve operation.
+
+Output
+For each Solve operation, in order, output the minimum number of steps to solve the Tower of Hanoi problem with
+disks of radii l, l + 1, . . . , r modulo 998 244 353.
+
+  Sample Input #1                                                Sample Output #1
+  4 4                                                            6
+  2 3 1 3                                                        2
+  s 2 4                                                          7
+  s 1 3
+  c 3 3
+  s 2 4
+
+
+The 2025 ICPC Asia Pacific Championship Problem D: Tower of Hanoi
+Explanation for the sample input/output #1
+The first operation requires you to solve the Tower of Hanoi problem with disks of radii 2, 3, and 4 initially stacked
+on rods 3, 1, and 3 respectively. All disks can be moved to rod 1 in 6 steps as illustrated by Figure D.1.
+
+
+
+
+      Figure D.1: 6 steps to move all disks to rod 1. The shaded rod represents the rod moved on the last step.
+
+The second operation requires you to solve the Tower of Hanoi problem with disks of radii 1, 2, and 3 initially stacked
+on rods 2, 3, and 1 respectively.
+The fourth operation requires you to solve the Tower of Hanoi problem with disks of radii 2, 3, and 4 initially stacked
+on rods 3, 3, and 3 respectively.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem D: Tower of Hanoi
+                                                 Problem E
+                                              Minus Operator
+                                           Time limit: 2 seconds
+
+The minus operator on binary values a and b is defined by (a − b) = 1 if a = 1 and b = 0; otherwise, (a − b) = 0.
+Also, the syntax of an expression is defined as follows. Here, x, parentheses, and the minus are terminal symbols, and
+E is the start symbol.
+                                                 E ::= x | (E − E)
+
+The judge program possesses an expression adhering to E. The expression is hidden from you. At the start, you are
+only provided with the number of terminal symbols x in the expression, denoted by n.
+Your task is to guess the expression by making a limited number of queries.
+In a single query, you specify a binary string S of length n. The judge program then temporarily replaces each
+occurrence of the i-th terminal symbol x from the left with Si , for i = 1, . . . , n, and evaluates the replaced expression
+based on the definition of the minus operator. After that, the judge program returns the evaluated value to you, which
+is either 0 or 1.
+
+Interaction
+The first line of input contains an integer n (3 ≤ n ≤ 200). After reading the integer, your program can start making
+queries. For each query, your program should write a line of the form “query S”. Here, S is a binary string of
+length n. Each character of S must be either 0 or 1. In response, an input line containing the evaluated value becomes
+available.
+Your program can make up to 500 queries. If your program makes more than 500 queries, it will be judged as “Wrong
+Answer.”
+When your program identifies the expression that the judge program possesses, it should write a line of the form
+“answer T ”, where T is the expression. After that, the interaction stops and your program should terminate.
+Under the constraints above, it can be shown that the expression can be uniquely identified.
+Notes on interactive judging:
+    • The evaluation is non-adversarial, meaning that the expression is chosen in advance rather than in response to
+      your queries.
+    • Do not forget to flush output buffers after writing. See the “Judging Details” document for details.
+    • You are provided with a command-line tool for local testing, together with input files corresponding to the
+      sample interactions. You can download these files from DOMjudge. The tool has comments at the top to
+      explain its use.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem E: Minus Operator
+ Read                                          Sample Interaction #1                                     Write
+ 3
+                                                    query 111
+
+ 0
+                                                    answer ((x-x)-x)
+
+
+Explanation for the sample interaction #1
+When n = 3, there are only two possible expressions: ((x-x)-x) or (x-(x-x)). For a query s = 111, the
+evaluated values for these expressions are,
+     • ((1 − 1) − 1) = (0 − 1) = 0, and
+     • (1 − (1 − 1)) = (1 − 0) = 1.
+In this example, the judge program returns 0, indicating that the first expression is the correct one.
+
+
+ Read                                          Sample Interaction #2                                     Write
+ 4
+                                                    query 0000
+
+ 0
+                                                    query 1001
+
+ 1
+                                                    answer ((x-x)-(x-x))
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem E: Minus Operator
+                                                  Problem F
+                                                 Hold the Star
+                                            Time limit: 2 seconds
+
+You are playing a computer game with n rooms, m characters, and one star. The rooms are arranged from left to right
+and numbered from 1 to n in that order. The characters are numbered from 1 to m. At any time, each character is in
+one of the rooms and the star is either in one of the rooms or held by one of the characters. The objective of the game
+is for the star to be held by character m.
+You can play the game by performing several actions. Each action costs a certain amount of staracips (the unit of
+currency in the game), possibly zero. In each action, you choose a character x (let room y be the room the character is
+currently in) and command the character to do either of the following:
+
+    • Move to one of the adjacent rooms (y − 1 or y + 1), if such a room exists. If character x is holding the star, then
+      the character continues to hold the star. This action costs sx staracips. The values of s1 , s2 , . . . , sm are given.
+
+    • Pick the star up and hold it, if the star is currently in room y and is not held by any character. This action costs
+      0 staracips.
+
+    • Put the star down and release it, if the star is currently held by character x. The star then falls to room y. This
+      action costs 0 staracips.
+
+The game contains q levels, numbered from 1 to q. In all levels, each character i is initially in room ri and character m
+must hold the star to win the level. The only difference between the levels is that, in each level j, the star is initially in
+room lj .
+For each level, you want to compute the minimum total staracips you have to spend to win the level. Note that you
+don’t have to minimize the number of actions.
+
+Input
+The first line of input contains three integers n, m, and q (1 ≤ n ≤ 109 ; 1 ≤ m ≤ 100 000; 1 ≤ q ≤ 100 000). The
+i-th of the next m lines contains two integers ri and si (1 ≤ ri ≤ n; 1 ≤ si ≤ 109 ). The j-th of the next q lines
+contains an integer lj (1 ≤ lj ≤ n).
+
+Output
+For each level in order, output the minimum total staracips you have to spend to win the level.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem F: Hold the Star
+ Sample Input #1                                            Sample Output #1
+ 6 5 4                                                      5
+ 1 7                                                        0
+ 3 2                                                        8
+ 2 3                                                        14
+ 5 3
+ 2 5
+ 1
+ 2
+ 5
+ 6
+
+Explanation for the sample input/output #1
+You can win the first level by spending 5 staracips by doing the following actions:
+
+   1. Character 5 moves from room 2 to room 1. This action costs 5 staracips.
+   2. Character 5 picks the star up.
+
+You can win the second level by spending 0 staracips by doing the following actions:
+
+   1. Character 5 picks the star up.
+
+You can win the third level by spending 8 staracips by doing the following actions:
+
+   1. Character 4 picks the star up.
+   2. Character 4 moves from room 5 to room 4. This action costs 3 staracips.
+   3. Character 4 moves from room 4 to room 3. This action costs 3 staracips.
+   4. Character 4 puts the star down.
+   5. Character 2 picks the star up.
+   6. Character 2 moves from room 3 to room 2. This action costs 2 staracips.
+   7. Character 2 puts the star down.
+   8. Character 5 picks the star up.
+
+You can win the fourth level by spending 14 staracips by doing the following actions:
+
+   1. Character 2 moves from room 3 to room 4, then to room 5, then to room 6. These actions cost 3 × 2 = 6
+      staracips in total.
+   2. Character 2 picks the star up.
+   3. Character 2 moves from room 6 to room 5, then to room 4, then to room 3, then to room 2. These actions cost
+      4 × 2 = 8 staracips in total.
+   4. Character 2 puts the star down.
+   5. Character 5 picks the star up.
+
+
+The 2025 ICPC Asia Pacific Championship Problem F: Hold the Star
+                                                 Problem G
+                                               Corrupted File
+                                           Time limit: 2 seconds
+
+The WannaLaugh malware is a new computer malware that is spreading on the internet. If a computer is infected by
+this malware, then the malware will corrupt all files in the computer. A file in a computer contains zero or more bits.
+The malware corrupts a file by performing zero or more operations. In one operation, the malware randomly picks two
+consecutive bits and replaces them with a single bit. The new bit is 1 if both of the replaced bits are 1, or 0 otherwise.
+For example, the malware might corrupt a file with bits 11011011 as follows:
+
+   1. The malware picks the first and second bits: 11011011 → 1011011.
+
+   2. The malware picks the second and third bits: 1011011 → 101011.
+
+   3. The malware picks the third and fourth bits: 101011 → 10011.
+
+Alternatively, the malware might first pick the third and fourth bits: 11011011 → 1101011.
+At the start of the day, you have a file containing n bits, denoted by B. You spend the day surfing the internet, including
+checking on your favorite programming contest website, just like many ICPC contestants would do. At the end of the
+day, the same file contains m bits, denoted by C. You want to determine whether this file could have been corrupted
+by the WannaLaugh malware, or if it must have changed for other reasons.
+
+Input
+The first line of input contains one integer t (1 ≤ t ≤ 10 000) representing the number of test cases. After that, t test
+cases follow. Each of them is presented as follows.
+The first line of input contains two integers n and m (1 ≤ m ≤ n ≤ 100 000). The second line contains a string with
+n characters, each is either 0 or 1, representing the bits B. The third line contains a string with m characters, each is
+either 0 or 1, representing the bits C.
+The sum of n across all test cases in one input file does not exceed 100 000.
+
+Output
+For each test case, output yes if the file with bits B could have been corrupted by the WannaLaugh malware into bits
+C, or no otherwise.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem G: Corrupted File
+  Sample Input #1                                               Sample Output #1
+  3                                                             yes
+  8 5                                                           yes
+  11011011                                                      no
+  10011
+  3 3
+  101
+  101
+  3 2
+  101
+  00
+
+
+Explanation for the sample input/output #1
+The first test case corresponds to the example from the problem description.
+For the second test case, it is possible that the malware performs zero operations.
+For the third test case, it is impossible for the malware to corrupt a file with bits 101 so that it has bits 00.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem G: Corrupted File
+                                                 Problem H
+                                     Secret Lilies and Roses
+                                           Time limit: 2 seconds
+
+There are n flowers arranged in a line from left to right, which are numbered from 1 to n in that order. Each flower is
+either a lily or a rose. For an integer j between 0 and n, inclusive, let lj denote the number of lilies among the leftmost
+j flowers, and let rj denote the number of roses among the rightmost n − j flowers.
+Initially, only the number of flowers n is provided to you. The types of the flowers are hidden. You can obtain
+information on the flowers by making queries. In one query, you can perform one of the following.
+
+Type query: Specify an integer i between 1 and n, inclusive. You will then receive the type of flower i.
+
+Multiply query: Specify an integer j between 0 and n, inclusive. You will then receive the value of lj × rj .
+
+Your task is to find an integer k between 0 and n, inclusive, for which lk = rk by making a limited number of queries.
+You can assume that at least one such integer exists for the arrangement of the flower types. Note that you do not need
+to identify the type of each flower.
+
+Interaction
+The first line of input contains one integer t (1 ≤ t ≤ 100) representing the number of test cases. After that, t test
+cases follow. Each of them is presented as follows.
+The first line of input for each test case contains an integer n (1 ≤ n ≤ 100). After reading it, your program can start
+making queries. For each query, your program should write a line containing one of the following:
+
+    • “type i” to perform a Type query by specifying an integer i (1 ≤ i ≤ n). In response, an input line containing
+      a string either lily or rose becomes available, indicating the type of flower i.
+
+    • “multi j” to perform a Multiply query by specifying an integer j (0 ≤ j ≤ n). In response, an input line
+      containing the integer lj × rj becomes available.
+
+Your program is allowed to make up to 10 queries for each test case. This means the total number of Type queries
+and Multiply queries combined must not exceed 10. If your program makes more than 10 queries, it will be judged as
+“Wrong Answer”.
+When your program identifies an integer k such that lk = rk , it should write a line of the form “answer k” (0 ≤
+k ≤ n). Note that providing the answer does not count as a query.
+The input guarantees that at least one correct output exists. If there are multiple correct outputs, any one of them will
+be accepted.
+After writing the answer line, your program should start processing the next test case. When all t test cases have been
+processed, the interaction stops and your program should terminate.
+Notes on interactive judging:
+    • The evaluation is non-adversarial, meaning that the types of the flowers are chosen in advance rather than in
+      response to your queries.
+
+
+The 2025 ICPC Asia Pacific Championship Problem H: Secret Lilies and Roses
+     • Do not forget to flush output buffers after writing. See the “Judging Details” document for details.
+     • You are provided with a command-line tool for local testing, together with input files corresponding to the
+       sample interactions. You can download these files from DOMjudge. The tool has comments at the top to
+       explain its use.
+ Read                                         Sample Interaction #1                                        Write
+ 2
+ 9
+                                                    type 8
+
+ lily
+
+                                                    type 1
+ rose
+
+                                                    multi 6
+ 6
+
+                                                    multi 3
+ 3
+                                                    answer 5
+ 3
+
+                                                    multi 3
+ 0
+                                                    type 3
+ rose
+                                                    answer 3
+
+
+Explanation for the sample interaction #1
+For the first test case, nine flowers are arranged as shown in the following figure. In response to the third query,
+l6 × r6 = 3 × 2 = 6 is returned, and in response to the fourth query, l3 × r3 = 1 × 3 = 3 is returned. Since
+l5 = r5 = 3, k = 5 is a correct output.
+
+
+
+
+For the second test case, all three flowers are assumed to be roses.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem H: Secret Lilies and Roses
+                                                  Problem I
+                                      Squares on Grid Lines
+                                          Time limit: 4 seconds
+
+You have a square of side length n on a 2D plane, partitioned into a grid of 1 × 1 square cells, totaling n2 cells.
+Your task is to answer q queries, numbered from 1 to q, described below. In query i, you are given a real number si ,
+and you must count the number of ways to place four points on the plane such that
+
+    • each point lies on the boundary of a cell (not necessarily the same), and
+
+    • the four points form the vertices of a square with area si .
+
+Here, the edges of the square formed by these points do not need to be parallel to the edges of the cells. If there are
+infinitely many valid placements, you must report that as your answer.
+Two placements are considered different if there exists a point that appears in one placement but not in the other.
+
+Input
+The first line of input contains two integers n and q (1 ≤ n ≤ 2000, 1 ≤ q ≤ 100 000). The i-th of the next q lines
+contains a real number si (0.01 ≤ si ≤ n2 ), given with exactly two digits after the decimal point.
+
+Output
+Output q lines. The i-th line should contain the number of valid placements for query i. If infinitely many exist, output
+-1 instead.
+
+ Sample Input #1                                               Sample Output #1
+  3 4                                                          2
+  6.90                                                         4
+  0.26                                                         10
+  2.65                                                         -1
+  1.00
+
+
+Explanation for the sample input/output #1
+For queries 1 and 2, the valid placements are illustrated in Figure I.1. The top two placements correspond to query 1,
+and the bottom four correspond to query 2. In each placement, the shaded region represents a square formed by the
+points.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem I: Squares on Grid Lines
+                                  Figure I.1: Illustrations of Sample Input #1.
+
+
+ Sample Input #2                                          Sample Output #2
+ 1 5                                                      0
+ 0.49                                                     1
+ 0.50                                                     2
+ 0.51                                                     2
+ 0.99                                                     1
+ 1.00
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem I: Squares on Grid Lines
+                                                 Problem J
+                                           Gathering Sharks
+                                          Time limit: 2 seconds
+
+You are the leader of a swarm of n sharks living in a one-dimensional ocean. The sharks are positioned from left to
+right, with each adjacent pair separated by a distance of one unit.
+As the leader, you want all the sharks to gather at a common point to form a single group. Initially, no two sharks belong
+to the same group; for each i = 1, . . . , n, the i-th shark from the left forms its own group, uniquely numbered ai ,
+consisting of only itself.
+To achieve your goal, you can command the sharks to perform the following actions n − 1 times.
+
+   1. You shout out an integer b that meets both conditions:
+
+         • There exists a group numbered b.
+         • There exists at least one group numbered strictly smaller than b.
+
+   2. Afterward, letting c be the largest existing group number strictly smaller than b, all the sharks in the group
+      numbered b simultaneously move to the position of the group numbered c, and the two groups merge.
+
+   3. The merged group is numbered b, and the group numbered c ceases to exist.
+
+All sharks move at a constant speed of one unit distance per unit time. Commands must be executed sequentially, with
+no overlap in execution. Once a command is completed, the next one can begin immediately.
+Compute the minimum time required for all the sharks to gather at a common point by commanding the sharks n − 1
+times optimally.
+
+Input
+The first line of input contains an integer n (2 ≤ n ≤ 500). The second line contains n pairwise distinct integers
+a1 , a2 , . . . , an (1 ≤ ai ≤ n).
+
+Output
+Output the minimum time required for all the sharks to gather at a common point.
+
+ Sample Input #1                                               Sample Output #1
+  4                                                            4
+  3 2 4 1
+
+
+Explanation for the sample input/output #1
+You can command the sharks to perform the following actions:
+
+   1. You shout out 3. The leftmost shark moves to the position of the second-leftmost shark, and they form a group
+      numbered 3. This takes 1 unit of time.
+
+
+The 2025 ICPC Asia Pacific Championship Problem J: Gathering Sharks
+   2. You shout out 4. The second rightmost shark moves to the position of the group numbered 3, and they form a
+      group numbered 4. This takes 1 unit of time.
+
+   3. You shout out 4. The sharks in the group numbered 4 move to the rightmost position, forming a group of four
+      sharks. This takes 2 units of time.
+
+The total time is 1 + 1 + 2 = 4. It can be shown that 4 units of time is optimal.
+
+ Sample Input #2                                             Sample Output #2
+  9                                                          17
+  1 2 4 5 7 8 3 6 9
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem J: Gathering Sharks
+                                                  Problem K
+                                                 Book Sorting
+                                           Time limit: 2 seconds
+
+You have n books arranged from left to right on a bookshelf. These books are uniquely labeled from 1 to n. The i-th
+book from the left is labeled pi . You want to sort the books so that their labels are in ascending order from left to right.
+In one step, you can perform one of the following actions:
+
+    • Choose two adjacent books and swap them.
+
+    • Choose one book and move it to the leftmost position.
+
+    • Choose one book and move it to the rightmost position.
+
+Compute the minimum number of steps required to sort the books.
+
+Input
+The first line of input contains an integer n (2 ≤ n ≤ 500 000). The second line contains n pairwise distinct integers
+p1 , p2 , . . . , pn (1 ≤ pi ≤ n).
+
+Output
+Output the minimum number of steps to sort the books in ascending order from left to right by their labels.
+
+ Sample Input #1                                                Sample Output #1
+  6                                                             3
+  6 2 1 4 3 5
+
+
+Explanation for the sample input/output #1
+You can do the following three steps in order: swap the books labeled 2 and 1, swap the books labeled 4 and 3, and
+move the book labeled 6 to the rightmost position.
+
+                     6 2 1 4 3 5→6 1 2 4 3 5→6 1 2 3 4 5→1 2 3 4 5 6
+
+It can be shown that two or fewer steps are insufficient to sort the books.
+
+ Sample Input #2                                                Sample Output #2
+  9                                                             5
+  9 2 4 3 7 5 1 8 6
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem K: Book Sorting
+                            This page is intentionally left blank.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem K: Book Sorting
+                                                  Problem L
+                                            Boarding Queue
+                                          Time limit: 2 seconds
+
+You are on your way to compete in The 2025 ICPC Asia Pacific Championship. Unfortunately, you are in the process
+of the worst part of flying: waiting in the boarding queue.
+You are in a queue with n travelers, numbered from 1 to n ordered from the front of the queue to the back of the queue.
+The boarding area is represented by a grid of r rows and c columns, where the rows are numbered from 1 to r (top to
+bottom) and the columns are numbered from 1 to c (left to right). Each traveler occupies exactly one distinct cell in
+the grid. Two travelers are adjacent if the cells they are in share an edge. Traveler t and traveler t − 1 are guaranteed
+to be adjacent, for any 2 ≤ t ≤ n.
+For example, Figure L.1 illustrates a possible location of the travelers. In this example, traveler 1 is adjacent to
+travelers 2 and 10 but not adjacent to traveler 11.
+
+
+                                             11
+
+                                             10      1     2
+
+                                              9            3      4
+
+                                              8      7     6      5
+
+
+                                    Figure L.1: Example location of the travelers.
+
+
+At each boarding step, all of the following happen simultaneously:
+
+    • The frontmost traveler in the queue, say traveler t, boards the aircraft and leaves the boarding area.
+
+    • For each t′ (t + 1 ≤ t′ ≤ n), traveler t′ takes the cell that traveler t′ − 1 was occupying immediately before the
+      step.
+
+For example, Figure L.2 illustrates the locations of the travelers after the first three boarding steps from the initial
+location above.
+You are traveler p (that is, there are p − 1 travelers in front of you). You know that your team coach is somewhere
+in the queue, but you do not know where. Assuming your team coach is equally likely to be any of travelers 1 to n
+(except p), you want to calculate the probability that you will be adjacent to your team coach at some point before
+you board the aircraft. Formally, you will be adjacent to traveler q at some point before you board the aircraft if there
+exists an integer s (0 ≤ s < p) such that traveler p and traveler q are adjacent after s boarding steps.
+
+Input
+The first line of input contains four integers r, c, n, and p (1 ≤ r, c ≤ 1000; 2 ≤ n ≤ r × c; 1 ≤ p ≤ n). Each of
+the next r lines contains c integers. The j-th integer in the i-th line denotes Gi,j (0 ≤ Gi,j ≤ n), where a non-zero
+
+
+The 2025 ICPC Asia Pacific Championship Problem L: Boarding Queue
+         11     2       3                             3      4                             4      5
+
+         10             4     5                11            5      6                             6        7
+
+         9      8       7     6                10     9      8      7               11     10     9        8
+
+                    Figure L.2: Location of the travelers after 1, 2, and 3 boarding steps respectively.
+
+
+value of Gi,j means that traveler Gi,j initially occupies the cell at row i and column j of the boarding area, while a
+zero value of Gi,j means that no traveler occupies the cell. Across all pairs (i, j), each of the integers 1 to n appears
+exactly once in Gi,j . The input guarantees that traveler t and traveler t − 1 are adjacent, for all 2 ≤ t ≤ n.
+
+Output
+Output a fraction in the x/y format indicating the probability that you will be adjacent to your team coach at some
+point before you board the aircraft. The value of y must be equal to n − 1. Note that there must not be spaces between
+the integers and the / delimiter.
+
+ Sample Input #1                                                 Sample Output #1
+  4 5 11 2                                                       3/10
+  11 0 0 0 0
+  10 1 2 0 0
+  9 0 3 4 0
+  8 7 6 5 0
+
+
+Explanation for the sample input/output #1
+This sample corresponds to the example given in the problem description above. You will be adjacent to your team
+coach at some point before you board the aircraft if your team coach is either traveler 1, 3, or 11.
+
+ Sample Input #2                                                 Sample Output #2
+  1 7 7 6                                                        2/6
+  1 2 3 4 5 6 7
+
+
+Explanation for the sample input/output #2
+You will be adjacent to your team coach at some point before you board the aircraft if your team coach is either traveler
+5 or 7. Note that the output 1/3 is not accepted.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem L: Boarding Queue
+                                                 Problem M
+                                      Can You Reach There?
+                                           Time limit: 2 seconds
+
+You are given n distinct marked points on a 2D plane, numbered from 1 to n. Marked point i has coordinates (xi , yi ).
+In this problem, you are given q scenarios, numbered from 1 to q. In each scenario k, four integers ak , bk , ck , and
+dk are given, indicating that you initially stand at (ak , bk ) and aim to reach (ck , dk ) by repeating the steps described
+below any number of times.
+In a single step, you choose two marked points P and Q, which may be identical. Let S denote the point where you
+are currently standing, and define a point T by
+                                                   −→ −→
+                                                   P T = SQ.
+In other words, T is chosen so that the vector from P to T has the same direction and length as the vector from S to
+Q. You may then move to any point on the segment ST , including the point T itself, and you will stand at that new
+point.
+For each scenario, determine whether the objective can be achieved using the described steps. Note that all scenarios
+are independent of each other.
+
+Input
+The first line of input contains two integers n and q (1 ≤ n ≤ 100 000, 1 ≤ q ≤ 100 000). The i-th of the next n lines
+contains two integers xi and yi (0 ≤ xi , yi ≤ 109 ). The input guarantees that no two marked points have the same
+coordinates.
+The next q lines represent the scenarios. The k-th of these lines contains four integers ak , bk , ck , and dk (0 ≤
+ak , bk , ck , dk ≤ 109 ; (ak , bk ) ̸= (ck , dk )).
+
+Output
+Output q lines. The k-th line should contain yes if the objective of scenario k is achievable, or no otherwise.
+
+ Sample Input #1                                               Sample Output #1
+  2 4                                                          yes
+  10 0                                                         yes
+  0 10                                                         yes
+  3 4 6 5                                                      no
+  4 0 7 0
+  4 0 16 0
+  123 456 789 0
+
+Explanation for the sample input/output #1
+There are two marked points (10, 0) and (0, 10). In scenario 1, starting from the point S = (a1 , b1 ) = (3, 4), the
+objective is achieved as follows:
+
+    • In the first step, choose (10, 0) as P and (0, 10) as Q. A point T is determined with coordinates (7, 6). Move to
+      a point (40/7, 75/14), which lies on the segment ST . (Figure M.1 (a))
+
+
+The 2025 ICPC Asia Pacific Championship Problem M: Can You Reach There?
+    • In the next step, choose (10, 0) as both P and Q. A point T is determined with coordinates (100/7, −75/14).
+      From there, you can reach the point (c1 , d1 ) = (6, 5). (Figure M.1 (b))
+
+In scenario 2, you start from S = (a2 , b2 ) = (4, 0). Choose (10, 0) as both P and Q. A point T is determined with
+coordinates (16, 0). The point (c2 , d2 ) = (7, 0) is on the segment ST , allowing you to reach there in a single step.
+(Figure M.1 (c))
+In scenario 3, the objective is similarly achievable.
+In scenario 4, it can be shown that reaching the point (c4 , d4 ) = (789, 0) from (a4 , b4 ) = (123, 456) is impossible.
+
+                                                                                           16
+  10                                          10
+
+                                                                                           14
+
+   8                                           8
+                                                                                           12
+
+                             T
+   6                                           6                    S                      10
+
+                                                                        (   c1, d1)        8
+
+   4                                           4
+            S = (a1, b1)                                                                   6
+
+
+                                                                                           4
+   2                                           2
+
+                                                                                           2
+
+   0                                           0
+                                                                                                        S (c2, d2)                    T
+                                                                                           0
+
+       0    2     4      6       8    10           0    2    4      6          8      10        0   2   4   6     8   10   12   14   16
+
+
+                   (a)                                        (b)                                               (c)
+
+                                 Figure M.1: Illustrations of the scenarios in Sample Input #1.
+
+
+
+
+The 2025 ICPC Asia Pacific Championship Problem M: Can You Reach There?
+

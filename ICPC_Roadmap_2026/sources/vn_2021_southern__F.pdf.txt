@@ -1,0 +1,46 @@
+                                        The 2021 ICPC Vietnam
+                                Southern Provincial Programming Contest
+                                   University of Science, VNU-HCM
+                                          December 05th, 2021
+
+
+                                         Problem F
+                                       Expected Value
+                                     Time Limit: 1 second
+                                   Mem limit: 256 Megabytes
+Having a permutation 𝑝 = (𝑝1 , 𝑝2 , . . . 𝑝𝑁 ) of the first 𝑁 positive integers, let us define:
+
+𝒈𝒊 (𝒑) is the greatest common divisor of the first 𝑖 elements of 𝑝 (1 ≤ 𝑖 ≤ 𝑁).
+
+𝒇(𝒑) is the number of distinct integers in the array 𝑔.
+
+For example, if 𝑝 = (2, 4, 6, 3, 1, 5) then
+            ●   𝑔1 = 𝐺𝐶𝐷(2) = 2
+            ●   𝑔2 = 𝐺𝐶𝐷(2, 4) = 2
+            ●   𝑔3 = 𝐺𝐶𝐷(2, 4, 6) = 2
+            ●   𝑔4 = 𝐺𝐶𝐷(2, 4, 6, 3) = 1
+            ●   𝑔5 = 𝐺𝐶𝐷(2, 4, 6, 3, 1) = 1
+            ●   𝑔6 = 𝐺𝐶𝐷(2, 4, 6, 3, 1, 5) = 1
+
+Thus, 𝒇(𝒑) is equal to 2.
+
+Given an integer 𝑁, we generate a random permutation 𝑝 of size 𝑁 (uniformly random), your task
+is to calculate the expected value of 𝒇(𝒑).
+
+Input
+The input contains only one integer (1 ≤ 𝑁 ≤ 200,000).
+
+Output
+You should print the expected value of 𝑓(𝑝) modulo 109 + 7.
+
+Formally, let 𝑀 = 109 + 7, it can be shown that the answer can be expressed as an irreducible
+fraction 𝑢 / 𝑣 where 𝑢 and 𝑣 are integers and 𝑣 ! = 0 (𝑚𝑜𝑑 𝑀). You should output the integer
+equal to 𝑢 ∗ 𝑣 − 1 (𝑚𝑜𝑑 𝑀). In other words, output such an integer 𝑥 that 0 ≤ 𝑥 < 𝑀 and
+𝑥 ∗ 𝑣 = 𝑢 (𝑚𝑜𝑑 𝑀).
+
+Sample input                                         Sample output
+ 2                                                    500000005
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+

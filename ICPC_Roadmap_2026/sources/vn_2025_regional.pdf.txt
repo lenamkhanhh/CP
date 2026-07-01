@@ -1,0 +1,1197 @@
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+                  Problem A: Aquatic Elevator
+An aquatic elevator is a gated chamber used on canals and rivers to move boats
+between sections of water at different heights. When a boat enters the chamber, the
+gates are closed, and the water level inside is raised or lowered to match the next
+section, allowing the boat to continue its journey smoothly. Thanks to the elevators,
+long waterways can climb hills and cross varied terrain without needing a perfectly flat
+route.
+The following set of images demonstrates how an aquatic elevator chamber helps bring
+a boat uphill in a side view.
+
+
+
+
+ 1. The boat is at the lower       2. The boat enters the       3. Water is pumped into the
+  altitude. The left gate is      chamber. Both gates are        chamber, raising the water
+ open for the boat to enter.            now closed.                         level.
+
+
+
+
+   4. The boat is now at a          5. The boat exits the
+  higher altitude. The right             chamber.
+ gate is open for the boat to
+              exit.
+The chamber can also help bring a boat downhill in a similar manner:
+
+
+
+
+ 1. The boat is at the higher      2. The boat enters the        3. Water is removed from
+  altitude. The right gate is     chamber. Both gates are        the chamber, lowering the
+  open for the boat to enter.           now closed.                     water level.
+
+
+
+
+    4. The boat is now at a         5. The boat exits the
+ lower altitude. The left gate           chamber.
+ is open for the boat to exit.
+
+
+Asia Ho Chi Minh City Regional 2025 Problem A: Aquatic Elevator                       1
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+You are in charge of the most complex aquatic elevator system in the world, consisting
+of n chambers. The i-th chamber is placed right at the height hi (0 = h0 < h1 <
+h2 < . . . < hn ), and can bring a boat from the height hi−1 to height hi and vice versa.
+The i-th chamber also has a base area si . This means the volume of water required to
+maintain the i-th chamber is si · (hi − hi−1 ). The volume of water required to maintain
+the whole system is defined as the maximum volume of water required by any chamber
+in the system.
+To cut the operational cost, you are tasked to reduce the number of chambers down to
+k. To do so, you are allowed to do the following operation n − k times:
+• Suppose that the current number of chambers is n0 . Choose two consecutive chambers
+  i and i + 1 (i ≤ n0 − 1). They are replaced by a single chamber that
+   – connects height hi−1 directly to height hi+1 (height hi disappears from the system);
+   – has base area si + si+1 .
+  After the merge, the number of chambers decreases by 1, and the chambers are
+  renumbered from 1 to n0 − 1 in order of increasing height.
+The operational cost is important, but saving water is important as well. Among all
+possible ways to reduce the number of chambers to k, determine the minimum possible
+volume of water required to maintain the whole system.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem A: Aquatic Elevator                        2
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases
+τ (1 ≤ τ ≤ 104 ). The description of the test cases follows.
+• The first line contains two integers n and k (1 ≤ k < n ≤ 2 · 105 ) – the initial number
+  of chambers in the system and the target number of chambers.
+• The second line contains n integers h1 , h2 , . . . , hn (0 < h1 < h2 < . . . < hn ≤ 106 ) –
+  the heights at which the chambers are placed at.
+• The third line contains n integers s1 , s2 , . . . , sn (1 ≤ si ≤ 106 ) – the base area of the
+  chambers.
+
+
+Output
+For each test case, print the minimum possible volume of water required to maintain
+the whole system among all possible ways to reduce the number of chambers to k.
+
+ Sample Input 1                                  Sample Output 1
+ 2                                               48
+ 3 2                                             4
+ 2 3 5
+ 7 9 8
+ 4 2
+ 1 2 3 4
+ 1 1 1 1
+
+
+Sample Explanation
+In the first test case, there are n = 3 chambers that are placed at heights [2, 3, 5] with
+the base area of [7, 9, 8], respectively. There are 2 ways to reduce them into k = 2
+chambers:
+• The first way is to merge the first and the second chambers. After merging, the new
+  chamber can connect height 0 to 3, with base area 7 + 9 = 16. Its maintenance water
+  volume is 16 · (3 − 0) = 48, and the other chamber’s maintenance water volume is
+  8 · (5 − 3) = 16. Therefore the volume of water required to maintain the whole system
+  is max{48, 16} = 48.
+• The second way is to merge the second and the third chambers. The first chamber’s
+  maintenance water volume is 14, and the new chamber’s maintenance water volume
+  is (5 − 2) · (9 + 8) = 51. Therefore the volume of water required to maintain the whole
+  system is 51.
+The first way requires the lower maintenance water volume, so the answer is 48.
+In the second test case, the optimal merging is as follows:
+• Merge the two first chambers into a new one with the maintenance water volume of 4.
+• Merge the two last chambers into a new one with the maintenance water volume of 4.
+
+Asia Ho Chi Minh City Regional 2025 Problem A: Aquatic Elevator                               3
+This page is intentionally left blank.
+               The 2025 ICPC Asia HCMC Regional Contest
+                      HCMC University of Technology – 12 December 2025
+
+                        Problem B: Board Bicoloring
+You are given a board with r rows and c columns, divided into r · c cells. The rows are
+numbered from 1 to r and the columns are numbered from 1 to c. We denote by (i, j)
+the cell at the i-th row and j-th column. Two cells are neighbors if and only if they
+share an edge.
+We paint some edges between neighboring cells.
+
+
+
+
+We define a path from a cell (i1 , j1 ) to cell (ik , jk ) as a sequence of cells (i1 , j1 ), (i2 , j2 ), . . . (ik , jk )
+where two consecutive cells are neighbors and their common edge is not painted.
+We define a connected component as a set of cells where there is a path between any
+pair of cells in the set, and it is not possible to add any cell to this set without losing
+this property.
+Now we want to color the board using two colors: Red and Green, so that two adjacent
+cells on two different connected components have different colors. We call such coloring
+Bicoloring. Note that a Bicoloring may not exist.
+You need to process q queries of the following three types:
+1. H i j if the common edge between cells (i, j) and (i + 1, j) is not painted, we paint
+   it. Otherwise, we erase the paint.
+2. V i j if the common edge between cells (i, j) and (i, j + 1) is not painted, we paint
+   it. Otherwise, we erase the paint.
+3. ? i j we consider three cases:
+    • if there exists a pair of neighboring cells anywhere in the board that are in the
+      same connected component, where their common edge is painted, print one line
+      containing the string Oh no!,
+    • otherwise, if there is no Bicoloring for the board, print one line containing the
+      string Cannot!,
+    • otherwise, consider all possible Bicolorings where the cell (1, 1) is Red, find all
+      possible colors of cell (i, j). If this cell can be painted by either color, print GR.
+      If this cell can only be painted red, print R, and if this cell can only be painted
+      green, print G.
+
+ Asia Ho Chi Minh City Regional 2025 Problem B: Board Bicoloring                                                 5
+            The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+Input
+The first line of the input contains two positive integers r and c (1 ≤ r · c ≤ 3 · 105 ).
+The next r + 1 lines describe the initial board according to the following rules:
+• Each line contains 2 · c + 1 characters, numbered starting from 1. In each line:
+   – All even-indexed characters can be either a space (' ') or an underscore ('_').
+   – All odd-indexed characters can be either a space (' ') or a pipe ('|').
+• All even-indexed characters in the first line and the last line are underscores, which
+  demonstrate the top and the bottom borders of the board.
+• Every underscore in the input, except the ones mentioned above, represents a hori-
+  zontal painted edge between two consecutive cells in the same column.
+• The first and the last characters of all lines (except the first one) are pipes, which
+  demonstrate the left and the right borders of the board.
+• Every pipe in the input, except the ones mentioned above, represents a vertical
+  painted edge between two consecutive cells in the same row.
+The next line contains a single integer q (1 ≤ q ≤ 3 · 105 ) — the number of queries. The
+next q lines describe the queries, each line can be one of the three types, as described
+above:
+1. H i j (1 ≤ i < r, 1 ≤ j ≤ c),
+2. V i j (1 ≤ i ≤ r, 1 ≤ j < c),
+3. ? i j (1 ≤ i ≤ r, 1 ≤ j ≤ c).
+
+
+Output
+For each query of type 3, print a single line as described above.
+
+ Sample Input 1                               Sample Output 1
+ 4 4                                          Oh no!
+   _ _ _ _                                    Cannot !
+ |_|_ _| |                                    R
+ | |_      |
+ |_| |_ |
+ |_ _ _ _|
+ 8
+ ? 4 4
+ H 3 4
+ ? 4 4
+ H 2 2
+ V 3 2
+ H 3 3
+ H 3 4
+ ? 4 4
+
+
+
+ Asia Ho Chi Minh City Regional 2025 Problem B: Board Bicoloring                        6
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+Sample Explanation
+For the first query of type 3 (the 1-st query), the cells (3, 3) and (4, 3) belong to the
+same connected component, but their common edge is painted.
+
+
+
+
+Before the second query of type 3 (the 3-rd query), the board is as follows. It can be
+shown that there exists no Bicoloring.
+
+
+
+
+For the third query of type 3 (the 8-th query), the only possible Bicoloring is as
+follows:
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem B: Board Bicoloring                        7
+This page is intentionally left blank.
+            The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+                      Problem C: Cake Cutting
+It is your birthday! You have prepared a rectangular cake and invited q friends over to
+celebrate. Your cake can be seen as an axis-aligned rectangle on the Oxy plane, with
+one corner located at point (0, 0) and another at (w, h).
+Each of your friends, one by one, goes to you to give you a present and ask for some
+cake. The i-th friend points to a point (xi , yi ) and instructs you to make two straight
+cuts from that point:
+• one cut goes either left or right, parallel to the Ox axis;
+• one cut goes either upward or downward, parallel to the Oy axis.
+After you make the cuts, the friend gets all the cake inside the quadrant formed by the
+two cuts. Note that the point may not lie inside the cake. It is also possible that there
+is no cake inside the cut quadrant at all, as your friend may be full at the moment.
+After each pair of cuts, your cake becomes smaller and smaller. You wonder if each of
+your friends has received a fair share of cake. For each friend, find the area of the cake
+that they receive.
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases
+τ (1 ≤ τ ≤ 104 ). The description of the test cases follows.
+• The first line contains three integers w, h, and q (1 ≤ w, h ≤ 109 ; 1 ≤ q ≤ 105 ) —
+  the cake’s dimensions and the number of friends you invited.
+• The i-th line of the next q lines contains two integers xi , yi and two characters hor
+  and ver (0 ≤ xi ≤ w; 0 ≤ yi ≤ h; hor ∈ {L, R}; ver ∈ {U, D}) — the coordinates of
+  the i-th friend’s point, and the cutting directions:
+   – hor denotes the direction of the first cut: hor = L for a left cut, hor = R for a
+     right cut;
+   – ver denotes the direction of the second cut: ver = U for an upward cut, ver = D
+     for a downward cut.
+It is guaranteed that the sum of q over all test cases does not exceed 105 .
+
+
+Output
+For each friend, print the area of the cake that they receive.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem C: Cake Cutting                             9
+            The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+ Sample Input 1                               Sample Output 1
+ 3                                            12
+ 8 6 2                                        3
+ 4 3 R U                                      12
+ 7 4 R D                                      1
+ 8 6 2                                        12
+ 4 3 R U                                      0
+ 1 1 L D
+ 8 6 2
+ 4 3 R U
+ 5 4 R U
+
+
+Sample Explanation
+In the first test case, the cake has a width of 8 and a height of 6.
+• The first friend gets a piece of cake with an area of 4 · 3 = 12 by cutting the piece
+  from the cake center as follows:
+
+
+
+
+• The second friend gets a piece of cake with an area of 3 by cutting the cake as follows:
+
+
+
+
+In the second test case, the cake has the same dimensions as the cake in the first test
+case.
+• The first friend gets the same piece as in the first test case.
+• The second friend gets a piece with an area of 1 by cutting the cake as follows:
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem C: Cake Cutting                            10
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+                     Problem D: Divisibility Grid
+You are given two integers r, c and an odd integer k. Consider a grid with r rows and
+c columns. You want to fill this grid with integers.
+We call a filling of the grid valid if it satisfies both of the following:
+• every cell contains an integer from 1 to r · c;
+• each integer from 1 to r · c appears in the grid exactly once.
+A divisibility in the grid is a sequence of k consecutive cells in the same row or in the
+same column such that the sum of the numbers in these cells is divisible by k.
+Among all valid fillings of the grid, find any one that maximizes the number of divisi-
+bilities in the grid.
+
+
+Input
+The first line contains an integer τ (1 ≤ τ ≤ 104 ) – the number of test cases. τ test cases
+follow, each is presented by a single line with three integers r, c, and k (1 ≤ r, c ≤ 50;
+1 ≤ k ≤ min{r, c}; k is odd).
+It is guaranteed that the sum of r · c over all test cases does not exceed 104 .
+
+
+Output
+For each test case, print r lines, each containing c numbers, representing an optimal
+filling.
+If there are multiple solutions, you can output any of them.
+
+ Sample Input 1                                 Sample Output 1
+ 2                                              4 5
+ 3 2 1                                          6 2
+ 3 3 3                                          3 1
+                                                6 2 1
+                                                9 8 7
+                                                3 5 4
+
+
+Sample Explanation
+In the first test case, since k = 1, every valid filling of the grid should have the same
+number of divisibilities.
+In the second test case, the maximum number of divisibilities is 6.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem D: Divisibility Grid                         11
+This page is intentionally left blank.
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+           Problem E: Electronic Toll Collection
+In a land far, far away, where administrative reforms to abolish district-level subdi-
+visions have not been implemented, lies the vibrant city of Nogias, divided into four
+districts, each with its own unique beauty. District 1 serves as the “heart” of Nogias,
+where administrative buildings are built. District 2 is home to a myriad of gorgeous,
+afÒuent neighborhoods. District 3 hosts the majority of corporate buildings in the city.
+And district 4 has earned the reputation of a food paradise by both Nogias’ residents
+and foreign tourists. The districts are further divided into n wards numbered from 1 to
+n, such that each district has at least one ward.
+The city’s road network consists of m bidirectional roads, each connecting two wards.
+There may exist multiple roads that connect the same pair of wards, and there may even
+exist roads that connect a ward to itself – after all, more roads is good, maintenance
+cost be damned. It is guaranteed that for every pair of wards (u, v), there exists at least
+one path connecting them.
+If there is one thing to be critical of Nogias, that would be its countless trafÏc jams.
+Every day, hundreds of thousands of motorbikes flood the roads, creating a truly night-
+marish experience. As one of the best performing teams in the International City
+Planning Competition (ICPC), you have been hired by the city council to address the
+issue. After analyzing, you have found that most of the trafÏc comes from people who
+reside at one district and work in another. In particular, the following pairs of districts
+are very problematic in terms of trafÏc load:
+• District 1 and district 2
+• District 2 and district 3
+• District 3 and district 4
+• District 4 and district 1
+Since relocating the people is out of the question and your suggestion of building public
+transport infrastructure got promptly ignored by the city, you decided on the only
+option left: Electronic Toll Collections (ETC)! The plan is to install ETC along the
+roads, such that for every pair of problematic districts (x, y), every path that starts in
+a ward belonging to district x and ends in a ward belonging to district y (or vice versa)
+must go through at least one ETC road.
+To the surprise of no one, your genius plan was immediately approved by the city, with
+a small caveat: people really don’t like paying money. Therefore, your plan should also
+minimize the number of roads with ETC installed.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem E: Electronic Toll Collection               13
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases
+τ (1 ≤ τ ≤ 105 ). The description of the test cases follows.
+• The first line contains two integers n and m (4 ≤ n ≤ 105 ; n − 1 ≤ m ≤ 105 ) — the
+  number of wards and the number of roads.
+• The second line contains n integers a1 , a2 , . . . , an (1 ≤ ai ≤ 4), where ai is the district
+  that ward i belongs to.
+• In the next m lines, each contains two integers u and v (1 ≤ u, v ≤ n), representing
+  a road between two wards u and v.
+It is guaranteed that:
+• Each of the four districts has at least one ward and for every pair of wards (u, v),
+  there exists at least one path connecting them.
+• The sum of n over all test cases does not exceed 105 .
+• The sum of m over all test cases does not exceed 105 .
+
+
+Output
+For each test case, print the minimum number of roads with ETC installed.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem E: Electronic Toll Collection                     14
+            The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+ Sample Input 1                                 Sample Output 1
+ 1                                              4
+ 16 16
+ 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4
+ 1 4
+ 2 4
+ 3 4
+ 4 8
+ 5 8
+ 6 8
+ 7 8
+ 8 12
+ 9 12
+ 10 12
+ 11 12
+ 12 16
+ 13 16
+ 14 16
+ 15 16
+ 16 4
+
+
+Sample Explanation
+Below is one optimal plan for the first test case.
+
+
+
+
+Here, wards with the same colors belong to the same district. The edges with small
+squares on it represent roads with ETC installed.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem E: Electronic Toll Collection      15
+This page is intentionally left blank.
+                 The 2025 ICPC Asia HCMC Regional Contest
+                        HCMC University of Technology – 12 December 2025
+
+                        Problem F: Finest Final String
+FWMC receives a string s of length n, consisting of only characters A and B, as a
+birthday gift. The identity of the person who keeps gifting FWMC strings as birthday
+gifts remains a mystery...
+FWMC then starts playing around with the string. In each step, FWMC can perform
+the following compression operation on the string any number of times:
+• Choose a position i such that 1 ≤ i < n and si = si+1 . Then delete two characters si
+  and si+1 , and insert one character of the opposite type at the deleted position (B if
+  si = A, and vice versa).
+FWMC thinks that the smaller the lexicographical order1 of a string, the finer it is.
+Your task is to help them find the finest string s0 that can be obtained from string s,
+and one possible sequence of compression operations to obtain this string.
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases
+τ (1 ≤ τ ≤ 5 000). The description of the test cases follows.
+• The first line contains an integer n (1 ≤ n ≤ 5 000) — the length of the string s.
+• The second line contains the string s. This string only contains characters A and B.
+It is guaranteed that the sum of n over all test cases does not exceed 5 000.
+
+
+Output
+For each test case, print the following:
+• The first line contains a string s0 — the finest string that can be obtained from the
+  string s.
+• The second line contains an integer k (0 ≤ k < n) — the number of compression
+  operations.
+• The third line contains k integers p1 , p2 , . . . , pk representing k operations. The value
+  pi means that the i-th operation is to remove two characters at positions pi and pi +1,
+  then insert a new character at position pi . The value pi must be less than the length
+  of s before this operation.
+If there are multiple solutions, you can output any of them.
+
+
+
+1
+    A string a is lexicographically smaller than string b if and only if one of the following holds:
+    • a is a prefix of b, but a 6= b; or
+    • in the first position where a and b differ, the string a has a letter that appears earlier in the alphabet
+      than the corresponding letter in b.
+
+
+
+    Asia Ho Chi Minh City Regional 2025 Problem F: Finest Final String                                       17
+            The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+ Sample Input 1                               Sample Output 1
+ 3                                            B
+ 1                                            0
+ B
+ 3                                            A
+ BAA                                          2
+ 5                                            2 1
+ ABBBA                                        AA
+                                              3
+                                              3 3 2
+
+
+Sample Explanation
+In the first test case, it is impossible to perform any compression operation on the given
+string. Therefore, the finest string obtainable is ‘B’.
+In the second test case, one possible way to obtain the string ‘A’ (which can be shown
+to be the finest string obtainable) is as follows:
+
+                                        BAA → BB
+                                         BB → A
+
+In the third test case, one possible way to obtain the string ‘AA’ (which can be shown
+to be the finest obtainable string) is as follows:
+
+                                     ABBBA → ABAA
+                                      ABAA → ABB
+                                       ABB → AA
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem F: Finest Final String                     18
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+                   Problem G: Group Raiding
+Uorld wof Uarcraft (UwU) is one of the largest MMORPG in the world. One prominent
+activity in UwU, as with every other MMORPG, is group raiding, where players form
+parties to take on one or several powerful bosses. Today, RR and Ming were supposed
+to lead a party of 69 players in a raid against one of the most powerful bosses in the
+game, but since the other 67 did not show up, the raid was called off. To not waste
+their preparation, RR and Ming decided to raid Harmony — one of the easier bosses
+instead.
+Since Harmony is way beneath RR and Ming’s level, it inflicts negligible damage to
+both of them. On the other hand, it is quite formidable defensively. At the start of
+the raid, Harmony has n HP and a damage limiter value x. Any skill, no matter how
+powerful, can only deal at most x damage to Harmony. After Harmony takes a hit
+                                                                             y  
+losing y HP (1 ≤ y ≤ x), it will update its damage limiter value to L(y) =       y
+                                                                                   ,
+                                                                            P
+                                                                                 k
+                                                                              k=1
+where bmc is the largest integer not exceeding m.
+Note that all HP and damage values are positive integers.
+Now, this does not trouble RR and Ming at all. Both are strong enough to deal any
+amount of damage to Harmony (up to its damage limiter value) as they please. However,
+the one who deals the killing blow (i.e. one that reduces Harmony’s HP to 0) will get
+most of the loot. Both have agreed to take turns hitting Harmony, with Ming getting to
+choose who goes first. Ming wonders whether he should go first or second to guarantee
+having the killing blow, given perfect play by both players. Please help him!
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem G: Group Raiding                        19
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+Input
+The first line contains an integer τ (1 ≤ τ ≤ 105 ) – the number of test cases. τ test cases
+follow, each is presented by a single line with two integers n and x (1 ≤ x ≤ n ≤ 1014 ) —
+Harmony’s initial HP and damage limiter value.
+
+
+Output
+For each test case, if the first player can guarantee having the killing blow, output
+First. Otherwise, output Second.
+
+ Sample Input 1                                  Sample Output 1
+ 4                                               Second
+ 2 1                                             Second
+ 8 3                                             First
+ 10 3                                            First
+ 100000000000000 100000000000000
+
+
+Sample Explanation
+In the first test case, the first player must deal 1 damage to Harmony, yielding the
+killing blow to the second player.
+In the second test case, the second player can secure the killing blow as follows:
+• If the first player deals 1 damage on the first turn, since L(1) = 1, both players are
+  forced to deal 1 damage until Harmony is defeated, with the killing blow going to
+  the second player.
+• If the first player deals 2 damage on the first turn, since L(2) = 3, the second player
+  can deal 2 damage. Then:
+   – If the first player deals 1 damage on the next turn, both players are forced to deal
+     1 damage until Harmony is defeated, with the killing blow going to the second
+     player.
+   – If the first player deals 2 or 3 damage on the next turn, the second player can deal
+     2 or 1 damage, respectively, killing Harmony.
+• If the first player deals 3 damage on the first turn, since L(3) = 5, the second player
+  can deal 5 damage, killing Harmony.
+In the third test case, the first player can secure the killing blow by dealing 2 damage
+on the first turn, then using the same strategy as the second player in the second test
+case.
+In the fourth test case, the first player can deal 1014 damage, killing Harmony immedi-
+ately.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem G: Group Raiding                             20
+               The 2025 ICPC Asia HCMC Regional Contest
+                     HCMC University of Technology – 12 December 2025
+
+               Problem H: Hamiltonian Path Remix
+  The Mafia team is reviewing the problem proposals for a certain ICPC contest. One of
+  the proposed problem statement goes as follows:
+
+Hamiltonian Path
+
+You are given a complete weighted undirected graph consisting of n vertices, numbered from
+1 to n. The distance between vertex i and vertex j is denoted by wi,j .
+A Hamiltonian path in this graph is a path that visits every vertex exactly once. The length
+of such a path is the sum of weights of all edges used along the path.
+Your task is to find the shortest Hamiltonian path (i.e. one with minimum possible total
+length).
+                                                                                       i=1 wpi ,pi+1 .
+Formally, find a permutation p1 , p2 , . . . , pn of {1, 2, . . . , n} that minimizes n−1
+                                                                                     P
+
+
+  ”But wait, isn’t this problem too classical?” — thinks Quang, a member of The Mafia team.
+  After playing around with the idea of Hamiltonian path, he came up with the following
+  variant of the problem. In this variant, the locations of the vertices are the vertices of
+  a 2D convex polygon listed in counter-clockwise order, and the distance between vertex
+  i and vertex j equals the Euclidean distance between the two vertices.
+  This variant turns out to be interesting enough (and hopefully, has not appeared in
+  any other programming contest) and is accepted by the team, which goes on to be the
+  problem H of that contest. As talented participants, can you solve it?
+  Input
+  Each test contains multiple test cases. The first line contains the number of test cases
+  τ (1 ≤ τ ≤ 1 000). The description of the test cases follows.
+   • The first line contains an integer n (3 ≤ n ≤ 3 000) — the number of vertices.
+   • The i-th of the next n lines contains two integers xi and yi (0 ≤ xi , yi ≤ 106 ) — the
+     coordinates of the i-th vertex.
+  It is guaranteed that
+   • The vertex coordinates correspond to the vertices of a convex polygon listed in
+     counter-clockwise order.
+   • No three consecutive vertices lie on the same line.
+   • The sum of n over all test cases does not exceed 3 000.
+
+  Output
+  For each test case, print n integers p1 , p2 , . . . , pn — the indices of vertices on the shortest
+  Hamiltonian path. The sequence p must be a permutation of {1, 2, . . . , n}.
+  Your answer is considered correct if the absolute or relative error between the total
+  length of your path and jury’s path does not exceed 10−6 .
+  Formally, let the total length of your path be P , and the total length of jury’s path be
+  J. Your answer is accepted if and only if max        |P −J|
+                                                          (1,|J|)
+                                                                  ≤ 10−6 .
+  If there are multiple solutions, you can output any of them.
+
+
+   Asia Ho Chi Minh City Regional 2025 Problem H: Hamiltonian Path Remix                          21
+              The 2025 ICPC Asia HCMC Regional Contest
+                    HCMC University of Technology – 12 December 2025
+
+ Sample Input 1                             Sample Output 1
+ 2                                          1 4 3 2
+ 4                                          8 1 2 3 4 5 6 7
+ 4 3
+ 1 4
+ 1 1
+ 3 1
+ 8
+ 2 4
+ 1 3
+ 1 2
+ 2 1
+ 3 1
+ 4 2
+ 4 3
+ 3 4
+Sample Explanation
+Illustration of the first test case:
+
+
+
+
+                   Location of vertices                     √ Hamiltonian path
+                                            A possible shortest
+                                             (total length: 5 + 2 + 3 ≈ 7.236)
+Illustration of the second test case:
+
+
+
+
+                   Location of vertices     A possible shortest Hamiltonian
+                                                                     √      path
+                                            (total length 4 × 1 + 3 × 2 ≈ 8.243)
+
+
+
+ Asia Ho Chi Minh City Regional 2025 Problem H: Hamiltonian Path Remix             22
+                   The 2025 ICPC Asia HCMC Regional Contest
+                         HCMC University of Technology – 12 December 2025
+
+             Problem I: Impossible Inversion Counting
+Mr. Onion loves numbers. Today, during his algorithm lectures, he writes on the board
+a sequence of integers, denoted as c1 , c2 , . . . , cn . Since Mr. Onion hates repetition,
+                                     (0) (0)          (0)
+
+his sequence has a special property: No value appears in the sequence more than
+ten times.
+As today’s lectures is about lexicographical order, Mr. Onion sequentially asks k stu-
+dents to go to the board. Each student is asked to create a new sequence of integers
+based on the one created by the previous student (the first student has to use Mr.
+Onion’s sequence). More precisely, the i-th student (1 ≤ i ≤ k) is asked to create a
+sequence of n integers, denoted as c1 , c2 , . . . , cn , satisfying the following conditions:
+                                    (i) (i)           (i)
+
+
+• c1 , c2 , . . . , cn must be a permutation2 of c1                                                     .
+       (i)   (i)       (i)                                          (i−1)     (i−1)             (i−1)
+                                                                            , c2      , . . . , cn
+• c1 , c2 , . . . , cn must be lexicographically larger3 than c1                                                                  .
+       (i)   (i)       (i)                                                              (i−1)        (i−1)             (i−1)
+                                                                                                , c2         , . . . , cn
+• c1 , c2 , . . . , cn must be the lexicographically smallest sequence among all those that
+       (i)   (i)       (i)
+
+  satisfy the two above conditions.
+All k students go to the board and manage to find all required sequences in a matter of
+seconds, which makes Mr. Onion angry. As you may know, in Vietnamese, onion and
+bully are exactly the same word. Therefore, Mr. Onion tries to bully one more student.
+He asks him to calculate the total number of inversions4 of all k + 1 sequences written
+on the board.
+As the board is full of numbers now, the unlucky student quickly feels dizzy. Could you
+help him find the result?
+
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases
+τ (1 ≤ τ ≤ 2 · 105 ). The description of the test cases follows.
+• The first line contains two integers n and k (1 ≤ n ≤ 2 · 105 ; 0 ≤ k ≤ 2 · 107 ).
+• The second line contains n integers c1 , c2 , . . . , cn (1 ≤ ci ≤ n).
+                                                      (0)     (0)             (0)            (0)
+
+
+It is guaranteed that:
+• No value appears in the sequence c1 , c2 , . . . , cn more than ten times.
+                                                    (0)     (0)         (0)
+
+
+• k is less than or equal to the number of permutations of c1 , c2 , . . . , cn which is
+                                                                                                 (0)        (0)             (0)
+
+  lexicographically larger than c1 , c2 , . . . , cn .
+                                 (0) (0)           (0)
+
+
+• The sum of n over all test cases does not exceed 2 · 105 .
+2
+  A sequence β1 , β2 , . . . , βη is a permutation of the sequence α1 , α2 , . . . , αη if and only if there exists η
+  distinct integers ρ1 , ρ2 , . . . , ρη so that 1 ≤ ρι ≤ η and βρι = αι for all 1 ≤ ι ≤ η.
+3
+  A sequence α is lexicographically smaller than a sequence β if and only if one of the following holds:
+    – α is a prefix of β, but α 6= β; or
+    – in the first position where α and β differ, the sequence α has a smaller element than the corresponding
+      element in β.
+
+4
+    An inversion of a sequence α1 , α2 , . . . , αη is a pair of integers (ι, κ) so that 1 ≤ ι < κ ≤ η and αι > ακ .
+
+    Asia Ho Chi Minh City Regional 2025 Problem I: Impossible Inversion Counting                                                      23
+                The 2025 ICPC Asia HCMC Regional Contest
+                   HCMC University of Technology – 12 December 2025
+
+• The sum of k over all test cases does not exceed 2 · 107 .
+
+
+Output
+For each test case, print an integer on a single line denoting the total number of inver-
+sions of all k + 1 created sequences of integers.
+
+ Sample Input 1                                   Sample Output 1
+ 2                                                31
+ 7 2                                              12
+ 5 6 2 1 3 7 4
+ 6 1
+ 2 2 1 3 3 1
+
+
+Sample Explanation
+In the first test case:
+• c1 , c2 , . . . , c7 = (5, 6, 2, 1, 3, 7, 4). This sequence has 10 inversions.
+    (0)   (0)     (0)
+
+
+• c1 , c2 , . . . , c7 = (5, 6, 2, 1, 4, 3, 7). This sequence has 10 inversions.
+    (1)   (1)     (1)
+
+
+• c1 , c2 , . . . , c7 = (5, 6, 2, 1, 4, 7, 3). This sequence has 11 inversions.
+    (2)   (2)     (2)
+
+
+• The total number of inversions is 10 + 10 + 11 = 31.
+In the second test case:
+• c1 , c2 , . . . , c6 = (2, 2, 1, 3, 3, 1). This sequence has 6 inversions.
+    (0)   (0)     (0)
+
+
+• c1 , c2 , . . . , c6 = (2, 2, 3, 1, 1, 3). This sequence has 6 inversions.
+    (1)   (1)     (1)
+
+
+• The total number of inversions is 6 + 6 = 12.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem I: Impossible Inversion Counting          24
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+                        Problem J: Joint Farm
+An agricultural cooperative consists of m households, numbered from 1 to m, that is
+planning their activities for the next year to maximize their profit. This has become
+an annual challenge for the cooperative, as there are multiple elements that can affect
+the production output, such as climate, types of crops, transportation, and storage.
+During the farming year, there are three farming seasons: spring, summer-fall, and
+winter, that are numbered from 1 to 3 in their respective order. In each season, the
+cooperative can assign each of the households at most one type of crop to grow. Based
+on past records, there are k viable crop types, numbered from 1 to k. During the s-th
+season, the i-th household can be assigned to grow the j-th crop type to produce an
+agricultural product unit that yields the profit cs,i,j . An unassigned household does
+not farm during the season.
+The local climate also comes with a set of constraints on transportation and storage for
+the cooperative. During the summer-fall season, people go directly to the farm to buy
+the products, so there is no cost for transportation and long-term storage. However,
+in the spring and winter seasons, all agricultural products are gathered and sent to the
+warehouse at the end of the season.
+• Before sending to the warehouse, the agricultural product units are grouped into
+  their corresponding crop types. At the end of the s-th season (s 6= 2), the cost to
+  send the group of the j-th crop type is x2s,j · ws,j , where xs,j is the number of the
+  gathered units of the j-th crop type, and ws,j is the weight of one such unit farmed
+  during the s-th season.
+• Because of the warehouse’s capacity, there is a limit on kj=1 xs,j – the total number
+                                                            P
+  of produced agricultural product units over all k types:
+  – In the spring season, kj=1 x1,j ≤ a.
+                           P
+
+  – In the winter season, kj=1 x3,j ≤ b.
+                           P
+
+The final constraint for the cooperative is the farmers themselves. A household can
+be assigned in multiple seasons. But each of the households disagrees to farm in two
+consecutive seasons. Because of the obvious advantage of the summer-fall season, the
+farmers say they would only farm in the summer-fall season and be happy with the
+yield.
+As the number of households grows, the planning becomes more complicated for the
+cooperative. Therefore, the cooperative asks for your help with the calculation, so
+the cooperative can have a better picture before the execution. For every p from 1 to
+2 · m, help the cooperative find the maximum profit and an optimal assignment if the
+totalP     Pk of produced agricultural product units across three seasons is p (formally,
+      number
+p = s=1 j=1 xs,j ).
+       3
+
+
+
+
+Input
+The first line contains four integers m, k, a, b (1 ≤ m, k, a, b ≤ 200) — the number
+of households in the cooperative, the number of viable crop types, the warehouse’s
+capacity during spring, and the warehouse’s capacity during winter, respectively.
+
+Asia Ho Chi Minh City Regional 2025 Problem J: Joint Farm                             25
+             The 2025 ICPC Asia HCMC Regional Contest
+                    HCMC University of Technology – 12 December 2025
+
+Then follows 3 groups of m lines. The s-th group of lines describes the profit during
+the s-th season:
+• The i-th line contains k integers cs,i,1 , cs,i,2 , . . . , cs,i,k (1 ≤ cs,i,j ≤ 109 ) — the profit if
+  the i-th household farms the j-th crop during the s-th season.
+The next line contains k integers w1,1 , w1,2 , . . . , w1,k (1 ≤ w1,j ≤ 109 ) — the weight of
+one agricultural product unit of the j-th crop type farmed during the spring season.
+The last line contains k integers w3,1 , w3,2 , . . . , w3,k (1 ≤ w3,j ≤ 109 ) — the weight of
+one agricultural product unit of the j-th crop type farmed during the winter season.
+
+
+Output
+Print 2 · m groups of lines; the p-th of them describes the optimal assignment if the
+total produced agricultural product units in the year is p:
+• If there is no way to produce exactly p agricultural product units and still follow all
+  requirements, print impossible.
+• Otherwise:
+   – On the first line, print an integer bp (|bp | ≤ 1018 ) — the maximum profit.
+   – On the i-th line of the next m lines, output three integers ti,1 , ti,2 , and ti,3 (0 ≤
+     ti,s ≤ k) – the assigned crop type of the i-th household during the spring season,
+     the summer-fall season, and the winter season, respectively; ti,s = 0 means the
+     household is not assigned any crop type during the s-th season.
+If there are multiple solutions, you can output any of them.
+
+ Sample Input 1                                      Sample Output 1
+ 2 2 2 1                                             3
+ 5 10                                                0 0 0
+ 10 15                                               0 1 0
+ 2 1                                                 5
+ 3 2                                                 0 1 0
+ 6 9                                                 0 1 0
+ 24 17                                               -4
+ 18 22                                               0 1 0
+ 23 17                                               2 0 1
+                                                     impossible
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem J: Joint Farm                                            26
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+                Problem K: KayTee vs. TeaOne
+After long journeys with lots of sweet and crazy victories, KayTee and TeaOne – the
+top two Leaf of Lemon teams in the world, have advanced to the Final. Here they are
+going to fight against each other for the prestigious Summer Cup. As all members of
+the champion will also be awarded fruity lemon skins, both teams are trying their best
+for the victory!
+For the final preparation before the final, the two teams decide to play a practice series.
+This series will be a best of k, where k is an odd integer. The series looks as below:
+• Two teams will play at most k games.
+• In Leaf of Lemon, a game always ends with a victory for exactly one team. In other
+  words, no draw can happen.
+• The team with more winning games wins the whole series.
+• At some point in time, if one team is guaranteed to have more winning games no
+  matter how future games go, the series stops immediately.
+This is just a practice match and it has nothing to do with deciding the champion.
+History has proven that several teams (especially teams with names starting with G)
+used to have dominating performance against TeaOne in practice series, but then lost
+to TeaOne quickly in important matches. However, Hanh, an eternal fan of TeaOne, is
+very eager to know the result of the practice series between KayTee and TeaOne.
+While surfing through the internet, Hanh gets the result of some of the first games
+of the series. Hanh would like to know, according to the information he gets, which
+team will win the series, or whether the series is still going on. It is possible that the
+information he gets is incorrect and impossible to be true.
+Please tell Hanh the result of the series or tell him the information cannot be true.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem K: KayTee vs. TeaOne                        27
+             The 2025 ICPC Asia HCMC Regional Contest
+                   HCMC University of Technology – 12 December 2025
+
+Input
+The first line of the input contains an integer τ (1 ≤ τ ≤ 3 · 105 ) – the number of
+test cases. τ test cases follow, each is presented by a single line with an odd integer k
+(1 ≤ k ≤ 3 · 105 ), followed by a string s representing the result of the games. s contains
+between 1 and k characters. The i-th character of s is K if KayTee wins the i-th game,
+or 1 if TeaOne wins this game.
+It is guaranteed that the sum of k over all test cases does not exceed 3 · 105 .
+
+
+Output
+For each test case, print:
+• KayTee if KayTee wins the whole series,
+• TeaOne if TeaOne wins the whole series,
+• MoveOn if the series is still going on,
+• CantBe if the result Hanh gets cannot be true.
+
+ Sample Input 1                               Sample Output 1
+ 6                                            TeaOne
+ 5 1 KK11                                     MoveOn
+ 5 K1                                         CantBe
+ 5 1111                                       TeaOne
+ 5 1 K1K1                                     TeaOne
+ 5 11 KK1                                     TeaOne
+ 5 K11K1
+
+
+Sample Explanation
+In all test cases, the series is best of 5.
+In the first test case, TeaOne beats KayTee 3 − 2.
+In the second test case, both teams are currently tied 1 − 1 and still have a chance to
+win.
+In the third test case, the result shows that TeaOne has won 4 games against KayTee.
+However, after TeaOne’s third winning game, they are leading KayTee 3 − 0 and win
+the series for sure, as there are at most 2 games left. Therefore, the series should have
+stopped immediately at this point.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem K: KayTee vs. TeaOne                        28
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+                   Problem L: Linked List Loop
+This is an interactive problem.
+In computer science, a linked list is a linear data structure where elements, or nodes,
+are connected through links. Each node contains data and a reference (or pointer) to the
+next node in the sequence. This structure allows the list to grow or shrink dynamically,
+as nodes are not required to be in contiguous memory locations like an array.
+Below is a C++ definition of a linked list:
+struct Node {
+    int value;
+    Node* next; // pointer to the next node
+}
+struct LinkedList {
+    Node* head; // pointer to the first node of the linked list
+}
+When a node in a linked list points to a previous node in the linked list, it creates a
+loop. Note that it’s possible for a node to point to itself, in which case the loop has a
+length of 1. The following illustration shows a linked list with 8 nodes and a loop of
+length 6.
+
+
+
+
+In this problem, the judge has prepared an interactor, initialized with a head node of
+a secret linked list of length n which has a loop. You do not have any information
+about this linked list, even its length n. Your goal is to find the length of the loop.
+To do this, you can mark some nodes, and when visiting a node, you will be informed
+by the interactor whether a node has been marked. More precisely:
+• Initially, all nodes are unmarked.
+• The interactor has a pointer variable p. At any point in time, p points to some node
+  of the linked list. Initially, p points to the head node.
+• You will give instructions to the interactor in at most 3 · n rounds. In each round:
+   – You tell the interactor whether you want to permanently mark the node that
+     p is currently pointing to, or do nothing with this node.
+   – The interactor then set p to its next node. In other words, the interactor performs
+     the following assignment: p ← p.next.
+   – The interactor then tell you whether the new node p is pointing to has been
+     previously marked.
+• After that, you need to determine the length of the loop.
+
+
+Interaction Protocol
+Each test contains multiple test cases. First, your program reads the number of test
+cases τ (1 ≤ τ ≤ 105 ). For each test case:
+
+Asia Ho Chi Minh City Regional 2025 Problem L: Linked List Loop                       29
+               The 2025 ICPC Asia HCMC Regional Contest
+                     HCMC University of Technology – 12 December 2025
+
+• First, your program interacts with the interactor in at most 3 · n rounds. In each
+  round:
+      – Your program prints either 1 if you want to permanently mark the node that p is
+        currently pointing to, or 0 otherwise.
+      – Your program then reads a character c which can be either Y if the node currently
+        pointed by p (after the interactor the assignment p ← p.next) has been previously
+        marked, or N otherwise.
+• Then your program prints -1 ` to answer that the length of the loop is `. Your
+  program should continue with the next test case or terminate immediately if this is
+  the last one.
+It is guaranteed that the sum of n over all test cases does not exceed 105 .
+After printing each query do not forget to output the end of line and flush5 the output.
+Sample Interaction
+                   Stdin    Stdout   Comment
+                       1             There is one test case.
+                                     p points to node 1.
+                            0        You don’t mark node 1.
+                        N            p points to node 2. It’s not marked.
+                            0        You don’t mark node 2.
+                        N            p points to node 3. It’s not marked.
+                            1        You mark node 3.
+                        N            p points to node 4. It’s not marked.
+                            0        You don’t mark node 4.
+                        N            p points to node 5. It’s not marked.
+                            0        You don’t mark node 5.
+                        N            p points to node 6. It’s not marked.
+                            0        You don’t mark node 6.
+                        N            p points to node 7. It’s not marked.
+                            0        You don’t mark node 7.
+                        N            p points to node 8. It’s not marked.
+                            0        You don’t mark node 8.
+                        Y            p points to node 3. It’s marked.
+                            -1 6     You answer that the length of the loop is ` = 6.
+
+The example interaction only shows how your program interacts with the interactor,
+and does not show how the answer is deduced.
+The image below illustrates the linked list used in the sample interaction.
+
+
+
+
+5
+    To flush, use: fflush(stdout) or cout.flush() in C++; sys.stdout.flush() in Python; or see the
+    documentation for other languages.
+
+
+    Asia Ho Chi Minh City Regional 2025 Problem L: Linked List Loop                            30
+           The 2025 ICPC Asia HCMC Regional Contest
+                 HCMC University of Technology – 12 December 2025
+
+               Problem M: Matrix Multiplication
+Ming is a former rhythm game player. After realizing that his world rank of 384 is
+mostly due to farming overrated maps and that he actually sucks (while also failing to
+qualify for the IOI in the process), Ming decided to go back to competitive programming
+where he sucks less. However, due to being away from the scene for too long, he now
+has to relearn most things from scratch!
+Today, Ming is practicing matrix multiplications. As a learning aid, he draws himself n
+matrices, where the i-th matrix has ai rows and bi columns. Every minute, Ming chooses
+two matrices A and B of sizes p × q and q × r, respectively, then replace them with their
+product A × B, which is a matrix of size p × r. Note that the number of columns of
+matrix A must match the number of rows of matrix B, otherwise Ming cannot perform
+the multiplication. He can stop at any point, or when there is no satisfying pair of
+matrices to choose.
+Unsurprisingly, the “learning” session gets boring quick. Just as he is about to wrap
+up, Ming realizes a rare property. After some of his operations, the total size across
+all matrices strictly increases compared to the beginning! Formally, let m be the
+number of operations Ming has done, and ci , di (1 ≤ i ≤ n − m) be the number of rows
+and columns of the i-th matrix after all operations, then:
+
+                                   n
+                                   X               n−m
+                                                   X
+                                         ai bi <         ci d i
+                                   i=1             i=1
+
+Ming is very proud of his random invention and challenges you to find any sequence of
+operations that achieves the same property. Of course, since Ming has only relearned
+how to multiply matrices recently, he could have made a mistake and no such sequence
+actually exists, in which case you should inform him as well.
+
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem M: Matrix Multiplication                  31
+            The 2025 ICPC Asia HCMC Regional Contest
+                  HCMC University of Technology – 12 December 2025
+
+Input
+Each test contains multiple test cases. The first line contains the number of test cases
+τ (1 ≤ τ ≤ 10). The description of the test cases follows.
+• The first line contains an integer n (2 ≤ n ≤ 1000) — the number of matrices Ming
+  originally has.
+• In the next n lines, the i-th line contains two integers ai and bi (1 ≤ ai , bi ≤ 106 ) —
+  the number of rows and columns of the i-th matrix, respectively.
+
+
+Output
+For each test case:
+• If there exists no sequence of operations that increases the total size of the matrices,
+  print −1.
+• Otherwise, print an integer m (1 ≤ m < n). Then, print m lines, where the j-th line
+  contains three integers pj , qj , and rj (1 ≤ pj , qj , rj ≤ 106 ), denoting that, for the j-th
+  operation, Ming multiplies a matrix of size pj × qj with a matrix of size qj × rj to
+  produce a new matrix of size pj × rj .
+If there are multiple solutions, you can output any of them.
+
+ Sample Input 1                                  Sample Output 1
+ 3                                               -1
+ 4                                               2
+ 1 4                                             18 36 69
+ 1 5                                             67 18 69
+ 2 5                                             -1
+ 3 6
+ 3
+ 36 69
+ 18 36
+ 67 18
+ 2
+ 2 1000000
+ 1000000 1
+
+
+Sample Explanation
+In the first test case, there is no valid matrix multiplication using the initial matrices.
+In the second test case, the total size of the matrices before all operations is 36 · 69 + 18 ·
+36+67·18 = 4338. After the operations, the size of the only matrix left is 67·69 = 4623.
+In the third test case, the total size of the matrices before all operations is 2·106 +106 ·1 =
+3·106 . The only valid operation is to multiply the first matrix with the second, resulting
+in a matrix of size 2 · 1 = 2.
+
+
+
+Asia Ho Chi Minh City Regional 2025 Problem M: Matrix Multiplication                          32
+

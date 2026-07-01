@@ -1,0 +1,69 @@
+                                     The 2021 ICPC Vietnam
+                             Southern Provincial Programming Contest
+                                University of Science, VNU-HCM
+                                       December 05th, 2021
+
+
+                                    Problem J
+                               The Biggest Plus Sign
+                                    Time limit: 1 second
+                                  Mem limit: 256 Megabytes
+Dr. Memphis is creating a program that can recognize a plus sign (‘+’) in a grayscale image
+in bitmap format. His program can detect a plus sign in the following forms:
+
+        A plus sign is formed by adjacent black pixels.
+        A plus sign has the size of 4 × 𝑘 + 1, where 𝑘 ≥ 0 and its center can be at any pixel
+         then expands to 4 directions (up, down, left, right) with the length of 𝑘.
+
+Because the image is not very clear and contains noise, Dr. Memphis wants to identify the
+biggest plus sign in the image.
+
+Task: You are given an image of size 𝑚 × 𝑛 (1 ≤ 𝑚, 𝑛 ≤ 5000) consisting of black and white
+pixels. Please find the biggest plus sign in the image.
+
+
+Input
+The first line contains two integer 𝑚, 𝑛 – the size of the image.
+
+Each of the next 𝑚 line contains a string of 𝑛 characters (0 or 1), 0 represents white pixel and
+1 is for black.
+
+The rows are indexed from 1 to 𝑚. The indices of the columns are from 1 to 𝑛 from left to
+right.
+
+
+Output
+The first line contains the size of the biggest plus sign. If the image does not contain any plus
+sign, print “-1” (without the quotation marks).
+
+If there is such the biggest plus sign, the second line contains two integers that indicate the row
+index and column index of the biggest plus sign’s center. If there are multiple biggest plus sign,
+output the one that has the smallest row index, then the smallest column index (in case their
+row indices are the same).
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest                           4|Page
+                                  The 2021 ICPC Vietnam
+                          Southern Provincial Programming Contest
+                             University of Science, VNU-HCM
+                                    December 05th, 2021
+
+
+Sample input                                   Sample output
+ 8 8                                           9
+ 00001000                                      3 5
+ 00001000
+ 00111110
+ 00001000
+ 00001000
+ 00100000
+ 01110000
+ 00100000
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest       5|Page
+

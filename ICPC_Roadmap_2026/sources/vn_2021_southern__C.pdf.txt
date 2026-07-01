@@ -1,0 +1,73 @@
+                                      The 2021 ICPC Vietnam
+                              Southern Provincial Programming Contest
+                                 University of Science, VNU-HCM
+                                        December 05th, 2021
+
+
+                                         Problem C
+                                         Gold Miner
+                                   Time Limit: 3 seconds
+                                  Mem limit: 512 Megabytes
+Mr. Phidang is a gold miner, and he is now at a gold
+mine. He has a powerful mining machine, but it seems
+heavy. Mr. Phidang is going to use the machine to mine
+gold or other precious minerals (e,g. diamonds, silver,
+etc.).
+There are many types of minerals in the gold mine, and
+Mr. Phidang has his own preferences over them. The
+preference of each type is represented by a lowercase Latin letter, and the preference rank is
+considered by its alphabetical order. For example, Mr. Phidang’s most preferable type of mineral
+will be ‘a’, the ‘b’ type has a little bit less preferred, ‘c’ type is for defining even worse, and so
+on.
+The gold mine can be described as a sequence of contiguous minable slots. The following figure
+describes the gold mine “ebadcab”.
+
+
+
+                       e        b        a        d       c        a         c
+
+Mr. Phidang can start mining at any slot that he wants. However, after starting the mining process,
+he can only move to either of the two adjacent slots (left or right) to continue mining since the
+current slot needs a unit of time to be refilled, and his mining machine is too heavy so he cannot
+move far away. Given that the amount of mineral at each slot is unlimited, Mr. Phidang can move
+back to the previous slots to mine.
+
+Mr. Phidang is very greedy so he always wants to maximize his preference of the minerals that
+he can earns at each step. This also means that Mr. Phidang wants to choose the string that has
+the smallest alphabetical order.
+
+Please help Mr. Phidang find the best starting slot and the way to achieve the best preference after
+a certain number of steps. For example with the gold mine as “ebadcac”, the minerals that Mr.
+Phidang earns after the 5 steps is “ababa”, which is the best way for his preference.
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+                                     The 2021 ICPC Vietnam
+                             Southern Provincial Programming Contest
+                                University of Science, VNU-HCM
+                                       December 05th, 2021
+
+
+Input
+The first line contains the string 𝑠 of lowercase Latin letters – the gold mine. The number of
+minable slots is not less than 2 and not greater than 100.
+
+The second line contains one integer 𝑘 (1 ≤ 𝑘 ≤ 104 ) – the number of mining steps.
+
+Output
+Print the sequence of letters without spaces – the values of minerals in the order that Mr. Phidang
+is going to mine.
+
+Sample Input                                     Sample Output
+ ebadcac                                          ababa
+ 5
+ ccc                                              cccccc
+ 6
+
+
+
+
+The 2021 ICPC Vietnam Southern Provincial Programming Contest
+
