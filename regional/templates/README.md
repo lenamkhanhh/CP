@@ -1,4 +1,4 @@
-# Template Manifest
+# Template manifest
 
 Template chỉ được đánh dấu `ready` khi đã AC hoặc qua stress test.
 
@@ -24,4 +24,27 @@ Template chỉ được đánh dấu `ready` khi đã AC hoặc qua stress test.
 - Biết rõ indexing, overflow và memory bound.
 - Có một bài submit làm bằng template đó.
 - Với DS phức tạp, có brute generator để stress.
+
+## Implementation choice checklist
+
+Mỗi template quan trọng cần trả lời ngắn các câu này trước khi đưa vào notebook:
+
+- Có mấy cách cài?
+- Cách nào nhanh nhất trong contest?
+- Cách nào ít bug nhất?
+- Khi nào dùng template nặng, khi nào dùng bản đơn giản?
+- Bug thường gặp là gì?
+
+Format gợi ý:
+
+```text
+Module:
+Variants:
+Contest-fast version:
+Safest version:
+Use heavy version when:
+Use simple version when:
+Bug traps:
+Stress/check:
+```
 

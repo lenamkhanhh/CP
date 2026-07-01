@@ -23,6 +23,12 @@ This folder is the current control area for the ICPC solo training plan.
 - `reports/audit-followup-2026-07-01.md`  
   Latest coordination memo. It records current workbook counts, stale claims in the newest GPT audit, and the remaining patch priorities.
 
+- `reports/profile-solved-inventory-2026-07-01.md`  
+  Public solved/profile evidence. Use this when deciding which topics are review/reactivation versus genuinely new learning.
+
+- `reports/verified-anchors-patch-2026-07-01.md`  
+  Narrow verified patch spec for W9/W11/W15 judged anchors and support-row conversions.
+
 - `reports/current-state-2026-06-27.md`  
   Snapshot report for the current planning pass. Useful context, but the workbook still wins if numbers conflict.
 
@@ -52,9 +58,11 @@ This folder is the current control area for the ICPC solo training plan.
 
 1. `ICPC_Solo_Training_Schedule_2026_2027.xlsx`
 2. `reports/audit-followup-2026-07-01.md`
-3. `reports/current-state-2026-06-27.md`
-4. `reports/deep-research-report-2026-06-27.md`
-5. `scripts/build_solo_training_schedule.ps1`
-6. `regional/Tasks/<00..08>/README.md`
+3. `reports/profile-solved-inventory-2026-07-01.md`
+4. `reports/verified-anchors-patch-2026-07-01.md`
+5. `reports/current-state-2026-06-27.md`
+6. `reports/deep-research-report-2026-06-27.md`
+7. `scripts/build_solo_training_schedule.ps1`
+8. `regional/Tasks/<00..08>/README.md`
 
 Important rule: if a report conflicts with the workbook, parse the workbook directly and report the contradiction.
